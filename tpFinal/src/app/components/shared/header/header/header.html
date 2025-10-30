@@ -1,0 +1,12 @@
+<header>
+  <nav>
+    <a routerLink="/home" routerLinkActive="active">Inicio</a>
+    <a routerLink="/libro-list" routerLinkActive="active">Libros</a>
+    <a routerLink="/biblioteca" routerLinkActive="active">Biblioteca</a>
+    <a routerLink="/carrito" routerLinkActive="active">Carrito</a>
+    
+    @if (authService.isAuthenticated()) {
+      <button class="logout-btn" (click)="logout()">Cerrar Sesión</button>
+    }
+  </nav>
+</header>
