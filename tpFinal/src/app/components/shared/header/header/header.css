@@ -3,7 +3,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  background-color: #f8f4f0; /* estilo similar a Libros de Arena */
+  background-color: black; /* estilo similar a Libros de Arena */
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   font-family: Arial, sans-serif;
 }
@@ -11,24 +11,36 @@
 .logo a {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #333;
+  color: white;
   text-decoration: none;
 }
 
 .nav-links {
   display: flex;
-  gap: 15px;
+  gap: 20px;
 }
 
 .nav-links a {
-  color: #333;
+  color: white;
   text-decoration: none;
   font-weight: 500;
   transition: color 0.2s;
+  border-style: solid;
+  border-radius: 9px;
+  border-color: black;
+  padding: 10px 20px;
+
+  background-color: transparent;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+  transition: all 0.3s ease;
+
 }
 
-.nav-links a:hover {
-  color: #007bff;
+.nav-links a:hover{
+  background-color: white;
+  color: black;
+
+  box-shadow: none;
 }
 
 .search-container {
@@ -56,15 +68,18 @@
 }
 
 .auth-container a {
-  padding: 5px 12px;
-  border: 1px solid #007bff;
-  border-radius: 4px;
-  color: #007bff;
+  padding: 10px 20px;
+  border: 1px solid black;
+  border-radius: 10px;
+  color: white;
   text-decoration: none;
   font-weight: 500;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+  transition: all 0.3s ease;
 }
 
 .auth-container a:hover {
-  background-color: #007bff;
-  color: #fff;
+  background-color: white;
+  color: black;
+  box-shadow: none;
 }
