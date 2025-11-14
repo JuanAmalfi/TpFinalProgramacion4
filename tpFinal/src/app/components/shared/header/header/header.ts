@@ -9,11 +9,31 @@ import { AuthService } from '../../../log/auth/auth-service';
   styleUrl: './header.css',
 })
 export class Header {
-protected authService = inject(AuthService);
+private auth = inject(AuthService);
+
+  isLoggedIn() {
+    return this.auth.isAuthenticated();
+  }
+
+  isAdmin() {
+    return this.auth.getCurrentUser()?.isAdmin === true;
+  }
+
+  isUser() {
+    const user = this.auth.getCurrentUser();
+    return user && user.isAdmin === false;
+  }
+
+  getUser() {
+    return this.auth.getCurrentUser();
+  }
 
   logout() {
-    if (confirm('¿Está seguro que desea cerrar sesión?')) {
-      this.authService.logout();
-    }
+    this.auth.logout();
+  }
+
+  buscar(event: any) {
+    const texto = event.target.value;
+    console.log("Buscando:", texto); // después lo conectamos si querés
   }
 }

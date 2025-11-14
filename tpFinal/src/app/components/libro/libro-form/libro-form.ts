@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { Libro } from '../libro';
 import { AuthService } from '../../log/auth/auth-service';
+import { LibroStore } from '../libro-store';
 
 @Component({
   selector: 'app-libro-form',
@@ -13,35 +14,55 @@ import { AuthService } from '../../log/auth/auth-service';
   styleUrl: './libro-form.css'   
 })
 export class LibroFormComponent {
-  private fb = inject(FormBuilder);
-  protected authService = inject<AuthService>(AuthService);
+   private fb = inject(FormBuilder);
   private router = inject(Router);
+  private store = inject(LibroStore);
+  protected authService = inject(AuthService);
 
-   protected isAdmin = computed(() => this.authService.isAdmin());
+  protected isAdmin = computed(() => this.authService.isAdmin());
+  protected portadaPreview: string | null = null;
 
-  protected libroForm: FormGroup;
+  protected libroForm: FormGroup = this.fb.group({
+    titulo: ['', [Validators.required, Validators.minLength(1)]],
+    autor: ['', [Validators.required, Validators.minLength(1)]],
+    anioPublicacion: [2024, [Validators.required, Validators.min(1000), Validators.max(2100)]],
+    genero: ['', Validators.required],
+    precio: [0, [Validators.required, Validators.min(0)]],
+    disponible: [true],
+    descripcion: [''],
+    portada: ['']
+  });
 
-  constructor() {
-    this.libroForm = this.fb.group({
-      titulo: ['', [Validators.required, Validators.minLength(1)]],
-      autor: ['', [Validators.required, Validators.minLength(1)]],
-      anioPublicacion: ['', [Validators.required, Validators.min(1000), Validators.max(2100)]],
-      genero: ['', Validators.required],
-      disponible: [true],
-      descripcion: ['']
-    });
-  }
+  // ✅ Capturar y convertir imagen
+  onFileSelected(event: Event) {
+  const input = event.target as HTMLInputElement;
+  const file = input.files?.[0];
+  if (!file) return;
 
+  const reader = new FileReader();
+  reader.onload = () => {
+    const base64 = reader.result as string;
+    this.portadaPreview = base64;
+    // 👇 Guardamos el base64 directamente en el form
+    this.libroForm.patchValue({ portada: base64 });
+  };
+  reader.readAsDataURL(file);
+}
+
+  // ✅ Enviar al store
   onSubmit() {
     if (this.libroForm.valid) {
       const libro: Libro = this.libroForm.value;
-      console.log('Libro a agregar:', libro);
-      alert('✅ Formulario válido! (Por ahora solo se muestra en consola)');
+      console.log('📸 Portada enviada:', libro.portada);
+      this.store.addLibro(libro);
+      alert('✅ Libro agregado correctamente');
       this.libroForm.reset({ disponible: true });
+      this.portadaPreview = null;
+      this.router.navigate(['/libro-list']);
     } else {
-      Object.keys(this.libroForm.controls).forEach(key => {
-        this.libroForm.get(key)?.markAsTouched();
-      });
+      Object.keys(this.libroForm.controls).forEach(key =>
+        this.libroForm.get(key)?.markAsTouched()
+      );
     }
   }
 

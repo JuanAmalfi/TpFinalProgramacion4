@@ -1,1 +1,76 @@
-<p>libro-list works!</p>
+<div class="libros-container">
+  <!-- 🧭 Panel lateral de filtros -->
+  <aside class="sidebar-filtros">
+    <h3>Filtrar por</h3>
+
+    <!-- Autor -->
+    <div class="filtro">
+      <label for="autor">Autor</label>
+      <input id="autor" type="text" placeholder="Buscar autor...">
+    </div>
+
+    <!-- Género -->
+    <div class="filtro">
+      <label for="genero">Género</label>
+      <select id="genero">
+        <option value="">Todos</option>
+        <option value="Ficción">Ficción</option>
+        <option value="No Ficción">No Ficción</option>
+        <option value="Ciencia Ficción">Ciencia Ficción</option>
+        <option value="Fantasía">Fantasía</option>
+        <option value="Misterio">Misterio</option>
+        <option value="Romance">Romance</option>
+      </select>
+    </div>
+
+    <!-- Año -->
+    <div class="filtro">
+      <label for="anio">Año de publicación</label>
+      <input id="anio" type="number" placeholder="Ej: 2021">
+    </div>
+
+    <!-- Precio -->
+    <div class="filtro">
+      <label>Precio</label>
+      <div class="precio-range">
+        <input type="number" placeholder="Mín">
+        <span>—</span>
+        <input type="number" placeholder="Máx">
+      </div>
+    </div>
+
+    <!-- Disponibilidad -->
+    <div class="filtro checkbox-filtro">
+      <label>
+        <input type="checkbox">
+        Solo disponibles
+      </label>
+    </div>
+
+    <!-- Botón para limpiar -->
+    <button class="btn-limpiar">Limpiar filtros</button>
+  </aside>
+
+  <!-- 📚 Sección principal con los libros -->
+  <section class="lista-libros">
+    <h2>Libros disponibles</h2>
+
+    <div class="grid-libros">
+      @for (libro of libros(); track libro.id) {
+        <!-- 📘 Tarjeta del libro -->
+        <div class="card-libro" (click)="verDetalle(libro.id!)">
+          <img [src]="libro.portada || 'assets/placeholder.png'" alt="{{ libro.titulo }}" class="portada">
+          <h4>{{ libro.titulo }}</h4>
+          <p class="autor">{{ libro.autor }}</p>
+          <p class="precio">$ {{ libro.precio }}</p>
+
+          <!-- Botones administrativos -->
+          <div class="acciones-admin">
+            <button (click)="verDetalle(libro.id!); $event.stopPropagation()">Ver más</button>
+            <button class="btn-eliminar" (click)="eliminar(libro.id!); $event.stopPropagation()">Eliminar</button>
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+</div>

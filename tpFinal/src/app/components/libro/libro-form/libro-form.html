@@ -1,17 +1,13 @@
 @if (isAdmin()) {
   <div class="form-container">
     <h2>Agregar Nuevo Libro</h2>
-    
+
     <form [formGroup]="libroForm" (ngSubmit)="onSubmit()">
-      
+
       <!-- Título -->
       <div class="form-group">
         <label for="titulo">Título *</label>
-        <input 
-          id="titulo"
-          type="text" 
-          formControlName="titulo"
-          placeholder="Ingrese el título del libro">
+        <input id="titulo" type="text" formControlName="titulo" placeholder="Ingrese el título del libro">
         @if (libroForm.get('titulo')?.invalid && libroForm.get('titulo')?.touched) {
           <span class="error">El título es requerido</span>
         }
@@ -20,37 +16,25 @@
       <!-- Autor -->
       <div class="form-group">
         <label for="autor">Autor *</label>
-        <input 
-          id="autor"
-          type="text" 
-          formControlName="autor"
-          placeholder="Ingrese el nombre del autor">
+        <input id="autor" type="text" formControlName="autor" placeholder="Ingrese el autor">
         @if (libroForm.get('autor')?.invalid && libroForm.get('autor')?.touched) {
           <span class="error">El autor es requerido</span>
         }
       </div>
 
-      <!-- Año de Publicación -->
+      <!-- Año -->
       <div class="form-group">
         <label for="anioPublicacion">Año de Publicación *</label>
-        <input 
-          id="anioPublicacion"
-          type="number" 
-          formControlName="anioPublicacion"
-          placeholder="Ej: 2024"
-          min="1000"
-          max="2100">
+        <input id="anioPublicacion" type="number" formControlName="anioPublicacion" min="1000" max="2100">
         @if (libroForm.get('anioPublicacion')?.invalid && libroForm.get('anioPublicacion')?.touched) {
-          <span class="error">Ingrese un año válido (1000-2100)</span>
+          <span class="error">Ingrese un año válido (1000–2100)</span>
         }
       </div>
 
       <!-- Género -->
       <div class="form-group">
         <label for="genero">Género *</label>
-        <select 
-          id="genero"
-          formControlName="genero">
+        <select id="genero" formControlName="genero">
           <option value="">Seleccione un género</option>
           <option value="Ficción">Ficción</option>
           <option value="No Ficción">No Ficción</option>
@@ -58,46 +42,50 @@
           <option value="Fantasía">Fantasía</option>
           <option value="Misterio">Misterio</option>
           <option value="Romance">Romance</option>
-          <option value="Terror">Terror</option>
-          <option value="Biografía">Biografía</option>
-          <option value="Historia">Historia</option>
-          <option value="Poesía">Poesía</option>
-          <option value="Ensayo">Ensayo</option>
-          <option value="Aventura">Aventura</option>
         </select>
         @if (libroForm.get('genero')?.invalid && libroForm.get('genero')?.touched) {
           <span class="error">Seleccione un género</span>
         }
       </div>
 
+      <!-- Precio -->
+      <div class="form-group">
+        <label for="precio">Precio *</label>
+        <input id="precio" type="number" formControlName="precio" placeholder="Ej: 3500">
+        @if (libroForm.get('precio')?.invalid && libroForm.get('precio')?.touched) {
+          <span class="error">Ingrese un precio válido</span>
+        }
+      </div>
+
+      <!-- Portada -->
+      <div class="form-group">
+        <label for="portada">Portada (imagen)</label>
+        <input id="portada" type="file" accept="image/*" (change)="onFileSelected($event)">
+        @if (portadaPreview) {
+          <div class="preview">
+            <img [src]="portadaPreview" alt="Vista previa" width="120">
+          </div>
+        }
+      </div>
+
+      <!-- Descripción -->
+      <div class="form-group">
+        <label for="descripcion">Descripción</label>
+        <textarea id="descripcion" formControlName="descripcion" rows="4"></textarea>
+      </div>
+
       <!-- Disponible -->
       <div class="form-group checkbox-group">
         <label>
-          <input 
-            type="checkbox" 
-            formControlName="disponible">
-          <span>Disponible para préstamo</span>
+          <input type="checkbox" formControlName="disponible">
+          <span>Disponible</span>
         </label>
-      </div>
-
-      <!-- Descripción (opcional) -->
-      <div class="form-group">
-        <label for="descripcion">Descripción (opcional)</label>
-        <textarea 
-          id="descripcion"
-          formControlName="descripcion"
-          rows="4"
-          placeholder="Ingrese una breve descripción del libro..."></textarea>
       </div>
 
       <!-- Botones -->
       <div class="form-actions">
-        <button type="button" class="btn-cancel" (click)="onCancel()">
-          Cancelar
-        </button>
-        <button type="submit" class="btn-submit" [disabled]="libroForm.invalid">
-          Agregar Libro
-        </button>
+        <button type="button" class="btn-cancel" (click)="onCancel()">Cancelar</button>
+        <button type="submit" class="btn-submit" [disabled]="libroForm.invalid">Agregar Libro</button>
       </div>
     </form>
   </div>

@@ -1,0 +1,54 @@
+.libros-container {
+  display: flex;
+  gap: 1.5rem;
+  padding: 1.5rem;
+}
+
+.sidebar-filtros {
+  width: 250px;
+  background: #f5f5f5;
+  border-radius: 12px;
+  padding: 1rem;
+  height: fit-content;
+}
+
+.sidebar-filtros h3 {
+  margin-bottom: 1rem;
+}
+
+.filtro {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.precio-range {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.lista-libros {
+  flex: 1;
+}
+
+.grid-libros {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1.5rem;
+}
+
+.card-libro {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.card-libro img.portada {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  border-radius: 10px;
+}

@@ -6,5 +6,8 @@ anioPublicacion:number;
 genero:string;
 disponible:boolean;
 descripcion?:string;
+precio:number;
+portada?:string;
+
     
 }

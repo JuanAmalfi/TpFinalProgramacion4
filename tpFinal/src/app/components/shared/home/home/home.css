@@ -1,0 +1,55 @@
+.destacados-container {
+  padding: 2rem;
+}
+
+.titulo-seccion {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* Contenedor de libros destacados */
+.grid-libros {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* columnas más chicas */
+  gap: 16px;
+}
+
+/* Card del libro */
+.card-libro {
+  cursor: pointer;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #fff;
+  text-align: center;
+  padding: 8px;
+  transition: transform 0.2s;
+}
+
+.card-libro:hover {
+  transform: scale(1.05);
+}
+
+/* Imagen del libro */
+.card-libro .portada {
+  width: 100%; /* ocupa toda la card */
+  height: 180px; /* más pequeña que antes, aprox mitad */
+  object-fit: cover;
+  border-bottom: 1px solid #ccc;
+}
+
+/* Info del libro */
+.card-info {
+  padding: 4px;
+}
+
+.card-info h4 {
+  font-size: 14px; /* más pequeño */
+  margin: 4px 0;
+}
+
+.card-info p {
+  font-size: 12px;
+  margin: 2px 0;
+}

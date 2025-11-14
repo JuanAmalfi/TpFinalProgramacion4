@@ -8,7 +8,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  
+
   private readonly router = inject(Router);
 
   private currentUserSubject = new BehaviorSubject<AuthUser | null>(null);
@@ -30,10 +30,6 @@ export class AuthService {
     }
   ];
 
-  constructor() {
-   
-  }
-
   login(username: string, password: string): boolean {
     const user = this.users.find(
       u => u.username === username && u.password === password
@@ -45,12 +41,9 @@ export class AuthService {
         username: user.username,
         isAdmin: user.isAdmin
       };
-      
-      this.currentUserSubject.next(authUser);
-     
 
+      this.currentUserSubject.next(authUser);
       this.router.navigate(['/libro-list']);
-      
       return true;
     }
 
@@ -59,7 +52,6 @@ export class AuthService {
 
   logout(): void {
     this.currentUserSubject.next(null);
-    localStorage.removeItem('currentUser');
     this.router.navigate(['/auth']);
   }
 

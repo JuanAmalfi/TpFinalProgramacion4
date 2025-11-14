@@ -1,15 +1,14 @@
-@if (auth.isAuthenticated()) {
+
   <header>
     <app-header></app-header>
   </header>
-}
+
 
 <main>
     <router-outlet></router-outlet>
 </main>
 
-@if (auth.isAuthenticated()) {
+
   <footer>
     <app-footer></app-footer>
   </footer>
-}

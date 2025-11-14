@@ -1,12 +1,48 @@
-<header>
-  <nav>
-    <a routerLink="/home" routerLinkActive="active">Inicio</a>
-    <a routerLink="/libro-list" routerLinkActive="active">Libros</a>
-    <a routerLink="/biblioteca" routerLinkActive="active">Biblioteca</a>
-    <a routerLink="/carrito" routerLinkActive="active">Carrito</a>
-    
-    @if (authService.isAuthenticated()) {
-      <button class="logout-btn" (click)="logout()">Cerrar Sesión</button>
+<header class="main-header">
+  <div class="logo">
+    <a routerLink="/home">📚 LibrosApp</a>
+  </div>
+
+  <!-- Navegación principal -->
+  <nav class="nav-links">
+
+    <a routerLink="/home">Inicio</a>
+    <a routerLink="/libro-list">Todos los Libros</a>
+
+    <!-- SOLO USER NORMAL -->
+    @if (isUser()) {
+      <a routerLink="/biblioteca">Biblioteca</a>
+      <a routerLink="/carrito">Carrito</a>
+    }
+
+    <!-- SOLO ADMIN -->
+    @if (isAdmin()) {
+      <a routerLink="/libro-form">Agregar Libro</a>
+      <a routerLink="/admin-users">Usuarios</a>
     }
   </nav>
+
+  <!-- Buscador (visible para todos) -->
+  <div class="search-container">
+    <input 
+      type="text" 
+      placeholder="Ingrese nombre de libro a buscar..."
+    />
+    <button>🔍</button>
+  </div>
+
+  <!-- Auth -->
+  <div class="auth-container">
+
+    <!-- Si NO está logueado -->
+    @if (!isLoggedIn()) {
+      <a routerLink="/auth">Iniciar Sesión</a>
+    }
+
+    <!-- Si está logueado -->
+    @if (isLoggedIn()) {
+      <span class="user-info">👤 {{ getUser()?.username }}</span>
+      <button class="logout-btn" (click)="logout()">Salir</button>
+    }
+  </div>
 </header>
