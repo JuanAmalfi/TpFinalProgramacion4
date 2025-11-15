@@ -2,6 +2,7 @@
   display: flex;
   gap: 1.5rem;
   padding: 1.5rem;
+  background-color: #121212;
 }
 
 .sidebar-filtros {
@@ -92,4 +93,62 @@
 
 :host ::ng-deep .precio-range input[type="number"] {
   -moz-appearance: textfield;
+}
+
+.card-libro{
+  background-color: #383636;  
+  box-shadow: 0 6px 12px 0 rgba(255, 255, 255, 0.2);
+}
+
+.card-libro p, .card-libro h4{
+  color: #e6e3e3;
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.lista-libros h2{
+  display: flex;
+  justify-content: center;
+  color: #e6e3e3;
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.btn{
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  border: 2px solid transparent;
+  transition: all 0.2s ease-out;
+
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.btn-primary {
+  background-color: #e6e3e3;  
+  color: #383636;            
+}
+
+.btn-primary:hover {
+  background-color: #FFFFFF;
+  color: #1E1E1E;
+  transform: translateY(-2px); 
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.btn-eliminar {
+  background-color: #e6e3e3;    
+  color: #1E1E1E;
+}
+
+.btn-eliminar:hover {
+  transform: translateY(-2px);
+  background-color: #FFFFFF;
+}
+
+.acciones-admin {
+  display: flex;
+  justify-content: space-around; 
+  gap: 8px; 
+  margin-top: 1rem; 
 }
