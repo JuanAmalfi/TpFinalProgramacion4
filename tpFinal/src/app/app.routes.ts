@@ -8,6 +8,7 @@ import { LibroFormComponent } from './components/libro/libro-form/libro-form';
 import { LibroDetails } from './components/libro/libro-details/libro-details';
 import { RoleGuard } from './guards/role.guard';
 import { AuthGuard } from './guards/auth.guard';
+import { Usuario } from './components/usuario/usuario';
 
 
 
@@ -43,6 +44,8 @@ export const routes: Routes = [
     component: BibliotecaList,
     canActivate: [AuthGuard]
   },
+  { path: 'usuarios/nuevo', component: Usuario },
+
 
   // Redirección default
   { path: '', redirectTo: 'home', pathMatch: 'full' }
