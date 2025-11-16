@@ -1,48 +1,41 @@
 <header class="main-header">
   <div class="logo">
-    <a routerLink="/home">📚 LibrosApp</a>
+    <a routerLink="/home"> <span class="logo-text">LibrosApp</span></a>
   </div>
 
-  <!-- Navegación principal -->
-  <nav class="nav-links">
-
-    <a routerLink="/home">Inicio</a>
-    <a routerLink="/libro-list">Todos los Libros</a>
-
-    <!-- SOLO USER NORMAL -->
-    @if (isUser()) {
-      <a routerLink="/biblioteca">Biblioteca</a>
-      <a routerLink="/carrito">Carrito</a>
-    }
-
-    <!-- SOLO ADMIN -->
-    @if (isAdmin()) {
-      <a routerLink="/libro-form">Agregar Libro</a>
-      <a routerLink="/admin-users">Usuarios</a>
-    }
-  </nav>
-
-  <!-- Buscador (visible para todos) -->
+  <!-- Buscador centrado -->
   <div class="search-container">
-    <input 
-      type="text" 
-      placeholder="Ingrese nombre de libro a buscar..."
-    />
+    <input type="text" placeholder="Ingrese nombre de libro a buscar..." />
     <button>🔍</button>
   </div>
 
-  <!-- Auth -->
-  <div class="auth-container">
+  <!-- Navegación + Auth a la derecha -->
+  <nav class="nav-auth-container">
+    <div class="nav-links">
+      <a routerLink="/home">Inicio</a>
+      <a routerLink="/libro-list">Todos los Libros</a>
 
-    <!-- Si NO está logueado -->
-    @if (!isLoggedIn()) {
-      <a routerLink="/auth">Iniciar Sesión</a>
-    }
+      <!-- SOLO USER NORMAL -->
+      @if (isUser()) {
+        <a routerLink="/biblioteca">Biblioteca</a>
+        <a routerLink="/carrito">Carrito</a>
+      }
 
-    <!-- Si está logueado -->
-    @if (isLoggedIn()) {
-      <span class="user-info">👤 {{ getUser()?.username }}</span>
-      <button class="logout-btn" (click)="logout()">Salir</button>
-    }
-  </div>
+      <!-- SOLO ADMIN -->
+      @if (isAdmin()) {
+        <a routerLink="/libro-form">Agregar Libro</a>
+        <a routerLink="/admin-users">Usuarios</a>
+      }
+    </div>
+
+    <div class="auth-container">
+      @if (!isLoggedIn()) {
+        <a routerLink="/auth">Iniciar Sesión</a>
+      }
+      @if (isLoggedIn()) {
+        <span class="user-info">👤 {{ getUser()?.username }}</span>
+        <button class="logout-btn" (click)="logout()">Salir</button>
+      }
+    </div>
+  </nav>
 </header>
