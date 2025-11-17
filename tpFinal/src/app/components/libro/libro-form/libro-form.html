@@ -1,98 +1,98 @@
 @if (isAdmin()) {
-  <div class="form-container">
-    <h2>Agregar Nuevo Libro</h2>
 
-    <form [formGroup]="libroForm" (ngSubmit)="onSubmit()">
+<div class="page-container">
+
+  <div class="book-card animate-float">
+
+    <h2 class="form-title"> Agregar Nuevo Libro</h2>
+    <p class="form-subtitle">Complete la información requerida</p>
+
+    <form [formGroup]="libroForm" (ngSubmit)="onSubmit()" class="form-body">
 
       <!-- Título -->
-      <div class="form-group">
-        <label for="titulo">Título *</label>
-        <input id="titulo" type="text" formControlName="titulo" placeholder="Ingrese el título del libro">
-        @if (libroForm.get('titulo')?.invalid && libroForm.get('titulo')?.touched) {
-          <span class="error">El título es requerido</span>
-        }
+      <div class="form-group" [class.invalid]="isInvalid('titulo')">
+        <label>Título *</label>
+        <input type="text" formControlName="titulo" placeholder="Ej: El Señor de los Anillos">
+        @if (isInvalid('titulo')) { <small class="error-msg">Campo obligatorio</small> }
       </div>
 
       <!-- Autor -->
-      <div class="form-group">
-        <label for="autor">Autor *</label>
-        <input id="autor" type="text" formControlName="autor" placeholder="Ingrese el autor">
-        @if (libroForm.get('autor')?.invalid && libroForm.get('autor')?.touched) {
-          <span class="error">El autor es requerido</span>
-        }
+      <div class="form-group" [class.invalid]="isInvalid('autor')">
+        <label>Autor *</label>
+        <input type="text" formControlName="autor" placeholder="Ej: Tolkien">
+        @if (isInvalid('autor')) { <small class="error-msg">Campo obligatorio</small> }
       </div>
 
       <!-- Año -->
-      <div class="form-group">
-        <label for="anioPublicacion">Año de Publicación *</label>
-        <input id="anioPublicacion" type="number" formControlName="anioPublicacion" min="1000" max="2100">
-        @if (libroForm.get('anioPublicacion')?.invalid && libroForm.get('anioPublicacion')?.touched) {
-          <span class="error">Ingrese un año válido (1000–2100)</span>
-        }
+      <div class="form-group" [class.invalid]="isInvalid('anioPublicacion')">
+        <label>Año *</label>
+        <input type="number" formControlName="anioPublicacion" placeholder="Ej: 1954">
+        @if (isInvalid('anioPublicacion')) { <small class="error-msg">1000 - 2100</small> }
       </div>
 
       <!-- Género -->
-      <div class="form-group">
-        <label for="genero">Género *</label>
-        <select id="genero" formControlName="genero">
-          <option value="">Seleccione un género</option>
-          <option value="Ficción">Ficción</option>
-          <option value="No Ficción">No Ficción</option>
-          <option value="Ciencia Ficción">Ciencia Ficción</option>
-          <option value="Fantasía">Fantasía</option>
-          <option value="Misterio">Misterio</option>
-          <option value="Romance">Romance</option>
+      <div class="form-group" [class.invalid]="isInvalid('genero')">
+        <label>Género *</label>
+        <select formControlName="genero">
+          <option value="">Seleccione...</option>
+          <option>Ficción</option>
+          <option>No Ficción</option>
+          <option>Ciencia Ficción</option>
+          <option>Fantasía</option>
+          <option>Misterio</option>
+          <option>Romance</option>
         </select>
-        @if (libroForm.get('genero')?.invalid && libroForm.get('genero')?.touched) {
-          <span class="error">Seleccione un género</span>
-        }
+        @if (isInvalid('genero')) { <small class="error-msg">Seleccione género</small> }
       </div>
 
       <!-- Precio -->
-      <div class="form-group">
-        <label for="precio">Precio *</label>
-        <input id="precio" type="number" formControlName="precio" placeholder="Ej: 3500">
-        @if (libroForm.get('precio')?.invalid && libroForm.get('precio')?.touched) {
-          <span class="error">Ingrese un precio válido</span>
-        }
+      <div class="form-group" [class.invalid]="isInvalid('precio')">
+        <label>Precio *</label>
+        <input type="number" formControlName="precio" placeholder="Ej: 3500">
+        @if (isInvalid('precio')) { <small class="error-msg">Campo obligatorio</small> }
       </div>
 
       <!-- Portada -->
       <div class="form-group">
-        <label for="portada">Portada (imagen)</label>
-        <input id="portada" type="file" accept="image/*" (change)="onFileSelected($event)">
+        <label>Portada</label>
+        <input type="file" accept="image/*" (change)="onFileSelected($event)">
         @if (portadaPreview) {
-          <div class="preview">
-            <img [src]="portadaPreview" alt="Vista previa" width="120">
+          <div class="preview fade-in">
+            <img [src]="portadaPreview" alt="">
           </div>
         }
       </div>
 
       <!-- Descripción -->
       <div class="form-group">
-        <label for="descripcion">Descripción</label>
-        <textarea id="descripcion" formControlName="descripcion" rows="4"></textarea>
+        <label>Descripción</label>
+        <textarea rows="3" formControlName="descripcion"></textarea>
       </div>
 
       <!-- Disponible -->
-      <div class="form-group checkbox-group">
-        <label>
-          <input type="checkbox" formControlName="disponible">
-          <span>Disponible</span>
-        </label>
-      </div>
+      <label class="toggle">
+        <input type="checkbox" formControlName="disponible">
+        <span class="switch"></span>
+        <span class="toggle-label">Disponible</span>
+      </label>
 
       <!-- Botones -->
-      <div class="form-actions">
-        <button type="button" class="btn-cancel" (click)="onCancel()">Cancelar</button>
-        <button type="submit" class="btn-submit" [disabled]="libroForm.invalid">Agregar Libro</button>
+      <div class="actions">
+        <button type="button" class="btn cancel" (click)="onCancel()">Cancelar</button>
+        <button type="submit" class="btn submit" [disabled]="libroForm.invalid">Guardar</button>
       </div>
+
     </form>
+
   </div>
+</div>
+
 } @else {
-  <div class="access-denied">
-    <h2>⚠️ Acceso Denegado</h2>
-    <p>Solo los administradores pueden agregar libros.</p>
-    <button (click)="goBack()">Volver</button>
-  </div>
+
+<div class="access-denied-container animate-fade">
+  <h2>⛔ Acceso Denegado</h2>
+  <p>Solo administradores pueden agregar libros.</p>
+  <button (click)="goBack()" class="go-back">Volver</button>
+</div>
+
 }

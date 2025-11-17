@@ -1,31 +1,39 @@
 @if (libro()) {
-  <div class="detalle-container">
-    <div class="detalle-card">
-      <img [src]="libro().portada || 'assets/placeholder.png'" 
-           alt="{{ libro().titulo }}" 
-           class="portada">
+  <div class="detalle-wrapper">
 
-      <div class="info">
-        <h2>{{ libro().titulo }}</h2>
-        <p><strong>Autor:</strong> {{ libro().autor }}</p>
-        <p><strong>Género:</strong> {{ libro().genero }}</p>
-        <p><strong>Año:</strong> {{ libro().anio }}</p>
-        <p><strong>Precio:</strong> ${{ libro().precio }}</p>
+    <div class="detalle-card glass fade-in">
 
-        <p><strong>Descripción:</strong></p>
-        <p class="descripcion">{{ libro().descripcion || 'Sin descripción disponible.' }}</p>
+      <div class="img-box">
+        <img [src]="libro().portada || 'assets/placeholder.png'"
+             alt="{{ libro().titulo }}">
+      </div>
 
-        <div class="acciones">
-          <button (click)="volver()">Volver</button>
+      <div class="info-box">
+        <h2 class="titulo">{{ libro().titulo }}</h2>
+
+        <p><span>Autor:</span> {{ libro().autor }}</p>
+        <p><span>Género:</span> {{ libro().genero }}</p>
+        <p><span>Año:</span> {{ libro().anioPublicacion ?? libro().anio }}</p>
+        <p><span>Precio:</span> ${{ libro().precio }}</p>
+
+        <div class="descripcion-block">
+          <p><span>Descripción:</span></p>
+          <p class="descripcion">{{ libro().descripcion || 'Sin descripción disponible.' }}</p>
+        </div>
+
+        <div class="actions">
+          <button class="btn volver" (click)="volver()">Volver</button>
 
           @if (isAdmin()) {
-            <button class="btn-editar" (click)="editarLibro()">Editar</button>
-            <button class="btn-eliminar" (click)="eliminarLibro()">Eliminar</button>
+            <button class="btn editar" (click)="editarLibro()">Editar</button>
+            <button class="btn eliminar" (click)="eliminarLibro()">Eliminar</button>
           }
         </div>
       </div>
+
     </div>
   </div>
+
 } @else {
-  <p class="no-encontrado">Libro no encontrado.</p>
+  <p class="not-found fade-in">Libro no encontrado</p>
 }

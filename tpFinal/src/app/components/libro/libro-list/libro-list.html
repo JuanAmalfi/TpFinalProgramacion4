@@ -1,35 +1,43 @@
-<div class="libros-container">
-  <!-- 🧭 Panel lateral de filtros -->
-  <aside class="sidebar-filtros">
-    <h3>Filtrar por</h3>
+<div class="libros-layout">
 
-    <!-- Autor -->
-    <div class="filtro">
-      <label for="autor">Autor</label>
-      <input id="autor" type="text" placeholder="Buscar autor...">
+  <!-- Overlay cuando el sidebar está abierto -->
+  @if (filtrosAbiertos) {
+    <div class="overlay" (click)="toggleFiltros()"></div>
+  }
+
+  <!-- Botón flotante -->
+  <button class="filter-toggle" (click)="toggleFiltros()">🧩 Filtros</button>
+
+  <!-- SIDEBAR LATERAL -->
+  <aside class="sidebar" [class.open]="filtrosAbiertos">
+    <div class="sidebar-header">
+      <h3>Filtros</h3>
+      <button class="close-btn" (click)="toggleFiltros()">✖</button>
     </div>
 
-    <!-- Género -->
     <div class="filtro">
-      <label for="genero">Género</label>
-      <select id="genero">
+      <label>Autor</label>
+      <input type="text" placeholder="Buscar autor...">
+    </div>
+
+    <div class="filtro">
+      <label>Género</label>
+      <select>
         <option value="">Todos</option>
-        <option value="Ficción">Ficción</option>
-        <option value="No Ficción">No Ficción</option>
-        <option value="Ciencia Ficción">Ciencia Ficción</option>
-        <option value="Fantasía">Fantasía</option>
-        <option value="Misterio">Misterio</option>
-        <option value="Romance">Romance</option>
+        <option>Ficción</option>
+        <option>No Ficción</option>
+        <option>Ciencia Ficción</option>
+        <option>Fantasía</option>
+        <option>Misterio</option>
+        <option>Romance</option>
       </select>
     </div>
 
-    <!-- Año -->
     <div class="filtro">
-      <label for="anio">Año de publicación</label>
-      <input id="anio" type="number" placeholder="Ej: 2021">
+      <label>Año</label>
+      <input type="number" placeholder="Ej: 2021">
     </div>
 
-    <!-- Precio -->
     <div class="filtro">
       <label>Precio</label>
       <div class="precio-range">
@@ -39,38 +47,30 @@
       </div>
     </div>
 
-    <!-- Disponibilidad -->
     <div class="filtro checkbox-filtro">
-      <label>
-        <input type="checkbox">
-        Solo disponibles
-      </label>
+      <label><input type="checkbox"> Solo disponibles</label>
     </div>
 
-    <!-- Botón para limpiar -->
-    <button class="btn-limpiar">Limpiar filtros</button>
+    <div class="sidebar-buttons">
+      <button class="btn-search">Buscar</button>
+      <button class="btn-clear" (click)="limpiarFiltros()">Limpiar</button>
+    </div>
   </aside>
 
-  <!-- 📚 Sección principal con los libros -->
-  <section class="lista-libros">
-    <h2>Libros disponibles</h2>
+  <!-- LISTADO PRINCIPAL -->
+  <section class="books" [class.shift]="filtrosAbiertos">
+    <h2>📚 Libros disponibles</h2>
 
     <div class="grid-libros">
       @for (libro of libros(); track libro.id) {
-        <!-- 📘 Tarjeta del libro -->
         <div class="card-libro" (click)="verDetalle(libro.id!)">
-          <img [src]="libro.portada || 'assets/placeholder.png'" alt="{{ libro.titulo }}" class="portada">
+          <img [src]="libro.portada || 'assets/placeholder.png'" class="portada">
           <h4>{{ libro.titulo }}</h4>
           <p class="autor">{{ libro.autor }}</p>
           <p class="precio">$ {{ libro.precio }}</p>
-
-          <!-- Botones administrativos -->
-          <div class="acciones-admin">
-            <button class="btn btn-primary" (click)="verDetalle(libro.id!); $event.stopPropagation()">Ver más</button>
-            <button class="btn btn-eliminar" (click)="eliminar(libro.id!); $event.stopPropagation()">Eliminar</button>
-          </div>
         </div>
       }
     </div>
   </section>
+
 </div>

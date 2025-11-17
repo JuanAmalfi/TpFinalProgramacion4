@@ -75,4 +75,9 @@ export class LibroFormComponent {
   goBack() {
     this.router.navigate(['/home']);
   }
+
+  isInvalid(control: string) {
+  const c = this.libroForm.get(control);
+  return c?.invalid && c?.touched;
+}
 }

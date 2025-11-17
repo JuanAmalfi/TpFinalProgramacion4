@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, effect, inject } from '@angular/core';
 import { LibroStore } from '../libro-store';
 import { Router } from '@angular/router';
+import { AuthService } from '../../log/auth/auth-service';
 
 @Component({
   selector: 'app-libro-list',
@@ -17,6 +18,9 @@ export class LibroList {
   protected libros = this.store.libros;
   protected loading = this.store.loading;
   protected error = this.store.error;
+  protected auth=inject(AuthService)
+
+  filtrosAbiertos = false;
 
   constructor() {
     // carga automática de los libros al entrar
@@ -40,7 +44,14 @@ export class LibroList {
   }
 
 
+toggleFiltros() {
+  this.filtrosAbiertos = !this.filtrosAbiertos;
+}
 
+limpiarFiltros() {
+  // acá limpiarías tus variables o formulario de filtros
+  console.log("Filtros limpiados");
+}
 
 
 
