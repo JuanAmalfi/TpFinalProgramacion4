@@ -1,41 +1,59 @@
 <header class="main-header">
-  <div class="logo">
-    <a routerLink="/home"> <span class="logo-text">LibrosApp</span></a>
-  </div>
+  <div class="header-content">
 
-  <!-- Buscador centrado -->
-  <div class="search-container">
-    <input type="text" placeholder="Ingrese nombre de libro a buscar..." />
-    <button>🔍</button>
-  </div>
-
-  <!-- Navegación + Auth a la derecha -->
-  <nav class="nav-auth-container">
-    <div class="nav-links">
-      <a routerLink="/home">Inicio</a>
-      <a routerLink="/libro-list">Todos los Libros</a>
-
-      <!-- SOLO USER NORMAL -->
-      @if (isUser()) {
-        <a routerLink="/biblioteca">Biblioteca</a>
-        <a routerLink="/carrito">Carrito</a>
-      }
-
-      <!-- SOLO ADMIN -->
-      @if (isAdmin()) {
-        <a routerLink="/libro-form">Agregar Libro</a>
-        <a routerLink="/admin-users">Usuarios</a>
-      }
+    <!-- Logo -->
+    <div class="logo">
+      <a routerLink="/home"><span class="logo-text">LibrosApp</span></a>
     </div>
 
-    <div class="auth-container">
-      @if (!isLoggedIn()) {
-        <a routerLink="/auth">Iniciar Sesión</a>
-      }
-      @if (isLoggedIn()) {
-        <span class="user-info">👤 {{ getUser()?.username }}</span>
-        <button class="logout-btn" (click)="logout()">Salir</button>
-      }
+    <!-- Buscador -->
+    <div class="search-container">
+      <input type="text" placeholder="Buscar libros..." (keyup)="buscar($event)">
+      <button>🔍</button>
     </div>
-  </nav>
+
+    <!-- App launcher (9 puntitos) -->
+   <div class="apps-launcher">
+  <button class="apps-btn" (click)="toggleApps()">
+    <span class="dot"></span><span class="dot"></span>
+    <span class="dot"></span><span class="dot"></span>
+  </button>
+</div>
+
+  </div>
+
+  <!-- Panel flotante -->
+  @if (appsOpen) {
+    <div class="apps-overlay" (click)="toggleApps()"></div>
+
+    <div class="apps-panel">
+      <h3>Menú</h3>
+      <div class="apps-grid">
+
+        <a routerLink="/home" (click)="toggleApps()" class="app-item">🏠 Inicio</a>
+        <a routerLink="/libro-list" (click)="toggleApps()" class="app-item">📚 Libros</a>
+
+        @if (isUser()) {
+          <a routerLink="/biblioteca" (click)="toggleApps()" class="app-item">📖 Biblioteca</a>
+          <a routerLink="/carrito" (click)="toggleApps()" class="app-item">🛒 Carrito</a>
+          <a (click)="goProfile(); toggleApps()" class="app-item">👤 Perfil</a>
+        }
+
+        @if (isAdmin()) {
+          <a routerLink="/libro-form" (click)="toggleApps()" class="app-item">➕ Libro</a>
+          <a routerLink="/usuario-list" (click)="toggleApps()" class="app-item">👥 Usuarios</a>
+        }
+
+        @if (!isLoggedIn()) {
+          <a routerLink="/auth" (click)="toggleApps()" class="app-item">🔐 Login</a>
+        }
+
+        @if (isLoggedIn()) {
+          <a (click)="goProfile(); toggleApps()" class="app-item">👤 Mi Perfil</a>
+          <a (click)="logout(); toggleApps()" class="app-item logout">🚪 Salir</a>
+        }
+
+      </div>
+    </div>
+  }
 </header>

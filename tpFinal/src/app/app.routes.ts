@@ -9,6 +9,9 @@ import { LibroDetails } from './components/libro/libro-details/libro-details';
 import { RoleGuard } from './guards/role.guard';
 import { AuthGuard } from './guards/auth.guard';
 import { Usuario } from './components/usuario/usuario';
+import { UsuarioList } from './components/usuario/usuario-list/usuario-list';
+import { UsuarioDetalle } from './components/usuario/usuario-detalle/usuario-detalle';
+import { UsuarioEditar } from './components/usuario/usuario-editar/usuario-editar';
 
 
 
@@ -30,6 +33,23 @@ export const routes: Routes = [
     component: LibroFormComponent,
     canActivate: [RoleGuard('ADMIN')]
   },
+  {
+    path:'usuario-list',
+    component:UsuarioList,
+    canActivate: [RoleGuard('ADMIN')]
+  },
+  {
+  path: 'usuarios/detalle/:id',
+  component: UsuarioDetalle,
+  canActivate: [AuthGuard] 
+  }
+,
+{
+path: 'usuarios/editar/:id',
+  component: UsuarioEditar,
+  canActivate: [AuthGuard]
+
+},
 
   // Carrito → requiere login
   {

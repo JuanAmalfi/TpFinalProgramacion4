@@ -21,41 +21,55 @@ export class AuthService {
 
   private apiUrl = 'http://localhost:3000/users';
 
+ constructor() {
+    // 🔥 Restaurar sesión si existe en localStorage
+    const saved = localStorage.getItem('currentUser');
+    if (saved) {
+      this.currentUserSubject.next(JSON.parse(saved));
+    }
+  }
+
+
 
 
   
 
- async login(email: string, password: string): Promise<boolean> {
-  try {
-    const users = await firstValueFrom(
-      this.http.get<User[]>(`${this.apiUrl}?email=${encodeURIComponent(email)}`)
-    );
+ // 🔐 Login: email o username + persistencia
+  async login(identifier: string, password: string): Promise<boolean> {
+    try {
+      const users = await firstValueFrom(this.http.get<User[]>(this.apiUrl));
 
-    if (users.length !== 1) return false;
+      const user = users.find(
+        u => (u.email === identifier || u.username === identifier) && u.password === password
+      );
 
-    const user = users[0];
+      if (!user) return false;
 
-    if (user.password !== password) return false;
+      const authUser: AuthUser = {
+        id: user.id!,
+        username: user.username,
+        isAdmin: user.isAdmin
+      };
 
-    const authUser: AuthUser = {
-      id: user.id!,
-      username: user.username,
-      isAdmin: user.isAdmin
-    };
+      // Guardar sesión
+      this.currentUserSubject.next(authUser);
+      localStorage.setItem('currentUser', JSON.stringify(authUser));
 
-    this.currentUserSubject.next(authUser);
-    this.router.navigate(['/libro-list']);
-    return true;
+      this.router.navigate(['/home']);
+      return true;
 
-  } catch (e) {
-    console.error(e);
-    return false;
+    } catch (e) {
+      console.error('Error en login:', e);
+      return false;
+    }
   }
-}
 
 
+
+  // 🔓 Logout
   logout(): void {
     this.currentUserSubject.next(null);
+    localStorage.removeItem('currentUser');
     this.router.navigate(['/auth']);
   }
 
@@ -63,9 +77,8 @@ export class AuthService {
     return this.currentUserSubject.value !== null;
   }
 
-  isAdmin(): boolean {
-    const user = this.currentUserSubject.value;
-    return user?.isAdmin === true;
+   isAdmin(): boolean {
+    return this.currentUserSubject.value?.isAdmin === true;
   }
 
   getCurrentUser(): AuthUser | null {

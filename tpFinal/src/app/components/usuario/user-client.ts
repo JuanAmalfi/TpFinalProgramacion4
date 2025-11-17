@@ -37,4 +37,11 @@ validateEmailNotTaken(email: string) {
     return this.http.get<User[]>(`${this.url}?email=${normalized}`);
   }
 
+  deleteUser(id:string|number){
+    return this.http.delete<User>(`${this.url}/${id}`);
+  }
+  updateUser(id:string|number, user:User){
+    return this.http.put<User>(`${this.url}/${id}`,user);
+  }
+
 }

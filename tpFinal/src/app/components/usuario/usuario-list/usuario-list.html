@@ -1,0 +1,29 @@
+<div class="usuarios-container">
+
+  <h2 class="title">👥 Lista de Usuarios</h2>
+
+  @if (loading()) {
+    <p class="loading">Cargando...</p>
+  }
+
+  @else {
+    <div class="grid-usuarios">
+      @for (user of usuarios(); track user.id) {
+        <div class="card-user">
+
+          <h3>{{ user.username }}</h3>
+          <p><span>Email:</span> {{ user.email }}</p>
+          <p><span>DNI:</span> {{ user.dni }}</p>
+          <p><span>Nacimiento:</span> {{ user.fechaNacimiento }}</p>
+          <p><span>Rol:</span> {{ user.isAdmin ? 'Administrador' : 'Usuario' }}</p>
+
+          <div class="acciones">
+            <button class="btn btn-view" (click)="verDetalle(user.id!)">Ver más</button>
+            <button class="btn btn-delete" (click)="eliminar(user.id!)">Eliminar</button>
+          </div>
+
+        </div>
+      }
+    </div>
+  }
+</div>

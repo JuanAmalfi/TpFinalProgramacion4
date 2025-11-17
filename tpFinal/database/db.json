@@ -26,11 +26,11 @@
   "users": [
     {
       "id": "d0b1",
-      "username": "Jose luis",
+      "username": "Jose luisitoito",
       "email": "jose@example.com",
-      "password": "123456",
       "dni": "45291003",
       "fechaNacimiento": "2025-10-08",
+      "password": "123456",
       "isAdmin": false
     },
     {

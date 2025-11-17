@@ -28,19 +28,16 @@
       }
     </div>
 
-    @if (errorMessage) {
-      <div class="error-message">{{ errorMessage }}</div>
-    }
+   @if (errorMessage) {
+  <div class="error-message shake">{{ errorMessage }}</div>
+}
+
 
     <button type="submit" [disabled]="loginForm.invalid" class="btn-login">
       Ingresar
     </button>
 
-    <div class="demo-users">
-      <small>Usuarios demo:</small>
-      <small>Admin: admin / admin123</small>
-      <small>Usuario: usuario / user123</small>
-    </div>
+   
   </form>
 
   <!-- Enlace a crear cuenta -->

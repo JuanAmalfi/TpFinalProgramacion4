@@ -37,22 +37,27 @@ toggleMode() {
   
 
 
-   onSubmit() {
-    if (this.loginForm.valid) {
-      const { username, password } = this.loginForm.value;
-      
-      const success = this.authService.login(
-        username as string, 
-        password as string
-      );
+  async onSubmit() {
+  this.errorMessage = '';
 
-      if (!success) {
-        this.errorMessage = 'Usuario o contraseña incorrectos';
-      }
-    } else {
-      this.loginForm.markAllAsTouched();
-    }
+  if (this.loginForm.invalid) {
+    this.loginForm.markAllAsTouched();
+    return;
   }
+
+  const { username, password } = this.loginForm.value;
+
+  // 👇 ahora esperamos la respuesta real del AuthService
+  const success = await this.authService.login(
+    username as string,
+    password as string
+  );
+
+  if (!success) {
+    this.errorMessage = 'Usuario o contraseña incorrectos';
+  }
+}
+
    goToRegister() {
     this.router.navigate(['/usuarios/nuevo']); // ⬅️ ruta al formulario
   }

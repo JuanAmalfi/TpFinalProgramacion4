@@ -1,0 +1,100 @@
+.detalle-container {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+  background-color: #121212;
+}
+
+.card-detalle {
+  background-color: #383636;
+  width: 360px;
+  padding: 2rem;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(255,255,255,0.15);
+  text-align: center;
+  color: #e6e3e3;
+  font-family: Cambria, Georgia, serif;
+  animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.avatar {
+  width: 95px;
+  height: 95px;
+  border-radius: 50%;
+  background-color: #252525;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem auto;
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #e6e3e3;
+  border: 3px solid #6b6b6b;
+}
+
+.email {
+  font-size: 0.9rem;
+  color: #cfcfcf;
+  margin-bottom: 1rem;
+}
+
+.info-list {
+  text-align: left;
+  margin-top: 1rem;
+}
+
+.info-list p {
+  margin: 6px 0;
+  font-size: 0.95rem;
+}
+
+.acciones {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+}
+
+.btn {
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.btn-primary {
+  background-color: #e6e3e3;
+  color: #383636;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  background-color: #ffffff;
+}
+
+.btn-delete {
+  background-color: #b63737;
+  color: #fff;
+}
+
+.btn-delete:hover {
+  background-color: #d23b3b;
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background-color: #4b4b4b;
+  color: #e6e3e3;
+}
+
+.btn-secondary:hover {
+  background-color: #5a5a5a;
+  transform: translateY(-2px);
+}
