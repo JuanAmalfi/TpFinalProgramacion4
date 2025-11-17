@@ -1,14 +1,15 @@
-<section class="destacados-container">
+<section class="home-wrapper">
   <h2 class="titulo-seccion">📚 Libros Destacados</h2>
 
   <div class="grid-libros">
     @for (libro of librosDestacados(); track libro.id) {
       <div class="card-libro" (click)="verDetalle(libro.id!)">
-        <img [src]="libro.portada || 'assets/placeholder.png'" 
-             [alt]="libro.titulo" 
+        <img [src]="libro.portada || 'assets/placeholder.png'"
+             [alt]="libro.titulo"
              class="portada" />
+
         <div class="card-info">
-          <h4 class="titulo">{{ libro.titulo }}</h4>
+          <h4>{{ libro.titulo }}</h4>
           <p class="autor">{{ libro.autor }}</p>
           <p class="precio">$ {{ libro.precio }}</p>
         </div>

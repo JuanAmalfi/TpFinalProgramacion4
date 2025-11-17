@@ -12,6 +12,7 @@ import { Usuario } from './components/usuario/usuario';
 import { UsuarioList } from './components/usuario/usuario-list/usuario-list';
 import { UsuarioDetalle } from './components/usuario/usuario-detalle/usuario-detalle';
 import { UsuarioEditar } from './components/usuario/usuario-editar/usuario-editar';
+import { LibroEdit } from './components/libro/libro-edit/libro-edit';
 
 
 
@@ -31,6 +32,11 @@ export const routes: Routes = [
   {
     path: 'libro-form',
     component: LibroFormComponent,
+    canActivate: [RoleGuard('ADMIN')]
+  },
+  {
+    path:'libro-edit/:id',
+    component:LibroEdit,
     canActivate: [RoleGuard('ADMIN')]
   },
   {

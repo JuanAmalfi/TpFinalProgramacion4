@@ -1,0 +1,85 @@
+<div class="edit-wrapper">
+  <div class="edit-card animate-pop">
+
+    <h2 class="title">📖 Editar Libro</h2>
+    <p class="subtitle">Modificá los datos y guardá los cambios</p>
+
+    <form [formGroup]="editForm" (ngSubmit)="onSave()" class="edit-form">
+
+      <!-- Título -->
+      <div class="form-group" [class.invalid]="isInvalid('titulo')">
+        <label>Título *</label>
+        <input type="text" formControlName="titulo" placeholder="Ej: El principito">
+        @if (isInvalid('titulo')) { <small class="error">Campo obligatorio</small> }
+      </div>
+
+      <!-- Autor -->
+      <div class="form-group" [class.invalid]="isInvalid('autor')">
+        <label>Autor *</label>
+        <input type="text" formControlName="autor" placeholder="Ej: Antoine de Saint-Exupéry">
+        @if (isInvalid('autor')) { <small class="error">Campo obligatorio</small> }
+      </div>
+
+      <!-- Año -->
+      <div class="form-group" [class.invalid]="isInvalid('anioPublicacion')">
+        <label>Año de publicación *</label>
+        <input type="number" formControlName="anioPublicacion" placeholder="Ej: 1943">
+        @if (isInvalid('anioPublicacion')) { 
+          <small class="error">Año entre 1000 y 2100</small> }
+      </div>
+
+      <!-- Género -->
+      <div class="form-group" [class.invalid]="isInvalid('genero')">
+        <label>Género *</label>
+        <select formControlName="genero">
+          <option value="">Seleccione...</option>
+          <option>Ficción</option>
+          <option>No Ficción</option>
+          <option>Ciencia Ficción</option>
+          <option>Fantasía</option>
+          <option>Misterio</option>
+          <option>Romance</option>
+        </select>
+        @if (isInvalid('genero')) { <small class="error">Seleccione género</small> }
+      </div>
+
+      <!-- Precio -->
+      <div class="form-group" [class.invalid]="isInvalid('precio')">
+        <label>Precio *</label>
+        <input type="number" formControlName="precio" placeholder="Ej: 3500">
+        @if (isInvalid('precio')) { <small class="error">Precio inválido</small> }
+      </div>
+
+      <!-- Portada -->
+      <div class="form-group">
+        <label>Portada</label>
+        <input type="file" accept="image/*" (change)="onFileSelected($event)">
+        @if (portadaPreview) {
+          <div class="preview fade-in">
+            <img [src]="portadaPreview" alt="Vista previa" />
+          </div>
+        }
+      </div>
+
+      <!-- Descripción -->
+      <div class="form-group">
+        <label>Descripción</label>
+        <textarea rows="3" formControlName="descripcion" placeholder="Descripción..."></textarea>
+      </div>
+
+      <!-- Disponible -->
+      <label class="toggle">
+        <input type="checkbox" formControlName="disponible">
+        <span class="switch"></span>
+        <span class="toggle-label">Disponible</span>
+      </label>
+
+      <!-- Botones -->
+      <div class="actions">
+        <button type="button" class="btn cancel" (click)="cancelar()">Cancelar</button>
+        <button type="submit" class="btn save" [disabled]="editForm.invalid">Guardar cambios</button>
+      </div>
+
+    </form>
+  </div>
+</div>

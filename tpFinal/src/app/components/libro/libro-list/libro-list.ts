@@ -20,7 +20,7 @@ export class LibroList {
   protected error = this.store.error;
   protected auth=inject(AuthService)
 
-  filtrosAbiertos = false;
+  protected filtrosAbiertos = false;
 
   constructor() {
     // carga automática de los libros al entrar

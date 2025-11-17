@@ -1,1 +1,45 @@
-<p>carrito-list works!</p>
+<section class="carrito-wrapper fade-in">
+
+  <div class="carrito-card glass">
+
+    <h2 class="titulo">🛒 Mi Carrito</h2>
+
+    @if (cargando()) {
+      <p class="estado">Cargando carrito...</p>
+    } @else if (error()) {
+      <p class="estado error">{{ error() }}</p>
+    } @else if (items().length === 0) {
+      <p class="estado vacio">No tenés libros en el carrito.</p>
+    } @else {
+
+      <div class="carrito-items">
+
+        @for (item of items(); track item.id) {
+          <div class="carrito-item glass-item slide-up">
+
+            <img [src]="item.portada || 'assets/placeholder.png'" [alt]="item.titulo" />
+
+            <div class="item-info">
+              <h3 class="titulo-item">{{ item.titulo }}</h3>
+              <p class="autor">{{ item.autor }}</p>
+              <p><span>Cantidad:</span> {{ item.cantidad }}</p>
+              <p><span>Precio:</span> ${{ item.precio }}</p>
+              <p class="subtotal"><span>Subtotal:</span> ${{ item.precio * item.cantidad }}</p>
+            </div>
+
+            <button class="btn eliminar" (click)="eliminarItem(item)">Eliminar</button>
+          </div>
+        }
+
+      </div>
+
+      <div class="resumen glass">
+        <p>Total a pagar</p>
+        <h2 class="total">${{ total() }}</h2>
+
+        <button class="btn finalizar" (click)="finalizarCompra()">Finalizar compra</button>
+      </div>
+
+    }
+  </div>
+</section>

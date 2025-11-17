@@ -22,15 +22,35 @@
         </div>
 
         <div class="actions">
+
+          <!-- botón volver -->
           <button class="btn volver" (click)="volver()">Volver</button>
 
+          <!-- botón agregar al carrito con validación login -->
+          @if (estaLogueado()) {
+            <button class="btn carrito" (click)="agregarAlCarrito()">
+              🛒 Agregar al Carrito
+            </button>
+          } @else {
+            <button class="btn login" (click)="irALogin()">
+              🔐 Inicia sesión para comprar
+            </button>
+          }
+
+          <!-- botones admin -->
           @if (isAdmin()) {
             <button class="btn editar" (click)="editarLibro()">Editar</button>
             <button class="btn eliminar" (click)="eliminarLibro()">Eliminar</button>
           }
-        </div>
-      </div>
 
+        </div>
+
+        <!-- mensaje feedback -->
+        @if (mensaje()) {
+          <p class="alert">{{ mensaje() }}</p>
+        }
+
+      </div>
     </div>
   </div>
 

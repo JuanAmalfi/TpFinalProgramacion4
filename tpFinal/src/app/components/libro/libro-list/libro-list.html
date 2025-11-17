@@ -1,76 +1,83 @@
 <div class="libros-layout">
 
-  <!-- Overlay cuando el sidebar está abierto -->
+  <!-- CABECERA DEL LISTADO -->
+  <div class="lista-header">
+    <h2>Libros disponibles</h2>
+
+    <button class="filters-btn" (click)="toggleFiltros()">
+      🧩 Filtros
+    </button>
+  </div>
+
+  <!-- GRILLA DE LIBROS -->
+  <div class="grid-libros">
+    @for (libro of libros(); track libro.id) {
+      <div class="card-libro" (click)="verDetalle(libro.id!)">
+        <img
+          [src]="libro.portada || 'assets/placeholder.png'"
+          alt="{{ libro.titulo }}"
+          class="portada"
+        />
+        <h4>{{ libro.titulo }}</h4>
+        <p class="autor">{{ libro.autor }}</p>
+        <p class="precio">$ {{ libro.precio }}</p>
+      </div>
+    }
+  </div>
+
+  <!-- ========== MODAL DE FILTROS ========== -->
   @if (filtrosAbiertos) {
-    <div class="overlay" (click)="toggleFiltros()"></div>
-  }
+    <div class="filters-backdrop" (click)="toggleFiltros()">
+      <div class="filters-modal" (click)="$event.stopPropagation()">
 
-  <!-- Botón flotante -->
-  <button class="filter-toggle" (click)="toggleFiltros()">🧩 Filtros</button>
+        <div class="modal-header">
+          <h3>Filtros</h3>
+          <button class="close-modal" (click)="toggleFiltros()">✖</button>
+        </div>
 
-  <!-- SIDEBAR LATERAL -->
-  <aside class="sidebar" [class.open]="filtrosAbiertos">
-    <div class="sidebar-header">
-      <h3>Filtros</h3>
-      <button class="close-btn" (click)="toggleFiltros()">✖</button>
-    </div>
+        <div class="filtro">
+          <label>Autor</label>
+          <input type="text" placeholder="Buscar autor..." />
+        </div>
 
-    <div class="filtro">
-      <label>Autor</label>
-      <input type="text" placeholder="Buscar autor...">
-    </div>
+        <div class="filtro">
+          <label>Género</label>
+          <select>
+            <option value="">Todos</option>
+            <option>Ficción</option>
+            <option>No Ficción</option>
+            <option>Ciencia Ficción</option>
+            <option>Fantasía</option>
+            <option>Misterio</option>
+            <option>Romance</option>
+          </select>
+        </div>
 
-    <div class="filtro">
-      <label>Género</label>
-      <select>
-        <option value="">Todos</option>
-        <option>Ficción</option>
-        <option>No Ficción</option>
-        <option>Ciencia Ficción</option>
-        <option>Fantasía</option>
-        <option>Misterio</option>
-        <option>Romance</option>
-      </select>
-    </div>
+        <div class="filtro">
+          <label>Año</label>
+          <input type="number" placeholder="Ej: 2021" />
+        </div>
 
-    <div class="filtro">
-      <label>Año</label>
-      <input type="number" placeholder="Ej: 2021">
-    </div>
+        <div class="filtro">
+          <label>Precio</label>
+          <div class="precio-range">
+            <input type="number" placeholder="Mín" />
+            <span>—</span>
+            <input type="number" placeholder="Máx" />
+          </div>
+        </div>
 
-    <div class="filtro">
-      <label>Precio</label>
-      <div class="precio-range">
-        <input type="number" placeholder="Mín">
-        <span>—</span>
-        <input type="number" placeholder="Máx">
+        <div class="filtro checkbox-filtro">
+          <label><input type="checkbox" /> Solo disponibles</label>
+        </div>
+
+        <div class="modal-actions">
+          <button class="btn-clear" (click)="limpiarFiltros()">Limpiar</button>
+          <button class="btn-apply" (click)="toggleFiltros()">Aplicar</button>
+        </div>
+
       </div>
     </div>
-
-    <div class="filtro checkbox-filtro">
-      <label><input type="checkbox"> Solo disponibles</label>
-    </div>
-
-    <div class="sidebar-buttons">
-      <button class="btn-search">Buscar</button>
-      <button class="btn-clear" (click)="limpiarFiltros()">Limpiar</button>
-    </div>
-  </aside>
-
-  <!-- LISTADO PRINCIPAL -->
-  <section class="books" [class.shift]="filtrosAbiertos">
-    <h2>📚 Libros disponibles</h2>
-
-    <div class="grid-libros">
-      @for (libro of libros(); track libro.id) {
-        <div class="card-libro" (click)="verDetalle(libro.id!)">
-          <img [src]="libro.portada || 'assets/placeholder.png'" class="portada">
-          <h4>{{ libro.titulo }}</h4>
-          <p class="autor">{{ libro.autor }}</p>
-          <p class="precio">$ {{ libro.precio }}</p>
-        </div>
-      }
-    </div>
-  </section>
+  }
 
 </div>
