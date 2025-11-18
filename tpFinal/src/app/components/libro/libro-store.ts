@@ -1,6 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { Libro } from './libro';
 import { LibroClient } from './libro-client';
+import { ReseniaClient } from '../resenia/resenia-client';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +9,8 @@ import { LibroClient } from './libro-client';
 export class LibroStore {
   
  private readonly libroClient = inject(LibroClient);
+ private readonly reseniaClient = inject(ReseniaClient);
+
 
   // ✅ Estado reactivo
   readonly libros = signal<Libro[]>([]);
@@ -16,19 +19,38 @@ export class LibroStore {
 
   // ✅ Cargar todos los libros
   loadLibros() {
-    this.loading.set(true);
-    this.libroClient.getLibros().subscribe({
-      next: (data) => {
-        this.libros.set(data);
-        this.loading.set(false);
-      },
-      error: (err) => {
-        this.error.set('Error al cargar libros');
-        this.loading.set(false);
-        console.error(err);
-      }
-    });
-  }
+  this.loading.set(true);
+
+  this.libroClient.getLibros().subscribe({
+    next: (libros) => {
+      this.reseniaClient.getAll().subscribe({
+        next: (resenas) => {
+
+          const librosConPromedio = libros.map(l => {
+            const r = resenas.filter(x => x.libroId == l.id);
+
+            const promedio = r.length
+              ? r.reduce((acc, x) => acc + x.calificacion, 0) / r.length
+              : 0;
+
+            return { ...l, promedioCalificacion: promedio };
+          });
+
+          this.libros.set(librosConPromedio);
+          this.loading.set(false);
+        },
+        error: () => {
+          this.libros.set(libros);
+          this.loading.set(false);
+        }
+      });
+    },
+    error: () => {
+      this.error.set('Error al cargar libros');
+      this.loading.set(false);
+    }
+  });
+}
 
   // ✅ Agregar libro
   addLibro(libro: Libro) {

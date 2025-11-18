@@ -142,3 +142,68 @@
   color: #10b981;
   font-weight: bold;
 }
+
+
+.left-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.btn-group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: .8rem;
+  margin-top: 1rem;
+}
+
+.btn-group .btn {
+  width: 100%;
+  text-align: center;
+}
+
+.resenas-block {
+  margin-top: 2rem;
+}
+
+.resena-item {
+  background: rgba(255,255,255,0.06);
+  padding: .8rem 1rem;
+  border-radius: 10px;
+  margin-bottom: .8rem;
+  border-left: 3px solid #f5deb3;
+}
+
+.resena-item .user {
+  font-weight: 600;
+  color: #f5deb3;
+}
+
+.resena-item .stars {
+  color: #f5deb3;
+  font-size: 1.1rem;
+  margin: .2rem 0;
+}
+
+.no-resenas {
+  color: #aaa;
+  font-style: italic;
+}
+.eliminar-admin {
+  background-color: #b33939;
+  color: #fff;
+  padding: .45rem .9rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: .85rem;
+  transition: .25s;
+  margin-top: .5rem;
+}
+
+.eliminar-admin:hover {
+  background-color: #d94545;
+  transform: translateY(-2px);
+}

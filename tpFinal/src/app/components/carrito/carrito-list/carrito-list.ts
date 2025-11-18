@@ -2,6 +2,13 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { CarritoClient } from '../carrito-client';
 import { AuthService } from '../../log/auth/auth-service';
 import { CarritoItem } from '../carrito-item';
+import { FacturaClient } from '../../factura/factura-client';
+import { BibliotecaClient } from '../../biblioteca/biblioteca-client';
+import { firstValueFrom } from 'rxjs';
+import { Factura } from '../../factura/factura';
+import { Router } from '@angular/router';
+import { LibroClient } from '../../libro/libro-client';
+import { BibliotecaItem } from '../../biblioteca/biblioteca-item';
 
 @Component({
   selector: 'app-carrito-list',
@@ -14,6 +21,14 @@ export class CarritoList {
 
 private readonly carritoService = inject(CarritoClient);
   private readonly authService = inject(AuthService);
+  private readonly router=inject(Router);
+
+  private facturaService = inject(FacturaClient);
+private bibliotecaService = inject(BibliotecaClient);
+private libroService = inject(LibroClient);
+
+
+
 
   protected items = signal<CarritoItem[]>([]);
   protected cargando = signal(true);
@@ -56,10 +71,87 @@ private readonly carritoService = inject(CarritoClient);
     });
   }
 
-  finalizarCompra() {
-    // Por ahora solo un alert, después lo conectás con factura / MP
-    alert('Compra finalizada (acá después va la integración real).');
+  async finalizarCompra() {
+  const usuario = this.authService.getCurrentUser();
+
+  if (!usuario) {
+    alert("Debes iniciar sesión primero.");
+    return;
   }
+
+  const items = this.items();
+  if (items.length === 0) {
+    alert("Tu carrito está vacío.");
+    return;
+  }
+
+  try {
+    // 1️⃣ Obtener biblioteca existente del usuario
+    const biblioteca = await firstValueFrom(
+      this.bibliotecaService.getByUsuario(usuario.id!)
+    );
+
+    // 2️⃣ Detectar libros ya comprados
+    const repetidos = items.filter(item =>
+      biblioteca.some(b => String(b.libroId) === String(item.libroId))
+    );
+
+    if (repetidos.length > 0) {
+      const titulos = repetidos.map(r => `"${r.titulo}"`).join(", ");
+      alert(`No puedes comprar libros que ya posees: ${titulos}`);
+      return;
+    }
+
+    // 3️⃣ Crear factura
+    const factura: Factura = {
+      usuarioId: usuario.id!,
+      fecha: new Date().toISOString(),
+      total: this.total(),
+      items: items.map(item => ({
+        libroId: item.libroId,
+        titulo: item.titulo,
+        precio: item.precio,
+        cantidad: item.cantidad
+      }))
+    };
+
+    await firstValueFrom(this.facturaService.crearFactura(factura));
+
+    // 4️⃣ Guardar libros en biblioteca con estado inicial
+    // 4️⃣ Guardar libros en biblioteca con estado inicial
+for (const item of items) {
+  const libroParaGuardar: BibliotecaItem = {
+    usuarioId: usuario.id!,
+    libroId: item.libroId,
+    titulo: item.titulo ?? 'Sin título',
+    autor: item.autor ?? 'Desconocido',
+    genero: item.genero ?? 'No indicado',
+    anioPublicacion: Number(item.anioPublicacion) || new Date().getFullYear(),
+    portada: item.portada || '',
+    estado: 'No leído'
+  };
+
+  console.log("📥 Enviando a biblioteca:", libroParaGuardar);
+
+  await firstValueFrom(this.bibliotecaService.addLibro(libroParaGuardar));
+  console.log("✔️ Guardado en biblioteca");
+}
+
+    // 5️⃣ Vaciar carrito
+    for (const item of items) {
+      if (item.id) await firstValueFrom(this.carritoService.deleteCarrito(item.id));
+    }
+
+    this.items.set([]);
+    alert("Compra realizada con éxito.");
+    this.router.navigate(['/biblioteca']);
+
+  } catch (error) {
+    console.error(error);
+    alert("Ocurrió un error al procesar la compra.");
+  }
+}
+
 
 
 

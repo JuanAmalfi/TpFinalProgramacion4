@@ -1,32 +1,32 @@
 <div class="libros-layout">
 
-  <!-- CABECERA DEL LISTADO -->
+  <!-- HEADER -->
   <div class="lista-header">
     <h2>Libros disponibles</h2>
-
-    <button class="filters-btn" (click)="toggleFiltros()">
-      🧩 Filtros
-    </button>
+    <button class="filters-btn" (click)="toggleFiltros()">🧩 Filtros</button>
   </div>
 
-  <!-- GRILLA DE LIBROS -->
+  <!-- GRID -->
   <div class="grid-libros">
-    @for (libro of libros(); track libro.id) {
+    @for (libro of filteredLibros(); track libro.id) {
       <div class="card-libro" (click)="verDetalle(libro.id!)">
-        <img
-          [src]="libro.portada || 'assets/placeholder.png'"
-          alt="{{ libro.titulo }}"
-          class="portada"
-        />
+        <img [src]="libro.portada || 'assets/placeholder.png'" class="portada" />
         <h4>{{ libro.titulo }}</h4>
         <p class="autor">{{ libro.autor }}</p>
         <p class="precio">$ {{ libro.precio }}</p>
+        <div class="rating">
+    @for (i of [1,2,3,4,5]; track i) {
+      <span class="star">
+        {{ i <= redondear(libro.promedioCalificacion || 0) ? '★' : '☆' }}
+      </span>
+    }
+  </div>
       </div>
     }
   </div>
 
-  <!-- ========== MODAL DE FILTROS ========== -->
-  @if (filtrosAbiertos) {
+  <!-- MODAL FILTROS -->
+  @if (filtrosAbiertos()) {
     <div class="filters-backdrop" (click)="toggleFiltros()">
       <div class="filters-modal" (click)="$event.stopPropagation()">
 
@@ -37,12 +37,13 @@
 
         <div class="filtro">
           <label>Autor</label>
-          <input type="text" placeholder="Buscar autor..." />
+          <input type="text" placeholder="Buscar autor..."
+                (input)="filtroAutor.set($any($event.target).value)">
         </div>
 
         <div class="filtro">
           <label>Género</label>
-          <select>
+          <select (change)="filtroGenero.set($any($event.target).value)">
             <option value="">Todos</option>
             <option>Ficción</option>
             <option>No Ficción</option>
@@ -55,20 +56,24 @@
 
         <div class="filtro">
           <label>Año</label>
-          <input type="number" placeholder="Ej: 2021" />
+          <input type="number" placeholder="Ej: 2021"
+                (input)="filtroAnio.set($any($event.target).value || null)">
         </div>
 
         <div class="filtro">
           <label>Precio</label>
           <div class="precio-range">
-            <input type="number" placeholder="Mín" />
+            <input type="number" placeholder="Mín"
+              (input)="filtroPrecioMin.set($any($event.target).value || null)">
             <span>—</span>
-            <input type="number" placeholder="Máx" />
+            <input type="number" placeholder="Máx"
+              (input)="filtroPrecioMax.set($any($event.target).value || null)">
           </div>
         </div>
 
         <div class="filtro checkbox-filtro">
-          <label><input type="checkbox" /> Solo disponibles</label>
+          <label><input type="checkbox"
+            (change)="filtroDisponible.set($any($event.target).checked)"> Solo disponibles</label>
         </div>
 
         <div class="modal-actions">

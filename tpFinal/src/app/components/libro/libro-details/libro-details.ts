@@ -5,6 +5,7 @@ import { LibroClient } from '../libro-client';
 import { AuthService } from '../../log/auth/auth-service';
 import { CarritoClient } from '../../carrito/carrito-client';
 import { CarritoItem } from '../../carrito/carrito-item';
+import { ReseniaClient } from '../../resenia/resenia-client';
 
 @Component({
   selector: 'app-libro-details',
@@ -20,25 +21,40 @@ export class LibroDetails {
   private authService=inject(AuthService)
   protected carritoService=inject(CarritoClient)
 
+  private reseniaService = inject(ReseniaClient);
+
+protected resenias = signal<any[]>([]);
+
   protected libro = signal<any>(null);
-  protected isAdmin = signal(true); // ⚠️ reemplazá luego con auth real
+
+ protected isAdmin = signal(false);
+  
   protected mensaje = signal<string | null>(null);  
 
 
   constructor() {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.libroService.getLibroById(id).subscribe({
-        next: (data) => {
-          this.libro.set(data);
-        },
-        error: (err) => {
-          console.error('Error al cargar libro:', err);
-          this.libro.set(null);
-        }
-      });
-    }
+  const id = this.route.snapshot.paramMap.get('id');
+
+  // 🔍 Detectar si el usuario es admin
+  const user = this.authService.getCurrentUser();
+  if (user?.isAdmin) {
+    this.isAdmin.set(true);
   }
+
+  // 📌 Cargar libro
+  if (id) {
+    this.libroService.getLibroById(id).subscribe({
+      next: (data) => {
+        this.libro.set(data);
+        this.cargarResenias(data.id!);
+      },
+      error: () => this.libro.set(null)
+    });
+  }
+}
+
+
+
 
  protected volver() {
     this.router.navigate(['/libro-list']);
@@ -74,6 +90,7 @@ export class LibroDetails {
 
  agregarAlCarrito(): void {
   const usuario = this.authService.getCurrentUser();
+
   if (!usuario) {
     this.irALogin();
     return;
@@ -82,56 +99,83 @@ export class LibroDetails {
   const libroActual = this.libro();
   if (!libroActual) return;
 
-  // Validación segura de IDs
-  if (usuario.id == null || libroActual.id == null) {
-    console.error('Error: usuario o libro sin ID');
-    this.mensaje.set('Ocurrió un error, intenta más tarde.');
+  if (!usuario.id || !libroActual.id) {
+    console.error("Error: usuario o libro sin ID");
+    this.mensaje.set("Ocurrió un error. Intenta más tarde.");
     return;
   }
 
-  // 🔍 VALIDACIÓN: comprobar si el libro ya está en el carrito
   this.carritoService.getCarritoByUsuario(usuario.id).subscribe({
     next: (items) => {
-      const yaExiste = items.some(item => Number(item.libroId) === Number(libroActual.id));
+      const yaExiste = items.some(
+        (item) => String(item.libroId) === String(libroActual.id)
+      );
 
       if (yaExiste) {
-        this.mensaje.set('Este libro ya está en tu carrito ❌');
+        this.mensaje.set("Este libro ya está en tu carrito ❌");
         return;
       }
 
-      // 📌 Si no existe, recién ahí se agrega
       const item: CarritoItem = {
-        usuarioId: Number(usuario.id),
-        libroId: Number(libroActual.id),
+        usuarioId: usuario.id!,
+        libroId: libroActual.id,
         titulo: libroActual.titulo,
         autor: libroActual.autor,
         precio: libroActual.precio,
         portada: libroActual.portada,
+        genero:libroActual.genero,
+        anioPublicacion:libroActual.anioPublicacion,
         cantidad: 1
       };
 
       this.carritoService.postCarrito(item).subscribe({
-        next: () => this.mensaje.set('Libro agregado al carrito ✔️'),
-        error: () => this.mensaje.set('No se pudo agregar, intenta más tarde.')
+        next: () => this.mensaje.set("Libro agregado al carrito ✔️"),
+        error: () => this.mensaje.set("Error, intenta más tarde.")
       });
-
     },
-    error: () => {
-      this.mensaje.set('No se pudo validar el carrito.');
-    }
+    error: () => this.mensaje.set("No se pudo validar el carrito.")
   });
 }
-
 
 estaLogueado(): boolean {
   return this.authService.isAuthenticated();
 }
 
 irALogin(): void {
-  this.router.navigate(['/login']); // ajusta si tu ruta es '/auth'
+  this.router.navigate(['/auth']); // ajusta si tu ruta es '/auth'
 }
 
 
+ normalizeId(id: any): string {
+  return String(id ?? '');
+}
+
+
+cargarResenias(libroId: number | string) {
+  this.reseniaService.getByLibro(libroId).subscribe({
+    next: (data) => this.resenias.set(data),
+    error: () => this.resenias.set([])
+  });
+}
+
+generarEstrellas(value: number): string[] {
+  const full = Math.round(value);
+  return Array.from({ length: 5 }).map((_, i) => (i < full ? '★' : '☆'));
+}
+
+
+protected eliminarResenaAdmin(id: string | number) {
+  if (!confirm("¿Seguro que deseas eliminar esta reseña permanentemente?"))
+    return;
+
+  this.reseniaService.delete(id).subscribe({
+    next: () => {
+      alert("Reseña eliminada correctamente.");
+      this.cargarResenias(this.libro()?.id); // recargar lista
+    },
+    error: () => alert("Ocurrió un error al eliminar la reseña.")
+  });
+}
 
 
 

@@ -28,32 +28,34 @@
 
     <div class="apps-panel">
       <h3>Menú</h3>
-      <div class="apps-grid">
+     <div class="apps-grid">
 
-        <a routerLink="/home" (click)="toggleApps()" class="app-item">🏠 Inicio</a>
-        <a routerLink="/libro-list" (click)="toggleApps()" class="app-item">📚 Libros</a>
+  <a routerLink="/home" (click)="toggleApps()" class="app-item">🏠 Inicio</a>
+  <a routerLink="/libro-list" (click)="toggleApps()" class="app-item">📚 Libros</a>
 
-        @if (isUser()) {
-          <a routerLink="/biblioteca" (click)="toggleApps()" class="app-item">📖 Biblioteca</a>
-          <a routerLink="/carrito" (click)="toggleApps()" class="app-item">🛒 Carrito</a>
-          <a (click)="goProfile(); toggleApps()" class="app-item">👤 Perfil</a>
-        }
+  @if (isUser()) {
+    <a routerLink="/biblioteca" (click)="toggleApps()" class="app-item">📖 Biblioteca</a>
+    <a routerLink="/carrito" (click)="toggleApps()" class="app-item">🛒 Carrito</a>
+    <a routerLink="/facturas" (click)="toggleApps()" class="app-item">📄 Mis Facturas</a>
+  }
 
-        @if (isAdmin()) {
-          <a routerLink="/libro-form" (click)="toggleApps()" class="app-item">➕ Libro</a>
-          <a routerLink="/usuario-list" (click)="toggleApps()" class="app-item">👥 Usuarios</a>
-        }
+  @if (isAdmin()) {
+    <a routerLink="/libro-form" (click)="toggleApps()" class="app-item">➕ Libro</a>
+    <a routerLink="/usuario-list" (click)="toggleApps()" class="app-item">👥 Usuarios</a>
+    <a routerLink="/facturas" (click)="toggleApps()" class="app-item">📄 Facturas</a>
+  }
 
-        @if (!isLoggedIn()) {
-          <a routerLink="/auth" (click)="toggleApps()" class="app-item">🔐 Login</a>
-        }
+  @if (!isLoggedIn()) {
+    <a routerLink="/auth" (click)="toggleApps()" class="app-item">🔐 Login</a>
+  }
 
-        @if (isLoggedIn()) {
-          <a (click)="goProfile(); toggleApps()" class="app-item">👤 Mi Perfil</a>
-          <a (click)="logout(); toggleApps()" class="app-item logout">🚪 Salir</a>
-        }
+  @if (isLoggedIn()) {
+    <!-- Solo una vez el perfil -->
+    <a (click)="goProfile(); toggleApps()" class="app-item">👤 Mi Perfil</a>
+    <a (click)="logout(); toggleApps()" class="app-item logout">🚪 Salir</a>
+  }
 
-      </div>
+</div>
     </div>
   }
 </header>

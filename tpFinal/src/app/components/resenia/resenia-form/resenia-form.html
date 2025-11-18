@@ -1,0 +1,28 @@
+<div class="form-wrapper">
+  <div class="form-card">
+
+    <h2>{{ editMode() ? 'Editar Reseña' : 'Nueva Reseña' }}</h2>
+
+    <label>Calificación:</label>
+    <div class="stars">
+      @for (star of [1,2,3,4,5]; track star) {
+        <span class="star"
+              (click)="calificacion.set(star)"
+              [class.active]="star <= calificacion()">
+          ★
+        </span>
+      }
+    </div>
+
+    <label>Comentario:</label>
+    <textarea 
+      [value]="comentario()" 
+      (input)="comentario.set($any($event.target).value)">
+    </textarea>
+
+    <button (click)="guardar()">
+      {{ editMode() ? 'Guardar Cambios' : 'Publicar' }}
+    </button>
+
+  </div>
+</div>

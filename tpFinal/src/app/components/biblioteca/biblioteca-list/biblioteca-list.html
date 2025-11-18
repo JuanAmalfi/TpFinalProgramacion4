@@ -1,1 +1,18 @@
-<p>biblioteca-list works!</p>
+<div class="libros-layout">
+
+  <div class="lista-header">
+    <h2>Mi Biblioteca</h2>
+  </div>
+
+  <!-- GRID -->
+  <div class="grid-libros">
+    @for (item of biblioteca(); track item.id) {
+      <div class="card-libro" (click)="irADetalle(item)">
+        <img [src]="item.portada || 'assets/placeholder.png'" class="portada" />
+        <h4>{{ item.titulo }}</h4>
+        <p class="autor">{{ item.autor }}</p>
+      </div>
+    }
+  </div>
+
+</div>

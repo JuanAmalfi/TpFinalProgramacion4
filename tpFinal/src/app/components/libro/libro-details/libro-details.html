@@ -1,59 +1,83 @@
 @if (libro()) {
-  <div class="detalle-wrapper">
+<div class="detalle-wrapper">
 
-    <div class="detalle-card glass fade-in">
+  <div class="detalle-card glass fade-in">
+
+    <!-- COLUMNA LEFT (Imagen + botones) -->
+    <div class="left-box">
 
       <div class="img-box">
-        <img [src]="libro().portada || 'assets/placeholder.png'"
-             alt="{{ libro().titulo }}">
+        <img [src]="libro().portada || 'assets/placeholder.png'" alt="{{ libro().titulo }}">
       </div>
 
-      <div class="info-box">
-        <h2 class="titulo">{{ libro().titulo }}</h2>
+      <div class="btn-group">
+        <button class="btn volver" (click)="volver()">Volver</button>
 
-        <p><span>Autor:</span> {{ libro().autor }}</p>
-        <p><span>Género:</span> {{ libro().genero }}</p>
-        <p><span>Año:</span> {{ libro().anioPublicacion ?? libro().anio }}</p>
-        <p><span>Precio:</span> ${{ libro().precio }}</p>
-
-        <div class="descripcion-block">
-          <p><span>Descripción:</span></p>
-          <p class="descripcion">{{ libro().descripcion || 'Sin descripción disponible.' }}</p>
-        </div>
-
-        <div class="actions">
-
-          <!-- botón volver -->
-          <button class="btn volver" (click)="volver()">Volver</button>
-
-          <!-- botón agregar al carrito con validación login -->
-          @if (estaLogueado()) {
-            <button class="btn carrito" (click)="agregarAlCarrito()">
-              🛒 Agregar al Carrito
-            </button>
-          } @else {
-            <button class="btn login" (click)="irALogin()">
-              🔐 Inicia sesión para comprar
-            </button>
-          }
-
-          <!-- botones admin -->
-          @if (isAdmin()) {
-            <button class="btn editar" (click)="editarLibro()">Editar</button>
-            <button class="btn eliminar" (click)="eliminarLibro()">Eliminar</button>
-          }
-
-        </div>
-
-        <!-- mensaje feedback -->
-        @if (mensaje()) {
-          <p class="alert">{{ mensaje() }}</p>
+        @if (estaLogueado()) {
+        <button class="btn carrito" (click)="agregarAlCarrito()">
+          🛒 Agregar al Carrito
+        </button>
+        } @else {
+        <button class="btn login" (click)="irALogin()">
+          🔐 Inicia sesión
+        </button>
         }
 
+        @if (isAdmin()) {
+        <button class="btn editar" (click)="editarLibro()">Editar</button>
+        <button class="btn eliminar" (click)="eliminarLibro()">Eliminar</button>
+
+        }
       </div>
     </div>
-  </div>
 
+    <!-- COLUMNA RIGHT (Info + reseñas) -->
+    <div class="info-box">
+      <h2 class="titulo">{{ libro().titulo }}</h2>
+
+      <p><span>Autor:</span> {{ libro().autor }}</p>
+      <p><span>Género:</span> {{ libro().genero }}</p>
+      <p><span>Año:</span> {{ libro().anioPublicacion }}</p>
+      <p><span>Precio:</span> ${{ libro().precio }}</p>
+
+      <div class="descripcion-block">
+        <p><span>Descripción:</span></p>
+        <p class="descripcion">{{ libro().descripcion || 'Sin descripción disponible.' }}</p>
+      </div>
+
+      <!-- ⭐ RESEÑAS -->
+      <div class="resenas-block">
+
+        <h3>Reseñas de usuarios</h3>
+
+        @if (resenias().length === 0) {
+        <p class="no-resenas">Aún no hay reseñas</p>
+        } @else {
+        @for (r of resenias(); track r.id) {
+        <div class="resena-item">
+          <p class="user"><i class="fa-solid fa-user"></i> {{ r.username }}</p>
+
+          <div class="stars">
+            @for (star of generarEstrellas(r.calificacion); track star) {
+            <span>{{ star }}</span>
+            }
+          </div>
+
+          <p class="comentario">"{{ r.comentario }}"</p>
+          
+          @if (isAdmin()) {
+          <button class="btn eliminar-admin" (click)="eliminarResenaAdmin(r.id)">
+            ❌ Eliminar reseña
+          </button>
+          }
+        </div>
+        }
+        }
+      </div>
+    </div>
+
+  </div>
+</div>
 } @else {
-  <p class="not-found fade-in">Libro no encontrado</p>
+<p class="not-found fade-in">Libro no encontrado</p>
 }

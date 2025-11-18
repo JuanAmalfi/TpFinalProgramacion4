@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, inject } from '@angular/core';
+import { Component, computed, effect, inject, signal } from '@angular/core';
 import { LibroStore } from '../libro-store';
 import { Router } from '@angular/router';
 import { AuthService } from '../../log/auth/auth-service';
+import { Libro } from '../libro';
 
 @Component({
   selector: 'app-libro-list',
@@ -20,7 +21,60 @@ export class LibroList {
   protected error = this.store.error;
   protected auth=inject(AuthService)
 
-  protected filtrosAbiertos = false;
+  protected filtrosAbiertos = signal(false);
+
+
+ protected filtroAutor = signal('');
+  protected filtroGenero = signal('');
+  protected filtroAnio = signal<number | null>(null);
+  protected filtroPrecioMin = signal<number | null>(null);
+  protected filtroPrecioMax = signal<number | null>(null);
+  protected filtroDisponible = signal(false);
+
+
+  
+   protected filteredLibros = computed(() => {
+    return this.libros().filter((libro: Libro) => {
+
+      const coincideAutor = this.filtroAutor()
+        ? libro.autor.toLowerCase().includes(this.filtroAutor().toLowerCase())
+        : true;
+
+      const coincideGenero = this.filtroGenero()
+        ? libro.genero?.toLowerCase() === this.filtroGenero().toLowerCase()
+        : true;
+
+      const coincideAnio = this.filtroAnio()
+        ? Number(libro.anioPublicacion ?? libro.anioPublicacion) === Number(this.filtroAnio())
+        : true;
+
+      const coincidePrecioMin = this.filtroPrecioMin()
+        ? libro.precio >= this.filtroPrecioMin()!
+        : true;
+
+      const coincidePrecioMax = this.filtroPrecioMax()
+        ? libro.precio <= this.filtroPrecioMax()!
+        : true;
+
+      const coincideDisponible = this.filtroDisponible()
+        ? libro.disponible === true
+        : true;
+
+      return (
+        coincideAutor &&
+        coincideGenero &&
+        coincideAnio &&
+        coincidePrecioMin &&
+        coincidePrecioMax &&
+        coincideDisponible
+      );
+    });
+  });
+
+
+
+
+
 
   constructor() {
     // carga automática de los libros al entrar
@@ -44,15 +98,23 @@ export class LibroList {
   }
 
 
-toggleFiltros() {
-  this.filtrosAbiertos = !this.filtrosAbiertos;
+ toggleFiltros() {
+    this.filtrosAbiertos.update(v => !v);
+  }
+
+
+  limpiarFiltros() {
+    this.filtroAutor.set('');
+    this.filtroGenero.set('');
+    this.filtroAnio.set(null);
+    this.filtroPrecioMin.set(null);
+    this.filtroPrecioMax.set(null);
+    this.filtroDisponible.set(false);
+  }
+
+
+redondear(valor: number | undefined | null): number {
+  return Math.round(valor ?? 0);
 }
-
-limpiarFiltros() {
-  // acá limpiarías tus variables o formulario de filtros
-  console.log("Filtros limpiados");
-}
-
-
 
 }

@@ -1,0 +1,59 @@
+<div class="detalle-wrapper">
+
+  <!-- BOTÓN VOLVER ARRIBA -->
+  <button class="btn volver top-btn" (click)="volver()">← Volver</button>
+
+  <div class="detalle-card glass fade-in">
+
+    @if (libro()) {
+
+      <div class="img-box">
+        <img [src]="libro()!.portada || 'assets/placeholder.png'" alt="Portada">
+      </div>
+
+      <div class="info-box">
+        <h2 class="titulo">{{ libro()!.titulo }}</h2>
+
+        <!-- Datos del libro -->
+        <p><span>Autor:</span> {{ libro()!.autor || 'Desconocido' }}</p>
+        <p><span>Género:</span> {{ libro()!.genero || 'No indicado' }}</p>
+        <p><span>Año:</span> {{ libro()!.anioPublicacion || '---' }}</p>
+
+        <!-- Estado -->
+        <div class="estado-box">
+          <label>Estado de lectura:</label>
+          <button [class.active]="estadoLectura()==='No leído'" (click)="cambiarEstado('No leído')">No leído</button>
+          <button [class.active]="estadoLectura()==='Leyendo'" (click)="cambiarEstado('Leyendo')">Leyendo</button>
+          <button [class.active]="estadoLectura()==='Terminado'" (click)="cambiarEstado('Terminado')">Terminado</button>
+        </div>
+
+        <!-- Reseña -->
+        <div class="resena-box">
+          <h3>Reseña</h3>
+
+          @if(resena()) {
+            <div class="rating">
+              @for (star of estrellas(); track $index) {
+                <span class="star">{{ star }}</span>
+              }
+            </div>
+            <p class="comentario">{{ resena()!.comentario }}</p>
+
+            <div class="actions">
+              <button (click)="agregarResena()">Editar reseña ✏️</button>
+              <button class="delete" (click)="eliminarResena()">Eliminar ❌</button>
+            </div>
+
+          } @else {
+            <p class="no-resena">Aún no agregaste reseña</p>
+            <button class="add" (click)="agregarResena()">Agregar reseña ⭐</button>
+          }
+        </div>
+      </div>
+
+    } @else {
+      <p class="not-found fade-in">Cargando...</p>
+    }
+
+  </div>
+</div>

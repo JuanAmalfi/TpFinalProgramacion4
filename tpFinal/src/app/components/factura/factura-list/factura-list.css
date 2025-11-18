@@ -1,0 +1,105 @@
+/* Fondo animado */
+.factura-wrapper {
+  min-height: 100vh;
+  padding: 2rem;
+  color: #eee;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(135deg, #0a0a0a, #131313, #181818);
+  background-size: 200% 200%;
+  animation: bgMove 12s infinite alternate ease;
+}
+
+@keyframes bgMove {
+  from { background-position: left top; }
+  to { background-position: right bottom; }
+}
+
+/* Título */
+.titulo-seccion {
+  font-family: "Georgia", serif;
+  font-size: 2rem;
+  color: #f5deb3;
+  margin-bottom: 1.8rem;
+  letter-spacing: 1px;
+}
+
+/* Grid */
+.facturas-grid {
+  width: min(900px, 95%);
+  display: grid;
+  gap: 1.2rem;
+}
+
+/* Tarjeta estilo cristal */
+.factura-card {
+  padding: 1.4rem;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(245,222,179,0.25);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.55);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.factura-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 0 18px rgba(245,222,179,0.35);
+}
+
+/* Header */
+.factura-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: .8rem;
+}
+
+.factura-header h3 {
+  color: #f5deb3;
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.fecha {
+  font-size: .9rem;
+  color: #c9c9c9;
+}
+
+/* Body */
+.factura-body span {
+  color: #f5deb3;
+  font-weight: 600;
+}
+
+.factura-body p {
+  margin: .3rem 0;
+  color: #dcdcdc;
+}
+
+/* Mensajes */
+.msg {
+  margin-top: 1.2rem;
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+.msg.info {
+  color: #d1d5db;
+}
+
+.msg.error {
+  color: #ff8b8b;
+  font-weight: 700;
+}
+
+/* Fade animation */
+.fade-in {
+  animation: fadeIn .6s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}

@@ -9,5 +9,7 @@ descripcion?:string;
 precio:number;
 portada?:string;
 
+promedioCalificacion?: number;
+
     
 }

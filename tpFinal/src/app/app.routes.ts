@@ -13,6 +13,9 @@ import { UsuarioList } from './components/usuario/usuario-list/usuario-list';
 import { UsuarioDetalle } from './components/usuario/usuario-detalle/usuario-detalle';
 import { UsuarioEditar } from './components/usuario/usuario-editar/usuario-editar';
 import { LibroEdit } from './components/libro/libro-edit/libro-edit';
+import { FacturaList } from './components/factura/factura-list/factura-list';
+import { BibliotecaDetails } from './components/biblioteca/biblioteca-details/biblioteca-details';
+import { ReseniaForm } from './components/resenia/resenia-form/resenia-form';
 
 
 
@@ -70,7 +73,22 @@ path: 'usuarios/editar/:id',
     component: BibliotecaList,
     canActivate: [AuthGuard]
   },
+  {
+    path:'biblioteca/:id',
+    component:BibliotecaDetails,
+    canActivate: [AuthGuard]
+  },
   { path: 'usuarios/nuevo', component: Usuario },
+  {
+    path:'facturas',
+    component:FacturaList,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'resena-form/:libroId',
+    component:ReseniaForm,
+    canActivate: [AuthGuard]
+  },
 
 
   // Redirección default

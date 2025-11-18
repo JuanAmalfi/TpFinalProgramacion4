@@ -1,0 +1,36 @@
+<section class="factura-wrapper fade-in">
+
+  <h2 class="titulo-seccion">📄 Mis Facturas</h2>
+
+  @if (loading()) {
+    <p class="msg info">Cargando facturas...</p>
+  }
+  @else if (error()) {
+    <p class="msg error">{{ error() }}</p>
+  }
+  @else if (facturas().length === 0) {
+    <p class="msg info">Aún no generaste ninguna factura.</p>
+  }
+  @else {
+
+    <div class="facturas-grid">
+      @for (factura of facturas(); track factura.id) {
+
+        <div class="factura-card glass">
+          <div class="factura-header">
+            <h3>Factura #{{ factura.id }}</h3>
+            <span class="fecha">🗓 {{ factura.fecha | date:'dd/MM/yyyy HH:mm' }}</span>
+          </div>
+
+          <div class="factura-body">
+            <p><span>Total:</span> ${{ factura.total }}</p>
+            <p><span>Libros comprados:</span> {{ factura.items?.length }}</p>
+          </div>
+        </div>
+
+      }
+    </div>
+
+  }
+
+</section>
