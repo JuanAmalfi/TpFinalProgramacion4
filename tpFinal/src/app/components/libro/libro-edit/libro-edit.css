@@ -1,57 +1,54 @@
+/* =====================================================
+   LIBRO EDIT — ESTILO GLOBAL UNIFICADO
+===================================================== */
+
 :host {
   display: block;
   min-height: 100vh;
   padding: 2rem;
-  background: linear-gradient(140deg, #0a0a0a, #121212, #1a1a1a);
-  background-size: 300% 300%;
-  animation: bgFlow 12s ease infinite alternate;
+  background: var(--color-bg);
 }
 
-@keyframes bgFlow {
-  0% { background-position: left top; }
-  100% { background-position: right bottom; }
-}
-
+/* Wrapper */
 .edit-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
+/* Tarjeta */
 .edit-card {
   width: min(600px, 92%);
-  background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(14px);
-  border: 1px solid rgba(245, 222, 179, 0.25);
+  background: var(--color-bg-card-2);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(245,222,179,0.25);
   padding: 2rem;
-  border-radius: 18px;
-  color: #fff;
-  animation: fadeInUp .6s ease-out, glowPulse 4s ease-in-out infinite alternate;
+  border-radius: var(--radius);
+  color: var(--color-text);
+  box-shadow: var(--shadow);
+  animation: fadeIn .5s ease-out;
 }
 
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(32px) scale(.96); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(25px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes glowPulse {
-  from { box-shadow: 0 0 10px rgba(245,222,179,0.12); }
-  to   { box-shadow: 0 0 25px rgba(245,222,179,0.28); }
-}
-
+/* Título */
 .title {
   text-align: center;
-  color: #f5deb3;
-  font-family: 'Georgia';
-  margin-bottom: .3rem;
+  color: var(--color-accent);
+  margin-bottom: .2rem;
+  font-family: Georgia, serif;
 }
 
 .subtitle {
   text-align: center;
-  color: #e0d9c9;
-  margin-bottom: 1.4rem;
+  color: var(--color-text-soft);
+  margin-bottom: 1.2rem;
 }
 
+/* Campos */
 .form-group {
   display: flex;
   flex-direction: column;
@@ -59,41 +56,34 @@
 }
 
 .form-group label {
-  color: #f5deb3;
+  color: var(--color-accent);
   font-weight: 600;
   margin-bottom: 4px;
-  font-size: .9rem;
 }
 
 input, select, textarea {
   background: rgba(255,255,255,0.07);
-  border: 1px solid rgba(245,222,179,0.2);
-  color: #fff;
-  border-radius: 10px;
-  padding: .6rem;
-  transition: .2s;
+  border: 1px solid rgba(245,222,179,0.25);
+  color: var(--color-text);
+  border-radius: var(--radius);
+  padding: .7rem;
+  transition: var(--transition);
 }
 
 input:focus, select:focus, textarea:focus {
-  border-color: #f5deb3;
+  border-color: var(--color-accent);
   box-shadow: 0 0 10px rgba(245,222,179,0.35);
-  transform: scale(1.02);
-  outline: none;
 }
 
-.error {
-  color: #ff6b6b;
-  font-size: .75rem;
-  margin-top: .25rem;
-}
-
+/* Preview */
 .preview img {
   margin-top: .5rem;
   max-width: 120px;
-  border-radius: 10px;
-  border: 2px solid rgba(245,222,179,0.35);
+  border-radius: var(--radius);
+  border: 1px solid rgba(245,222,179,0.35);
 }
 
+/* Actions */
 .actions {
   display: flex;
   justify-content: space-between;
@@ -101,39 +91,40 @@ input:focus, select:focus, textarea:focus {
 }
 
 .btn {
-  padding: .6rem 1.4rem;
-  border-radius: 8px;
+  padding: .7rem 1.4rem;
+  border-radius: var(--radius);
   font-weight: 700;
   cursor: pointer;
   border: none;
-  transition: .25s;
+  transition: var(--transition);
 }
 
+/* Cancelar */
 .btn.cancel {
-  background: #3b3b3b;
-  color: #fff;
+  background: #3a3a3a;
+  color: var(--color-text);
 }
-
 .btn.cancel:hover {
   background: #555;
   transform: translateY(-2px);
 }
 
+/* Guardar */
 .btn.save {
-  background: #f5deb3;
+  background: var(--color-accent);
   color: #121212;
 }
-
 .btn.save:hover {
-  background: #ffe7c4;
-  transform: translateY(-2px) scale(1.05);
+  background: #ffe8cd;
+  transform: translateY(-2px);
 }
 
+/* Toggle */
 .toggle {
   display: flex;
   align-items: center;
   gap: .6rem;
-  margin-top: .6rem;
+  margin-top: .7rem;
 }
 
 .switch {
@@ -149,7 +140,7 @@ input:focus, select:focus, textarea:focus {
   content: "";
   width: 18px;
   height: 18px;
-  background: #f5deb3;
+  background: var(--color-accent);
   border-radius: 50%;
   position: absolute;
   top: 2px;
@@ -162,6 +153,12 @@ input[type="checkbox"]:checked + .switch::after {
 }
 
 .toggle-label {
-  color: #fff;
-  font-size: .9rem;
+  color: var(--color-text);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .edit-card {
+    padding: 1.5rem;
+  }
 }

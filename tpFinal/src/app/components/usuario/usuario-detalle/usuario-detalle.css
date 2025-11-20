@@ -2,45 +2,38 @@
   display: flex;
   justify-content: center;
   padding: 2rem;
-  background-color: #121212;
+  background: var(--color-bg);
+  min-height: 100vh;
 }
 
 .card-detalle {
-  background-color: #383636;
-  width: 360px;
+  background: var(--color-bg-card-2);
+  width: 100%;
+  max-width: 380px;
   padding: 2rem;
-  border-radius: 14px;
-  box-shadow: 0 4px 12px rgba(255,255,255,0.15);
+  border-radius: var(--radius);
+  color: var(--color-text);
+  box-shadow: var(--shadow);
   text-align: center;
-  color: #e6e3e3;
-  font-family: Cambria, Georgia, serif;
-  animation: fadeIn 0.4s ease-out;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: translateY(0); }
+  animation: fadeIn 0.4s ease;
 }
 
 .avatar {
   width: 95px;
   height: 95px;
+  margin: 0 auto;
   border-radius: 50%;
-  background-color: #252525;
+  background: var(--color-bg-card);
+  color: var(--color-text);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 1rem auto;
-  font-size: 2.8rem;
-  font-weight: 700;
-  color: #e6e3e3;
-  border: 3px solid #6b6b6b;
+  border: 3px solid #676767;
+  font-size: 2.6rem;
 }
 
 .email {
-  font-size: 0.9rem;
-  color: #cfcfcf;
-  margin-bottom: 1rem;
+  color: var(--color-text-soft);
 }
 
 .info-list {
@@ -50,51 +43,46 @@
 
 .info-list p {
   margin: 6px 0;
-  font-size: 0.95rem;
 }
 
 .acciones {
-  display: flex;
-  justify-content: space-between;
   margin-top: 1.5rem;
+  display: flex;
+  gap: 0.6rem;
 }
 
 .btn {
-  padding: 8px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 600;
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
   border: none;
-  transition: transform 0.2s ease, background-color 0.2s ease;
+  font-weight: bold;
+  cursor: pointer;
+  transition: var(--transition);
 }
 
 .btn-primary {
-  background-color: #e6e3e3;
-  color: #383636;
+  background: var(--color-accent);
+  color: #121212;
 }
 
 .btn-primary:hover {
-  transform: translateY(-2px);
-  background-color: #ffffff;
+  background: #f2e1c9;
 }
 
 .btn-delete {
-  background-color: #b63737;
-  color: #fff;
+  background: var(--color-danger);
 }
 
 .btn-delete:hover {
-  background-color: #d23b3b;
-  transform: translateY(-2px);
+  background: #d84545;
 }
 
 .btn-secondary {
-  background-color: #4b4b4b;
-  color: #e6e3e3;
+  background: #4b4b4b;
+  color: var(--color-text);
 }
 
 .btn-secondary:hover {
-  background-color: #5a5a5a;
-  transform: translateY(-2px);
+  background: #5c5c5c;
 }

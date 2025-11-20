@@ -1,69 +1,74 @@
-/* Fondo animado */
+/* =======================================
+   RESEÑA FORM — ESTILO UNIFICADO
+======================================= */
+
+/* Fondo */
 .form-wrapper {
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 2rem;
+
   background: linear-gradient(135deg, #0a0a0a, #121212, #1a1a1a);
   background-size: 200% 200%;
   animation: bgMove 12s infinite alternate ease;
 }
 
+/* animación */
 @keyframes bgMove {
   from { background-position: left top; }
-  to { background-position: right bottom; }
+  to   { background-position: right bottom; }
 }
 
-/* Tarjeta del formulario */
+/* Tarjeta */
 .form-card {
   width: min(500px, 92%);
   padding: 2rem;
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.07);
-  border: 1px solid rgba(245, 222, 179, 0.3);
-  backdrop-filter: blur(14px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.55);
-  color: #eee;
-  animation: fadeIn .6s ease-out;
+
+  background: var(--color-bg-card-2);
+  border-radius: var(--radius);
+  border: 1px solid rgba(245,222,179,0.25);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow);
+
+  animation: fadeIn .5s ease-out;
 }
 
+/* Fade */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(25px); }
-  to { opacity: 1; transform: translateY(0); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 /* Título */
-h2 {
+.form-card h2 {
   text-align: center;
+  color: var(--color-accent);
+  font-family: Georgia, serif;
   margin-bottom: 1.5rem;
-  font-family: "Georgia", serif;
-  color: #f5deb3;
-  letter-spacing: 1px;
 }
 
 /* Etiquetas */
 label {
   display: block;
   margin: 1rem 0 .4rem;
-  color: #f5deb3;
+  color: var(--color-accent);
   font-weight: 600;
-  letter-spacing: 0.5px;
 }
 
 /* Estrellas */
 .stars {
   display: flex;
-  gap: .4rem;
+  gap: .5rem;
   margin-bottom: 1rem;
-  user-select: none;
 }
 
 .star {
-  font-size: 1.9rem;
+  font-size: 1.8rem;
   cursor: pointer;
-  transition: transform .25s, color .25s;
   color: #777;
+  transition: var(--transition);
 }
 
 .star:hover {
@@ -78,50 +83,52 @@ label {
 /* Textarea */
 textarea {
   width: 100%;
-  min-height: 110px;
-  padding: .9rem;
-  border-radius: 10px;
-  resize: none;
-  font-size: .95rem;
-  color: #eee;
-  background: rgba(255,255,255,0.06);
+  min-height: 120px;
+  padding: 12px;
+
+  border-radius: var(--radius);
+  background: rgba(255,255,255,0.05);
+  color: var(--color-text);
+
   border: 1px solid rgba(245,222,179,0.25);
   outline: none;
-  transition: .25s;
+  transition: var(--transition);
 }
 
 textarea:focus {
-  border-color: #f5deb3;
-  box-shadow: 0 0 10px rgba(245,222,179,0.35);
+  border-color: var(--color-accent);
+  box-shadow: 0 0 8px rgba(214,195,165,0.4);
 }
 
 /* Botón */
 button {
   width: 100%;
+  padding: 12px;
   margin-top: 1.4rem;
-  padding: .8rem 1.4rem;
-  border-radius: 10px;
-  font-weight: bold;
-  font-size: 1rem;
-  cursor: pointer;
-  background: #f5deb3;
-  color: #0d0d0d;
+
+  border-radius: var(--radius);
+  background: var(--color-accent);
+  color: #121212;
   border: none;
-  transition: .25s;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+
+  transition: var(--transition);
 }
 
 button:hover {
-  background: #ffe7c0;
-  transform: translateY(-3px);
-  box-shadow: 0 0 12px rgba(245,222,179,.35);
+  background: #ffe8cd;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
 }
 
-/* Mobile */
-@media(max-width: 480px) {
+/* Responsive */
+@media (max-width: 480px) {
   .form-card {
     padding: 1.5rem;
   }
   .star {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
   }
 }

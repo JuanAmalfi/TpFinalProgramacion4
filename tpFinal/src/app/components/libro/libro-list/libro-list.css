@@ -1,12 +1,15 @@
-/* Fondo general */
+/* =====================================================
+   BACKGROUND GENERAL
+===================================================== */
 .libros-layout {
   min-height: 100vh;
   padding: 2rem 2.5rem;
-  background: radial-gradient(circle at top, #1f1f1f, #0b0b0b 55%, #050505);
-  box-sizing: border-box;
+  background: var(--color-bg);
 }
 
-/* Header del listado */
+/* =====================================================
+   HEADER
+===================================================== */
 .lista-header {
   display: flex;
   justify-content: space-between;
@@ -15,56 +18,54 @@
 }
 
 .lista-header h2 {
-  color: #f5deb3;
+  color: var(--color-accent);
   font-family: "Georgia", serif;
   font-size: 2rem;
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
 }
 
-/* Botón de filtros */
+/* Botón filtros */
 .filters-btn {
-  padding: 0.5rem 1.2rem;
+  padding: .5rem 1.2rem;
   border-radius: 999px;
-  border: 1px solid rgba(245, 222, 179, 0.7);
-  background: rgba(245, 222, 179, 0.12);
-  color: #f5deb3;
-  font-weight: 600;
+  background: rgba(245, 222, 179, .15);
+  border: 1px solid rgba(245, 222, 179, .35);
+  color: var(--color-accent);
   cursor: pointer;
-  transition: 0.22s ease-out;
+  font-weight: 600;
+  transition: var(--transition);
   backdrop-filter: blur(6px);
 }
 
 .filters-btn:hover {
-  background: rgba(245, 222, 179, 0.3);
+  background: rgba(245, 222, 179, .3);
   transform: translateY(-2px);
-  box-shadow: 0 0 14px rgba(245, 222, 179, 0.35);
 }
 
-/* GRID de libros */
+/* =====================================================
+   GRID TARJETAS
+===================================================== */
 .grid-libros {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
   gap: 1.5rem;
 }
 
-/* Tarjeta de libro */
+/* Tarjeta de libro (UNIFICADA CON HOME) */
 .card-libro {
-  background: radial-gradient(circle at top left, #3b3b3b, #222222);
   border-radius: 18px;
-  border: 1px solid rgba(245, 222, 179, 0.15);
+  background: var(--color-bg-card);
+  border: 1px solid rgba(245, 222, 179, 0.25);
   padding: 1rem;
   cursor: pointer;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.65);
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-  color: #f5deb3;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  color: var(--color-text);
 }
 
 .card-libro:hover {
   transform: translateY(-6px) scale(1.02);
-  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.8);
-  border-color: rgba(245, 222, 179, 0.45);
+  border-color: var(--color-accent);
+  box-shadow: 0 16px 32px rgba(0,0,0,0.7);
 }
 
 /* Imagen */
@@ -73,165 +74,109 @@
   height: 240px;
   object-fit: cover;
   border-radius: 12px;
-  margin-bottom: 0.8rem;
+  margin-bottom: .8rem;
 }
 
-/* Texto */
+/* Título */
 .card-libro h4 {
   font-family: "Georgia", serif;
   font-size: 1rem;
-  margin: 0.3rem 0;
+  margin: .3rem 0;
 }
 
+/* Autor */
 .card-libro .autor {
-  font-size: 0.9rem;
-  color: #f5deb3;
-  opacity: 0.85;
-  margin: 0.1rem 0 0.4rem;
+  font-size: .9rem;
+  opacity: .85;
+  margin: .1rem 0 .5rem;
 }
 
+/* Precio */
 .card-libro .precio {
   font-weight: 700;
   font-size: 1rem;
+  color: var(--color-accent);
 }
 
-/* ========== MODAL FILTROS ========== */
-
+/* =====================================================
+   MODAL FILTROS UNIFICADO
+===================================================== */
 .filters-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.65);
-  backdrop-filter: blur(4px);
+  background: rgba(0,0,0,.55);
+  backdrop-filter: blur(5px);
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   z-index: 50;
 }
 
 .filters-modal {
   width: min(420px, 90%);
-  background: rgba(15, 15, 15, 0.9);
+  background: var(--color-bg-card-2);
+  padding: 1.8rem;
   border-radius: 18px;
-  padding: 1.5rem 1.8rem;
-  border: 1px solid rgba(245, 222, 179, 0.3);
-  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.8);
-  color: #f5deb3;
-  animation: modalIn 0.25s ease-out;
-}
-
-@keyframes modalIn {
-  from {
-    opacity: 0;
-    transform: translateY(-12px) scale(0.96);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+  border: 1px solid rgba(245, 222, 179, .3);
+  box-shadow: var(--shadow);
+  animation: fadeIn .3s ease-out;
+  color: var(--color-text);
 }
 
 .modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.8rem;
-}
-
-.modal-header h3 {
-  font-family: "Georgia", serif;
 }
 
 .close-modal {
   background: transparent;
   border: none;
-  color: #f5deb3;
+  color: var(--color-accent);
   font-size: 1.1rem;
   cursor: pointer;
 }
 
-/* Campos de filtros */
+/* Inputs del modal */
 .filtro {
-  margin-top: 0.6rem;
-  display: flex;
-  flex-direction: column;
-}
-
-.filtro label {
-  font-size: 0.9rem;
-  margin-bottom: 0.2rem;
+  margin-top: .8rem;
 }
 
 .filtro input,
 .filtro select {
-  padding: 0.45rem 0.6rem;
-  border-radius: 8px;
-  border: 1px solid rgba(245, 222, 179, 0.35);
-  background: rgba(255, 255, 255, 0.04);
-  color: #f5deb3;
+  padding: .5rem .6rem;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(245,222,179,.3);
+  border-radius: var(--radius);
+  color: var(--color-text);
   outline: none;
-  transition: 0.2s;
+  transition: var(--transition);
 }
 
 .filtro input:focus,
 .filtro select:focus {
-  border-color: #f5deb3;
-  box-shadow: 0 0 10px rgba(245, 222, 179, 0.5);
+  border-color: var(--color-accent);
+  box-shadow: 0 0 10px rgba(245,222,179,.4);
 }
 
-/* Precio range */
-.precio-range {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  gap: 0.4rem;
-}
-
-.checkbox-filtro {
-  margin-top: 0.8rem;
-  font-size: 0.9rem;
-}
-
-/* Botones del modal */
 .modal-actions {
   display: flex;
   justify-content: flex-end;
-  gap: 0.6rem;
+  gap: .6rem;
   margin-top: 1.2rem;
 }
 
-.btn-clear,
-.btn-apply {
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  border: none;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
 .btn-clear {
-  background: rgba(255, 255, 255, 0.1);
-  color: #f5deb3;
-}
-
-.btn-clear:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255,255,255,.1);
+  color: var(--color-accent);
 }
 
 .btn-apply {
-  background: #f5deb3;
+  background: var(--color-accent);
   color: #121212;
 }
 
+.btn-clear:hover,
 .btn-apply:hover {
-  background: #ffe8c4;
-  transform: translateY(-1px);
-}
-.rating {
-  margin-top: 5px;
-  color: #ffc107;
-  font-size: 1rem;
-}
-.star {
-  margin-right: 2px;
+  transform: translateY(-2px);
 }

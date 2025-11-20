@@ -1,9 +1,31 @@
-/* You can add global styles to this file, and also import other style files */
-html, body {
+/* =====================================================
+   VARIABLES DE DISEÑO GLOBALES
+   Se aplican a TODA la app — unifican estilos
+===================================================== */
+:root {
+  --color-bg: #121212;
+  --color-bg-card: #2b2b2b;
+  --color-bg-card-2: #383636;
+
+  --color-text: #e6e3e3;
+  --color-text-soft: #cfcfcf;
+  --color-accent: #d6c3a5;
+  --color-danger: #b63737;
+
+  --radius: 12px;
+  --shadow: 0 6px 14px rgba(0,0,0,0.45);
+  --transition: 0.25s ease;
+}
+
+/* Reset */
+* {
   margin: 0;
   padding: 0;
-  box-sizing: border-box; 
-  width: 100%;
-  height: 100%;
-  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: Georgia, serif;
 }

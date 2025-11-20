@@ -1,35 +1,44 @@
+/* ================================
+   LOGIN — ESTILO UNIFICADO
+================================ */
+
+/* Contenedor general */
 .auth-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 80vh;
-  background-color: #121212;
+  min-height: 100vh;
   padding: 2rem;
+  background: var(--color-bg);
 }
 
+/* Tarjeta del formulario */
 .login-form {
-  background-color: #383636;
-  padding: 2rem;
-  border-radius: 12px;
   width: 350px;
-  box-shadow: 0 6px 12px rgba(255, 255, 255, 0.2);
+  background: var(--color-bg-card-2);
+  padding: 2rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  transition: transform 0.3s;
+  transition: var(--transition);
 }
 
 .login-form:hover {
   transform: translateY(-4px);
 }
 
+/* Título */
 .login-form h2 {
-  color: #e6e3e3;
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  color: var(--color-text);
+  font-family: Georgia, serif;
   font-size: 1.8rem;
   margin-bottom: 1rem;
+  text-align: center;
 }
 
+/* Grupo de campos */
 .form-group {
   display: flex;
   flex-direction: column;
@@ -37,103 +46,86 @@
 }
 
 .form-group label {
-  color: #e6e3e3;
+  color: var(--color-text);
   font-weight: 600;
 }
 
 .form-group input {
-  padding: 8px;
-  border-radius: 6px;
-  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.05);
+  color: var(--color-text);
   outline: none;
-  font-size: 14px;
+  transition: var(--transition);
 }
 
 .form-group input:focus {
-  box-shadow: 0 0 0 2px #e6e3e3;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 6px rgba(214,195,165,0.45);
 }
 
+/* Error en inputs */
 .error {
   color: #ff6b6b;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
 }
 
+/* Error general */
 .error-message {
-  color: #ff6b6b;
-  font-weight: bold;
-  margin: 0.5rem 0;
+  color: #ff4d4d;
+  font-weight: 600;
+  background-color: rgba(255, 77, 77, 0.1);
+  border: 1px solid #ff4d4d;
+  padding: 10px;
+  border-radius: 6px;
+  text-align: center;
+  animation: fadeIn .3s ease-out;
 }
 
+/* Botón ingresar */
 .btn-login {
-  padding: 10px 16px;
-  border-radius: 6px;
-  font-size: 16px;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  background: var(--color-accent);
+  color: #121212;
+  font-size: 1rem;
   font-weight: 600;
-  background-color: #e6e3e3;
-  color: #383636;
-  border: 2px solid transparent;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: var(--transition);
 }
 
 .btn-login:hover {
-  background-color: #ffffff;
-  color: #1e1e1e;
+  background: #ffe8cd;
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow);
 }
 
-.demo-users {
-  margin-top: 1rem;
-  color: #e6e3e3;
-  font-size: 0.75rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-}
-
-/* Enlace de crear cuenta */
+/* Registro */
 .register-link {
   margin-top: 1rem;
 }
 
 .register-link p {
-  color: #e6e3e3;
+  color: var(--color-text);
   font-size: 0.9rem;
   text-align: center;
 }
 
 .link-btn {
-  color: #e6e3e3;
-  font-weight: 600;
+  color: var(--color-accent);
   cursor: pointer;
+  font-weight: bold;
   text-decoration: underline;
-  transition: color 0.2s;
+  transition: var(--transition);
 }
 
 .link-btn:hover {
   color: #ffffff;
 }
 
-/* Mensaje de error */
-.error-message {
-  color: #ff4d4d;
-  background-color: rgba(255, 77, 77, 0.1);
-  border: 1px solid #ff4d4d;
-  padding: 10px;
-  border-radius: 6px;
-  text-align: center;
-  margin-top: 10px;
-  font-weight: 600;
-  animation: fadeIn .3s ease-out;
-}
-
-/* Animación shake */
-.shake {
-  animation: shake .35s cubic-bezier(.36,.07,.19,.97) both;
-}
-
-/* Keyframes */
+/* Shake animation */
 @keyframes shake {
   10%, 90% { transform: translateX(-2px); }
   20%, 80% { transform: translateX(4px); }
@@ -141,10 +133,18 @@
   40%, 60% { transform: translateX(8px); }
 }
 
-/* Fade suave */
+.shake { animation: shake .35s; }
+
+/* Fade */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-4px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-
+/* Responsive */
+@media (max-width: 480px) {
+  .login-form {
+    width: 90%;
+    padding: 1.5rem;
+  }
+}

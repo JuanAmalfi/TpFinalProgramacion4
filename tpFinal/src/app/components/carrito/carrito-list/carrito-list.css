@@ -1,56 +1,58 @@
-/* Fondo animado */
+/* =====================================================
+   CARRITO LIST - ESTILO GLOBAL
+===================================================== */
+
+/* Background */
 .carrito-wrapper {
   min-height: 100vh;
   padding: 2rem;
-  background: linear-gradient(135deg, #0a0a0a, #131313, #181818);
-  background-size: 200% 200%;
-  animation: bgMove 12s infinite alternate ease;
+
+  background: var(--color-bg);
   display: flex;
   justify-content: center;
   align-items: start;
 }
-@keyframes bgMove {
-  from { background-position: left top; }
-  to   { background-position: right bottom; }
-}
 
-/* Tarjeta principal */
+/* Card general */
 .carrito-card {
   width: min(950px, 95%);
   padding: 2rem;
-  border-radius: 18px;
-  background: rgba(255,255,255,0.08);
+  border-radius: var(--radius);
+
+  background: var(--color-bg-card-2);
   border: 1px solid rgba(245,222,179,0.25);
   backdrop-filter: blur(14px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.6);
-  color: #eee;
-  animation: fadeIn .6s ease-out;
+  box-shadow: var(--shadow);
+
+  animation: fadeIn .4s ease-out;
+  color: var(--color-text);
   text-align: center;
 }
+
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
+  from { opacity: 0; transform: translateY(12px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Título principal */
+/* Título */
 .titulo {
-  color: #f5deb3;
+  color: var(--color-accent);
   font-size: 1.9rem;
   font-family: "Georgia", serif;
-  margin-bottom: 1.6rem;
-  letter-spacing: 1px;
+  margin-bottom: 1.4rem;
 }
 
-/* Estados */
+/* Estado del carrito */
 .estado {
-  margin: 1.5rem 0;
+  margin: 1.2rem 0;
   font-size: 1.1rem;
-  opacity: .8;
+  opacity: .85;
 }
-.estado.error { color: #ff7b7b; }
-.estado.vacio { color: #f5deb3; }
 
-/* Items */
+.estado.error { color: #ff7b7b; }
+.estado.vacio { color: var(--color-accent); }
+
+/* Lista de ítems */
 .carrito-items {
   display: flex;
   flex-direction: column;
@@ -58,18 +60,22 @@
   margin-top: 1rem;
 }
 
-/* Card de item */
+/* Item */
 .carrito-item {
   display: flex;
   gap: 1.2rem;
   align-items: center;
+
   padding: 1rem;
-  border-radius: 14px;
-  background: rgba(255,255,255,0.07);
+  border-radius: var(--radius);
+  background: var(--color-bg-card);
   border: 1px solid rgba(245,222,179,0.2);
-  backdrop-filter: blur(10px);
-  transition: .25s ease;
+  backdrop-filter: blur(8px);
+  box-shadow: var(--shadow);
+
+  transition: var(--transition);
 }
+
 .carrito-item:hover {
   transform: translateY(-4px);
 }
@@ -88,61 +94,74 @@
   flex: 1;
   text-align: left;
 }
+
 .titulo-item {
   font-family: "Georgia", serif;
-  color: #f5deb3;
+  color: var(--color-accent);
   font-size: 1.1rem;
 }
+
 .autor {
   font-size: .9rem;
-  color: #cfcfcf;
+  color: var(--color-text-soft);
 }
+
 .item-info span {
-  color: #f5deb3;
+  color: var(--color-accent);
   font-weight: 600;
 }
+
 .subtotal {
   margin-top: .4rem;
   color: #86efac;
   font-weight: 600;
 }
 
-/* Botones */
+/* Botón eliminar */
 .btn {
   padding: .65rem 1.3rem;
-  border-radius: 8px;
-  cursor: pointer;
+  border-radius: var(--radius);
   border: none;
+  cursor: pointer;
   font-weight: 600;
-  transition: .25s;
+  transition: var(--transition);
 }
+
 .btn.eliminar {
   background: #b33939;
   color: white;
 }
+
 .btn.eliminar:hover {
   background: #d94545;
-  transform: translateY(-3px);
+  transform: translateY(-2px);
 }
+
+/* Botón finalizar compra */
 .btn.finalizar {
   margin-top: 1rem;
   width: 100%;
-  background: #10b981;
-  color: white;
+
+  background: var(--color-accent);
+  color: #111;
+  font-weight: 700;
 }
+
 .btn.finalizar:hover {
-  background: #13c690;
-  transform: translateY(-3px);
+  background: #ffe7c0;
+  transform: translateY(-2px);
 }
 
 /* Resumen */
 .resumen {
   margin-top: 2rem;
   padding: 1.2rem;
-  border-radius: 14px;
-  background: rgba(255,255,255,0.06);
+  border-radius: var(--radius);
+
+  background: var(--color-bg-card);
   border: 1px solid rgba(245,222,179,0.2);
 }
+
 .total {
   margin: .3rem 0;
   color: #86efac;

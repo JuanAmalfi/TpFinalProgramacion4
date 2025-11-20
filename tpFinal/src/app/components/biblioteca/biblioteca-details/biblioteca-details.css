@@ -1,5 +1,5 @@
 /* ===========================
-   WRAPPER → mismo fondo animado
+   WRAPPER – fondo animado igual que Libro Details
 =========================== */
 .detalle-wrapper {
   min-height: 100vh;
@@ -18,12 +18,12 @@
 }
 
 /* ===========================
-   CARD → estilo glass igual al original
+   CARD – mismo glass style
 =========================== */
 .detalle-card {
   width: min(900px, 95%);
   display: flex;
-  gap: 2rem;
+  gap: 2.2rem;
   padding: 2rem;
   border-radius: 18px;
   background: rgba(255,255,255,0.08);
@@ -40,24 +40,50 @@
 }
 
 /* ===========================
-   IMAGEN DEL LIBRO
+   COLUMNA IZQUIERDA – imagen + volver
 =========================== */
-.img-box img {
-  width: 260px;
-  height: 380px;
-  border-radius: 14px;
-  object-fit: cover;
-  border: 2px solid rgba(245,222,179,0.35);
-  transition: transform .3s ease, box-shadow .3s ease;
+.left-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 }
 
-.img-box img:hover {
+.left-box img {
+  width: 260px;
+  height: 380px;
+  object-fit: cover;
+  border-radius: 14px;
+  border: 2px solid rgba(245,222,179,0.35);
+  transition: .25s;
+}
+
+.left-box img:hover {
   transform: scale(1.04);
   box-shadow: 0 0 18px rgba(245,222,179,0.45);
 }
 
+/* Botón volver igual a libro details */
+.btn-volver {
+  width: 100%;
+  padding: .65rem;
+  text-align: center;
+  background: #4b4b4b;
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+  font-weight: 600;
+  transition: .25s;
+}
+
+.btn-volver:hover {
+  background: #6a6a6a;
+  transform: translateY(-3px);
+}
+
 /* ===========================
-   INFO / TÍTULO
+   INFO A LA DERECHA – igual que libro details
 =========================== */
 .info-box {
   flex: 1;
@@ -66,53 +92,54 @@
 .titulo {
   font-family: "Georgia", serif;
   color: #f5deb3;
-  margin-bottom: 1rem;
-  letter-spacing: 1px;
+  font-size: 1.9rem;
+  margin-bottom: 1.2rem;
 }
 
-.info-box span {
+/* Mayor separación entre campos */
+.info-line {
+  margin: .6rem 0;
+  font-size: 1.1rem;
+}
+
+.info-line span {
   color: #f5deb3;
   font-weight: 600;
 }
 
 /* ===========================
-   ESTADO DE LECTURA
+   ESTADO DE LECTURA – botones iguales
 =========================== */
 .estado-box {
-  margin: 1rem 0;
+  margin: 1.6rem 0;
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
+  gap: .6rem;
 }
 
-.estado-box label {
-  font-size: 1rem;
-}
-
-.estado-box button {
-  padding: 0.45rem 1rem;
+.estado-btn {
+  padding: .6rem;
   border-radius: 8px;
-  border: 1px solid rgba(245,222,179,0.3);
-  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(245,222,179,0.25);
+  background: rgba(255,255,255,0.06);
   color: #f5deb3;
-  font-weight: 600;
   cursor: pointer;
-  transition: 0.25s;
+  font-weight: 600;
+  transition: .25s;
 }
 
-.estado-box button:hover {
+.estado-btn:hover {
+  background: rgba(255,255,255,0.12);
   transform: translateY(-2px);
-  box-shadow: 0 0 12px rgba(245,222,179,0.35);
 }
 
-.estado-box button.active {
+.estado-btn.active {
   background: #f5deb3;
   color: #121212;
-  border-color: #f5deb3;
 }
 
 /* ===========================
-   RESEÑA
+   RESEÑA – igual estilo que libro details
 =========================== */
 .resena-box {
   margin-top: 1rem;
@@ -125,73 +152,69 @@
 .resena-box h3 {
   font-family: "Georgia", serif;
   color: #f5deb3;
-  margin-bottom: .5rem;
 }
 
-/* Estrellas */
 .rating {
-  font-size: 1.6rem;
-  margin-bottom: 0.4rem;
-}
-.rating .star {
-  margin-right: 2px;
+  font-size: 1.5rem;
+  margin: .4rem 0;
   color: #f5deb3;
 }
 
-/* Texto reseña */
 .comentario {
-  color: #d8d8d8;
-  line-height: 1.35rem;
+  color: #ddd;
+  line-height: 1.5;
 }
 
-/* No reseña texto */
 .no-resena {
-  opacity: 0.75;
+  opacity: .75;
   margin-bottom: 1rem;
 }
 
-/* Botones reseña */
-.actions {
+/* botones */
+.resena-actions {
   display: flex;
-  gap: 0.7rem;
-  margin-top: 0.9rem;
+  gap: .7rem;
+  margin-top: .7rem;
 }
 
-.actions button,
-.add {
-  padding: 0.55rem 1rem;
+.resena-actions button {
+  padding: .55rem 1rem;
   border-radius: 8px;
-  font-weight: 600;
   cursor: pointer;
-  transition: .25s;
+  font-weight: 600;
   border: none;
+  transition: .25s;
 }
 
-/* editar */
-.actions button {
+.resena-actions .edit {
   background: rgba(255,255,255,0.12);
   color: #f5deb3;
 }
 
-.actions button:hover {
-  background: rgba(255,255,255,0.20);
+.resena-actions .edit:hover {
+  background: rgba(255,255,255,0.2);
 }
 
-/* eliminar */
-.actions .delete {
+.resena-actions .delete {
   background: rgba(255,40,40,0.18);
-  border: 1px solid rgba(255,60,60,0.45);
-}
-.actions .delete:hover {
-  background: rgba(255,60,60,0.32);
+  border: 1px solid rgba(255,60,60,0.4);
+  color: #fff;
 }
 
-/* agregar */
-.add {
+.resena-actions .delete:hover {
+  background: rgba(255,60,60,0.35);
+}
+
+.add-btn {
   background: #f5deb3;
   color: #121212;
+  padding: .6rem 1rem;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
 }
-.add:hover {
+
+.add-btn:hover {
   background: #ffe7c2;
   transform: translateY(-2px);
 }
@@ -199,27 +222,18 @@
 /* ===========================
    RESPONSIVE
 =========================== */
-@media (max-width: 700px) {
+@media (max-width: 720px) {
   .detalle-card {
     flex-direction: column;
-    align-items: center;
     text-align: center;
   }
 
-  .img-box img {
-    width: 210px;
-    height: 320px;
+  .left-box img {
+    width: 200px;
+    height: 300px;
   }
-}
 
-.top-btn {
-  margin-bottom: 1rem;
-  align-self: flex-start;
-  background: #4b4b4b;
-  color: #fff;
-}
-
-.top-btn:hover {
-  background: #6a6a6a;
-  transform: translateY(-3px);
+  .btn-volver {
+    max-width: 220px;
+  }
 }

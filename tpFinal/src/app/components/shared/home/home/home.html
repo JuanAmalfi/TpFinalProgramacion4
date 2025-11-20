@@ -1,19 +1,124 @@
 <section class="home-wrapper">
-  <h2 class="titulo-seccion">📚 Libros Destacados</h2>
 
-  <div class="grid-libros">
-    @for (libro of librosDestacados(); track libro.id) {
-      <div class="card-libro" (click)="verDetalle(libro.id!)">
-        <img [src]="libro.portada || 'assets/placeholder.png'"
-             [alt]="libro.titulo"
-             class="portada" />
-
-        <div class="card-info">
-          <h4>{{ libro.titulo }}</h4>
-          <p class="autor">{{ libro.autor }}</p>
-          <p class="precio">$ {{ libro.precio }}</p>
-        </div>
-      </div>
-    }
+  <!-- HERO -->
+  <div class="hero-banner">
+    <div class="hero-content">
+      <h1 class="hero-title">Bienvenido a LibroApp</h1>
+      <p class="hero-sub">Descubrí tus próximas lecturas favoritas 📚✨</p>
+    </div>
   </div>
+
+  <!-- TOP 5 -->
+  <div class="home-section">
+    <h2 class="section-title">🏆 Top 5 del momento</h2>
+    <hr class="section-divider">
+
+    <div class="carousel-wrapper no-arrows">
+      <div class="scroll-row static-row">
+
+        @for (libro of topCinco(); track libro.id) {
+        <div class="card-libro-home" (click)="verDetalle(libro.id!)">
+
+          <div class="img-wrapper">
+            <img [src]="libro.portada || 'assets/placeholder.png'" class="card-portada">
+          </div>
+
+          <div class="card-titulo">
+            {{ libro.titulo }}
+          </div>
+
+          <div class="card-autor">
+            {{ libro.autor }}
+          </div>
+
+          <div class="card-precio">
+            $ {{ libro.precio }}
+          </div>
+
+        </div>
+
+        }
+
+      </div>
+    </div>
+  </div>
+
+  <!-- NOVEDADES -->
+  <div class="home-section">
+    <h2 class="section-title">📘 Últimas novedades</h2>
+    <hr class="section-divider">
+
+    <div class="carousel-wrapper">
+
+      <button class="carousel-btn left" (click)="scrollLeft('novedades')">◄</button>
+
+      <div class="scroll-row" id="novedades">
+        @for (libro of novedades(); track libro.id) {
+        <div class="card-libro-home" (click)="verDetalle(libro.id!)">
+
+          <div class="img-wrapper">
+            <img [src]="libro.portada || 'assets/placeholder.png'" class="card-portada">
+          </div>
+
+          <div class="card-titulo">
+            {{ libro.titulo }}
+          </div>
+
+          <div class="card-autor">
+            {{ libro.autor }}
+          </div>
+
+          <div class="card-precio">
+            $ {{ libro.precio }}
+          </div>
+
+        </div>
+
+        }
+      </div>
+
+      <button class="carousel-btn right" (click)="scrollRight('novedades')">►</button>
+
+    </div>
+  </div>
+
+  <!-- MEJOR CALIFICADOS -->
+  <div class="home-section">
+    <h2 class="section-title">⭐ Los mejor calificados</h2>
+    <hr class="section-divider">
+
+    <div class="carousel-wrapper">
+
+      <button class="carousel-btn left" (click)="scrollLeft('mejor')">◄</button>
+
+      <div class="scroll-row" id="mejor">
+        @for (libro of mejorCalificados(); track libro.id) {
+        <div class="card-libro-home" (click)="verDetalle(libro.id!)">
+
+          <div class="img-wrapper">
+            <img [src]="libro.portada || 'assets/placeholder.png'" class="card-portada">
+          </div>
+
+          <div class="card-titulo">
+            {{ libro.titulo }}
+          </div>
+
+          <div class="card-autor">
+            {{ libro.autor }}
+          </div>
+
+          <div class="card-precio">
+            $ {{ libro.precio }}
+          </div>
+
+        </div>
+
+        }
+      </div>
+
+      <button class="carousel-btn right" (click)="scrollRight('mejor')">►</button>
+
+    </div>
+  </div>
+
 </section>
