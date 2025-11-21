@@ -26,7 +26,6 @@
         @if (isAdmin()) {
         <button class="btn editar" (click)="editarLibro()">Editar</button>
         <button class="btn eliminar" (click)="eliminarLibro()">Eliminar</button>
-
         }
       </div>
     </div>
@@ -34,6 +33,13 @@
     <!-- COLUMNA RIGHT (Info + reseñas) -->
     <div class="info-box">
       <h2 class="titulo">{{ libro().titulo }}</h2>
+
+      <!-- 🔔 ALERTA DE MENSAJES -->
+      @if (mensaje()) {
+        <div class="alert">
+          {{ mensaje() }}
+        </div>
+      }
 
       <p><span>Autor:</span> {{ libro().autor }}</p>
       <p><span>Género:</span> {{ libro().genero }}</p>
@@ -47,7 +53,6 @@
 
       <!-- ⭐ RESEÑAS -->
       <div class="resenas-block">
-
         <h3>Reseñas de usuarios</h3>
 
         @if (resenias().length === 0) {

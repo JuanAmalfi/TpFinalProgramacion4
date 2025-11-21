@@ -1,18 +1,37 @@
-<div class="libros-layout">
+<div class="biblioteca-wrapper">
 
-  <div class="lista-header">
-    <h2>Mi Biblioteca</h2>
-  </div>
+  <h2 class="titulo-biblio">📚 Mi Biblioteca</h2>
 
-  <!-- GRID -->
-  <div class="grid-libros">
+  <div class="biblio-grid">
+
     @for (item of biblioteca(); track item.id) {
-      <div class="card-libro" (click)="irADetalle(item)">
-        <img [src]="item.portada || 'assets/placeholder.png'" class="portada" />
-        <h4>{{ item.titulo }}</h4>
-        <p class="autor">{{ item.autor }}</p>
+
+      <div class="biblio-card" (click)="irADetalle(item)">
+
+        <div class="img-box">
+          <img [src]="item.portada || 'assets/placeholder.png'" />
+        </div>
+
+        <div class="info-box">
+
+          <h3 class="titulo">{{ item.titulo }}</h3>
+          <p class="autor">{{ item.autor }}</p>
+
+          <!-- Estado -->
+          <span class="estado" [class.no-leido]="item.estado === 'No leído'"
+                               [class.leyendo]="item.estado === 'Leyendo'"
+                               [class.terminado]="item.estado === 'Terminado'">
+            {{ item.estado || 'No leído' }}
+          </span>
+
+          
+
+        </div>
+
       </div>
+
     }
+
   </div>
 
 </div>

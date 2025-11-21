@@ -25,7 +25,7 @@ export class LibroFormComponent {
   protected libroForm: FormGroup = this.fb.group({
     titulo: ['', [Validators.required, Validators.minLength(1)]],
     autor: ['', [Validators.required, Validators.minLength(1)]],
-    anioPublicacion: [2024, [Validators.required, Validators.min(1000), Validators.max(2100)]],
+    anioPublicacion: [2024, [Validators.required, Validators.min(1000), Validators.max(2026)]],
     genero: ['', Validators.required],
     precio: [0, [Validators.required, Validators.min(0)]],
     disponible: [true],

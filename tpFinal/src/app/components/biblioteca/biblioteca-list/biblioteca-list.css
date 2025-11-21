@@ -1,209 +1,123 @@
-/* =====================================================
-   BIBLIOTECA LIST - ESTILO GLOBAL
-===================================================== */
+/* ===========================
+   BIBLIOTECA ESTILO PREMIUM
+=========================== */
 
-/* Background */
-.libros-layout {
+.biblioteca-wrapper {
   min-height: 100vh;
   padding: 2rem 2.5rem;
-
-  background: var(--color-bg);
   color: var(--color-text);
+  background: var(--color-bg);
 }
 
-/* Header */
-.lista-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.5rem;
-}
-
-.lista-header h2 {
-  color: var(--color-accent);
+.titulo-biblio {
   font-family: "Georgia", serif;
-  font-size: 2rem;
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-
-/* Botón filtros */
-.filters-btn {
-  padding: 0.5rem 1.2rem;
-  border-radius: 999px;
-  border: 1px solid var(--color-accent);
-  background: rgba(245, 222, 179, 0.12);
   color: var(--color-accent);
-
-  font-weight: 600;
-  cursor: pointer;
-  transition: var(--transition);
-  backdrop-filter: blur(6px);
+  font-size: 2rem;
+  margin-bottom: 2rem;
 }
 
-.filters-btn:hover {
-  background: rgba(245, 222, 179, 0.25);
-  transform: translateY(-2px);
-  box-shadow: 0 0 14px rgba(245, 222, 179, 0.35);
-}
-
-/* Grid */
-.grid-libros {
+/* GRID – tarjetas horizontales */
+.biblio-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(390px, 1fr));
+  gap: 1.2rem;
 }
 
-/* Tarjeta libro */
-.card-libro {
-  background: var(--color-bg-card-2);
-  border-radius: var(--radius);
-  border: 1px solid rgba(245, 222, 179, 0.22);
+/* Tarjeta horizontal */
+.biblio-card {
+  display: flex;
+  gap: 1rem;
   padding: 1rem;
+  background: var(--color-bg-card-2);
+  border: 1px solid rgba(245,222,179,0.25);
+  border-radius: var(--radius);
   cursor: pointer;
-
   box-shadow: var(--shadow);
   transition: var(--transition);
-
-  color: var(--color-accent);
 }
 
-.card-libro:hover {
-  transform: translateY(-6px) scale(1.02);
-  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.8);
-  border-color: rgba(245, 222, 179, 0.45);
+.biblio-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 26px rgba(0,0,0,0.5);
 }
 
 /* Imagen */
-.card-libro .portada {
-  width: 100%;
-  height: 240px;
+.img-box img {
+  width: 110px;
+  height: 155px;
   object-fit: cover;
-  border-radius: 12px;
-  margin-bottom: 0.8rem;
+  border-radius: 8px;
+  border: 2px solid rgba(245,222,179,0.35);
 }
 
-/* Textos */
-.card-libro h4 {
-  font-family: "Georgia", serif;
-  font-size: 1rem;
-  margin: 0.3rem 0;
-}
-
-.card-libro .autor {
-  font-size: 0.9rem;
-  opacity: 0.85;
-  margin: 0.1rem 0 0.4rem;
-}
-
-/* Modal Filtros */
-.filters-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.65);
-  backdrop-filter: blur(4px);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 50;
-}
-
-.filters-modal {
-  width: min(420px, 90%);
-  background: var(--color-bg-card-2);
-  border-radius: var(--radius);
-  padding: 1.5rem 1.8rem;
-
-  border: 1px solid rgba(245, 222, 179, 0.3);
-  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.8);
-  color: var(--color-accent);
-
-  animation: modalIn 0.25s ease-out;
-}
-
-@keyframes modalIn {
-  from { opacity: 0; transform: translateY(-12px) scale(0.96); }
-  to   { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.close-modal {
-  background: transparent;
-  border: none;
-  color: var(--color-accent);
-  font-size: 1.1rem;
-  cursor: pointer;
-}
-
-.filtro {
-  margin-top: 0.6rem;
+/* Info */
+.info-box {
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
-.filtro label {
-  font-size: 0.9rem;
-  margin-bottom: 0.2rem;
-}
-
-.filtro input,
-.filtro select {
-  padding: 0.45rem 0.6rem;
-  border-radius: 8px;
-  border: 1px solid rgba(245,222,179,0.35);
-
-  background: rgba(255,255,255,0.05);
+.titulo {
+  font-family: "Georgia", serif;
+  font-size: 1.2rem;
   color: var(--color-accent);
-
-  transition: var(--transition);
 }
 
-.filtro input:focus,
-.filtro select:focus {
-  border-color: var(--color-accent);
-  box-shadow: 0 0 10px rgba(245, 222, 179, 0.5);
+.autor {
+  margin-top: 4px;
+  opacity: 0.85;
+  font-size: .95rem;
 }
 
-/* Modal buttons */
-.modal-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 0.6rem;
-  margin-top: 1.2rem;
-}
-
-.btn-clear,
-.btn-apply {
-  padding: 0.5rem 1rem;
-  border-radius: var(--radius);
-  border: none;
+/* Estado */
+.estado {
+  margin-top: .6rem;
+  padding: .3rem .7rem;
+  border-radius: 12px;
+  font-size: .8rem;
   font-weight: 600;
-  cursor: pointer;
-  transition: var(--transition);
+  width: fit-content;
+  text-transform: uppercase;
+  letter-spacing: .5px;
 }
 
-.btn-clear {
-  background: rgba(255, 255, 255, 0.08);
-  color: var(--color-accent);
+/* Colores de estado */
+.estado.no-leido {
+  background: rgba(180,180,180,0.15);
+  color: #dcdcdc;
 }
 
-.btn-clear:hover {
-  background: rgba(255, 255, 255, 0.18);
+.estado.leyendo {
+  background: rgba(255,210,80,0.2);
+  color: #ffd452;
 }
 
-.btn-apply {
-  background: var(--color-accent);
-  color: #121212;
+.estado.terminado {
+  background: rgba(0,200,120,0.25);
+  color: #00e38a;
 }
 
-.btn-apply:hover {
-  background: #ffe8c4;
-  transform: translateY(-2px);
+/* Reseña */
+.rating {
+  margin-top: .4rem;
+  color: #ffca28;
+}
+
+.star {
+  margin-right: 2px;
+  font-size: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 520px) {
+  .biblio-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .img-box img {
+    width: 140px;
+    height: 200px;
+  }
 }

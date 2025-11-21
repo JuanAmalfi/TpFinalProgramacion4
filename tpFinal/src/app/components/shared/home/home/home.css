@@ -136,12 +136,17 @@
 /* =====================================================
    CARRUSELES
 ===================================================== */
+/* =====================================================
+   CARRUSELES (AJUSTADO PARA ANCHO COMPLETO)
+===================================================== */
 .carousel-wrapper {
   position: relative;
   display: flex;
   align-items: center;
-  padding: 0 45px;
+  padding: 0 15px;        /* antes 45px */
   min-height: 320px;
+  width: 100%;            /* ocupa todo el ancho */
+  max-width: 100%;        /* elimina límites */
 }
 
 .no-arrows {
@@ -156,6 +161,7 @@
   overflow-y: hidden;
   scroll-behavior: smooth;
   padding-bottom: 0.5rem;
+  width: 100%;
 }
 
 .static-row {
@@ -173,6 +179,7 @@
   background: rgba(245,222,179,0.3);
   border-radius: 4px;
 }
+
 
 
 /* =====================================================
