@@ -30,6 +30,8 @@ export class LibroList {
   protected filtroPrecioMin = signal<number | null>(null);
   protected filtroPrecioMax = signal<number | null>(null);
   protected filtroDisponible = signal(false);
+  protected filtroTitulo = signal('');
+
 
 
   
@@ -59,6 +61,10 @@ export class LibroList {
       const coincideDisponible = this.filtroDisponible()
         ? libro.disponible === true
         : true;
+        const coincideTitulo = this.filtroTitulo()
+    ? libro.titulo.toLowerCase().includes(this.filtroTitulo().toLowerCase())
+    : true;
+
 
       return (
         coincideAutor &&
@@ -66,7 +72,8 @@ export class LibroList {
         coincideAnio &&
         coincidePrecioMin &&
         coincidePrecioMax &&
-        coincideDisponible
+        coincideDisponible &&
+        coincideTitulo
       );
     });
   });
@@ -80,6 +87,16 @@ export class LibroList {
     // carga automática de los libros al entrar
     effect(() => {
       this.store.loadLibros();
+
+  const nav = this.router.currentNavigation();
+
+    const titulo = nav?.extras.state?.['titulo'];
+
+    if (titulo) {
+      this.filtroTitulo.set(titulo);
+    }
+
+
     });
   }
 

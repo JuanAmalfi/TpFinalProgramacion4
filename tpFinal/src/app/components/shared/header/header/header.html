@@ -8,17 +8,33 @@
 
     <!-- Buscador -->
     <div class="search-container">
-      <input type="text" placeholder="Buscar libros..." (keyup)="buscar($event)">
-      <button>🔍</button>
+      <input type="text"
+             placeholder="Buscar libros por titulo o autor..."
+             (keyup)="buscar($event)"
+             (keydown.enter)="irAResultados()">
+
+      <button (click)="irAResultados()">🔍</button>
+
+      <!-- SUGERENCIAS -->
+      @if (suggestions().length > 0) {
+        <div class="suggestions-box">
+          @for (s of suggestions(); track s.id) {
+            <div class="suggestion-item" (click)="seleccionarResultado(s)">
+              <strong>{{ s.titulo }}</strong>
+              <small>de {{ s.autor }}</small>
+            </div>
+          }
+        </div>
+      }
     </div>
 
     <!-- App launcher (9 puntitos) -->
-   <div class="apps-launcher">
-  <button class="apps-btn" (click)="toggleApps()">
-    <span class="dot"></span><span class="dot"></span>
-    <span class="dot"></span><span class="dot"></span>
-  </button>
-</div>
+    <div class="apps-launcher">
+      <button class="apps-btn" (click)="toggleApps()">
+        <span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span>
+      </button>
+    </div>
 
   </div>
 
@@ -28,34 +44,33 @@
 
     <div class="apps-panel">
       <h3>Menú</h3>
-     <div class="apps-grid">
+      <div class="apps-grid">
 
-  <a routerLink="/home" (click)="toggleApps()" class="app-item">🏠 Inicio</a>
-  <a routerLink="/libro-list" (click)="toggleApps()" class="app-item">📚 Libros</a>
+        <a routerLink="/home" (click)="toggleApps()" class="app-item">🏠 Inicio</a>
+        <a routerLink="/libro-list" (click)="toggleApps()" class="app-item">📚 Libros</a>
 
-  @if (isUser()) {
-    <a routerLink="/biblioteca" (click)="toggleApps()" class="app-item">📖 Biblioteca</a>
-    <a routerLink="/carrito" (click)="toggleApps()" class="app-item">🛒 Carrito</a>
-    <a routerLink="/facturas" (click)="toggleApps()" class="app-item">📄 Mis Facturas</a>
-  }
+        @if (isUser()) {
+          <a routerLink="/biblioteca" (click)="toggleApps()" class="app-item">📖 Biblioteca</a>
+          <a routerLink="/carrito" (click)="toggleApps()" class="app-item">🛒 Carrito</a>
+          <a routerLink="/facturas" (click)="toggleApps()" class="app-item">📄 Mis Facturas</a>
+        }
 
-  @if (isAdmin()) {
-    <a routerLink="/libro-form" (click)="toggleApps()" class="app-item">➕ Libro</a>
-    <a routerLink="/usuario-list" (click)="toggleApps()" class="app-item">👥 Usuarios</a>
-    <a routerLink="/facturas" (click)="toggleApps()" class="app-item">📄 Facturas</a>
-  }
+        @if (isAdmin()) {
+          <a routerLink="/libro-form" (click)="toggleApps()" class="app-item">➕ Libro</a>
+          <a routerLink="/usuario-list" (click)="toggleApps()" class="app-item">👥 Usuarios</a>
+          <a routerLink="/facturas" (click)="toggleApps()" class="app-item">📄 Facturas</a>
+        }
 
-  @if (!isLoggedIn()) {
-    <a routerLink="/auth" (click)="toggleApps()" class="app-item">🔐 Login</a>
-  }
+        @if (!isLoggedIn()) {
+          <a routerLink="/auth" (click)="toggleApps()" class="app-item">🔐 Login</a>
+        }
 
-  @if (isLoggedIn()) {
-    <!-- Solo una vez el perfil -->
-    <a (click)="goProfile(); toggleApps()" class="app-item">👤 Mi Perfil</a>
-    <a (click)="logout(); toggleApps()" class="app-item logout">🚪 Salir</a>
-  }
+        @if (isLoggedIn()) {
+          <a (click)="goProfile(); toggleApps()" class="app-item">👤 Mi Perfil</a>
+          <a (click)="logout(); toggleApps()" class="app-item logout">🚪 Salir</a>
+        }
 
-</div>
+      </div>
     </div>
   }
 </header>

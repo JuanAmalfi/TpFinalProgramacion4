@@ -1,6 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Router, RouterLink } from "@angular/router";
 import { AuthService } from '../../../log/auth/auth-service';
+import { LibroStore } from '../../../libro/libro-store';
 
 @Component({
   selector: 'app-header',
@@ -17,6 +18,13 @@ export class Header {
 
 
 appsOpen = false;
+
+private store=inject(LibroStore);
+
+searchTerm = signal('');
+suggestions = signal<any[]>([]);
+
+
 
 toggleApps() {
   this.appsOpen = !this.appsOpen;
@@ -46,10 +54,51 @@ toggleApps() {
     this.auth.logout();
   }
 
-  buscar(event: any) {
-    const texto = event.target.value;
-    console.log("Buscando:", texto);
+
+
+
+
+ buscar(event: any) {
+    const texto = event.target.value.toLowerCase();
+    this.searchTerm.set(texto);
+
+    const libros = this.store.libros();
+
+    if (!texto) {
+      this.suggestions.set([]);
+      return;
+    }
+
+    const sugeridos = libros
+      .filter(l =>
+        l.titulo.toLowerCase().includes(texto) ||
+        l.autor.toLowerCase().includes(texto)
+      )
+      .slice(0, 5);
+
+    this.suggestions.set(sugeridos);
   }
+
+  seleccionarResultado(libro: any) {
+    this.suggestions.set([]);
+    this.router.navigate(['/libros', libro.id]);
+  }
+
+  irAResultados() {
+    const texto = this.searchTerm();
+    if (!texto) return;
+
+    this.suggestions.set([]);
+
+    // MANDAMOS EL TEXTO A LIBRO-LIST
+    this.router.navigate(['/libro-list'], {
+      state: { titulo: texto }
+    });
+  }
+
+
+
+
 
   goProfile() {
     const id = this.getUser()?.id;

@@ -31,43 +31,94 @@
   text-shadow: 0 0 12px rgba(245,222,179,0.6);
 }
 
+.logo a,
+.logo-text,
+.logo a:link,
+.logo a:visited,
+.logo a:hover,
+.logo a:active {
+  text-decoration: none !important;
+  border: none !important;
+  outline: none !important;
+}
+
 /* SEARCH BAR */
+
+
+
+/* Contenedor del buscador */
 .search-container {
+  position: relative;
+  width: 550px;   /* ANTES 280px */
   display: flex;
   align-items: center;
-  gap: .5rem;
-  flex: 1;
-  justify-content: center;
-  max-width: 420px;
+  gap: 8px;
 }
 
+/* Caja del input */
 .search-container input {
-  width: 100%;
-  padding: .5rem .7rem;
-  border-radius: var(--radius);
-  border: 1px solid rgba(245,222,179,0.35);
-  background: rgba(255,255,255,0.07);
-  color: var(--color-text);
-  transition: var(--transition);
+  flex: 1;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: #1a1a1a;
+  color: white;
+  outline: none;
 }
 
-.search-container input:focus {
-  border-color: var(--color-accent);
-  box-shadow: 0 0 8px rgba(245,222,179,0.4);
-}
-
+/* Botón de búsqueda */
 .search-container button {
-  background: var(--color-accent);
+  background: #d6c5a0;
   border: none;
-  padding: .45rem .8rem;
-  border-radius: var(--radius);
+  padding: 8px 12px;
+  border-radius: 10px;
   cursor: pointer;
-  transition: var(--transition);
 }
 
-.search-container button:hover {
-  background: #f5e1c8;
+/* ===== SUGERENCIAS ===== */
+/* === PREMIUM APPSTORE STYLE === */
+.suggestions-box {
+  position: absolute;
+  top: 45px;
+  left: 0;
+  width: 100%;
+  background: rgba(35, 35, 35, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 15px;
+  padding: 6px 0;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.45);
+  z-index: 999;
 }
+
+.suggestion-item {
+  padding: 12px 14px;
+  cursor: pointer;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  transition: background 0.15s ease, transform 0.10s ease;
+}
+
+.suggestion-item strong {
+  font-size: 15px;
+  color: #f7eacb;
+}
+
+.suggestion-item small {
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+.suggestion-item:hover {
+  background: rgba(255,255,255,0.12);
+  transform: translateX(3px);
+}
+
+
+
 
 /* ICON GRID */
 .apps-btn {
@@ -146,4 +197,22 @@
 
 .logout:hover {
   background: #9a3434 !important;
+}
+
+/* === HEADER SCROLL BEHAVIOR === */
+.main-header {
+  transition: all 0.25s ease;
+}
+
+.main-header.shrink {
+  padding-top: 2px;
+  padding-bottom: 2px;
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+
+.main-header .logo-text.shrink {
+  font-size: 1.5rem;
 }

@@ -99,84 +99,226 @@
 }
 
 /* =====================================================
-   MODAL FILTROS UNIFICADO
+   MODAL DE FILTROS — ESTILO PREMIUM REDUCIDO + RESPONSIVE
 ===================================================== */
+
+/* Fondo detrás del modal */
 .filters-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,.55);
-  backdrop-filter: blur(5px);
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(6px);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 50;
 }
 
+/* MODAL REDUCIDO */
 .filters-modal {
-  width: min(420px, 90%);
-  background: var(--color-bg-card-2);
-  padding: 1.8rem;
-  border-radius: 18px;
-  border: 1px solid rgba(245, 222, 179, .3);
-  box-shadow: var(--shadow);
-  animation: fadeIn .3s ease-out;
+  width: min(380px, 92%); /* MÁS CHICO */
+  background: linear-gradient(180deg, #2d2c2c, #1d1c1c);
+  padding: 1.5rem 1.6rem;  /* MENOS PADDING */
+  border-radius: 16px;
+  border: 1px solid rgba(245,222,179,0.25);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.55);
   color: var(--color-text);
+  animation: fadeIn .25s ease-out;
 }
 
+/* Header del modal */
 .modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: .6rem;
+}
+
+.modal-header h3 {
+  color: var(--color-accent);
+  font-size: 1.3rem; /* Más chico */
 }
 
 .close-modal {
   background: transparent;
   border: none;
   color: var(--color-accent);
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   cursor: pointer;
+  transition: .2s ease;
 }
 
-/* Inputs del modal */
+.close-modal:hover {
+  transform: scale(1.15);
+  color: #ffffff;
+}
+
+/* Campos */
 .filtro {
   margin-top: .8rem;
+  display: flex;
+  flex-direction: column;
+  gap: .35rem;
 }
 
+.filtro label {
+  font-size: .85rem;
+  opacity: .85;
+  color: var(--color-accent);
+}
+
+/* Inputs y selects */
 .filtro input,
 .filtro select {
-  padding: .5rem .6rem;
-  background: rgba(255,255,255,.06);
-  border: 1px solid rgba(245,222,179,.3);
+  padding: .45rem .6rem;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(245,222,179,0.35);
   border-radius: var(--radius);
   color: var(--color-text);
   outline: none;
   transition: var(--transition);
+  font-size: .9rem;
 }
 
 .filtro input:focus,
 .filtro select:focus {
   border-color: var(--color-accent);
-  box-shadow: 0 0 10px rgba(245,222,179,.4);
+  box-shadow: 0 0 8px rgba(245,222,179,0.35);
 }
 
+/* Rango precio */
+.precio-range {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  width: 100%;
+}
+
+.precio-range input {
+  width: 100%;               /* Ambos inputs ocupan el mismo espacio */
+  max-width: 150px;          /* Límite para que no se estiren */
+  padding: .55rem .7rem;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(245,222,179,0.35);
+  color: var(--color-text);
+  font-size: .9rem;
+}
+
+.precio-range span {
+  color: var(--color-text);
+  opacity: .8;
+  font-weight: bold;
+}
+/* Checkbox */
+.checkbox-filtro label {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+}
+
+.checkbox-filtro input {
+  accent-color: var(--color-accent);
+}
+
+/* Acciones del modal */
 .modal-actions {
   display: flex;
   justify-content: flex-end;
-  gap: .6rem;
-  margin-top: 1.2rem;
+  gap: .7rem;
+  margin-top: 1.4rem;
 }
 
+/* Botón "Limpiar" */
 .btn-clear {
-  background: rgba(255,255,255,.1);
+  padding: .55rem 1rem;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(245,222,179,0.35);
   color: var(--color-accent);
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  backdrop-filter: blur(4px);
 }
 
+.btn-clear:hover {
+  background: rgba(245,222,179,0.18);
+  transform: translateY(-2px);
+}
+
+/* Botón "Aplicar" */
 .btn-apply {
+  padding: .55rem 1.2rem;
+  border-radius: 999px;
   background: var(--color-accent);
   color: #121212;
+  border: 1px solid rgba(245,222,179,0.2);
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
 }
 
-.btn-clear:hover,
 .btn-apply:hover {
+  background: #e9d3b1;
   transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.4);
+}
+
+/* Animación */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+/* Pantallas medianas */
+@media (max-width: 600px) {
+  .filters-modal {
+    width: 94%;
+    padding: 1.3rem 1.2rem;
+  }
+
+  .modal-header h3 {
+    font-size: 1.2rem;
+  }
+
+  .filtro input,
+  .filtro select {
+    font-size: .85rem;
+  }
+}
+
+/* Pantallas chicas */
+@media (max-width: 400px) {
+  .filters-modal {
+    width: 96%;
+    padding: 1.1rem 1rem;
+    border-radius: 14px;
+  }
+
+  .modal-header h3 {
+    font-size: 1.1rem;
+  }
+
+  .modal-actions {
+    flex-direction: column;
+    gap: .6rem;
+    align-items: stretch;
+  }
+
+  .btn-apply,
+  .btn-clear {
+    width: 100%;
+    text-align: center;
+  }
 }
