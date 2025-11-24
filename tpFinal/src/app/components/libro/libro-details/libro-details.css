@@ -1,134 +1,186 @@
-/* =====================================================
-   LIBRO DETAILS — ESTILO UNIFICADO GLOBAL
-   Usa la misma paleta, sombras y estética del home/login
-===================================================== */
-
-/* Fondo */
+/* ===========================
+   WRAPPER – fondo animado igual que Biblioteca Details
+=========================== */
 .detalle-wrapper {
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 2rem;
-  background: var(--color-bg);
+  background: linear-gradient(135deg, #0a0a0a, #131313, #181818);
+  background-size: 200% 200%;
+  animation: bgMove 12s infinite alternate ease;
 }
 
-/* Tarjeta */
+@keyframes bgMove {
+  from { background-position: left top; }
+  to   { background-position: right bottom; }
+}
+
+
+/* ===========================
+   CARD – estilo glass premium
+=========================== */
 .detalle-card {
   width: min(900px, 95%);
   display: flex;
-  gap: 2rem;
+  gap: 2.2rem;
   padding: 2rem;
-  border-radius: var(--radius);
-  background: var(--color-bg-card-2);
+  border-radius: 18px;
+  background: rgba(255,255,255,0.08);
   border: 1px solid rgba(245,222,179,0.25);
-  box-shadow: var(--shadow);
-  animation: fadeIn .5s ease-out;
-  color: var(--color-text);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+  color: #eee;
+  animation: fadeIn .6s ease-out;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
+  from { opacity: 0; transform: translateY(25px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Imagen */
+
+/* ===========================
+   IMAGEN IZQUIERDA
+=========================== */
 .img-box img {
   width: 260px;
   height: 380px;
   object-fit: cover;
-  border-radius: var(--radius);
-  border: 1px solid rgba(245,222,179,0.35);
-  transition: var(--transition);
+  border-radius: 14px;
+  border: 2px solid rgba(245,222,179,0.35);
+  transition: .25s;
 }
 
 .img-box img:hover {
-  transform: scale(1.03);
-  box-shadow: 0 0 16px rgba(245,222,179,0.4);
+  transform: scale(1.04);
+  box-shadow: 0 0 18px rgba(245,222,179,0.45);
 }
 
-/* Contenido */
+/* Columna izquierda */
+.left-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Botonera columna izquierda */
+.btn-group {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: .8rem;
+}
+
+
+/* ===========================
+   BOTONES (volver, carrito, login, admin)
+=========================== */
+
+.btn {
+  padding: .7rem 1.4rem;
+  border-radius: 10px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: .25s;
+}
+
+/* Volver */
+.btn.volver {
+  background: #4b4b4b;
+  color: #fff;
+}
+.btn.volver:hover {
+  background: #6a6a6a;
+  transform: translateY(-3px);
+}
+
+/* Carrito */
+.btn.carrito {
+  background: #10b981;
+  color: #fff;
+}
+.btn.carrito:hover {
+  background: #12d196;
+  transform: translateY(-3px);
+}
+
+/* Login */
+.btn.login {
+  background: #3b82f6;
+  color: #fff;
+}
+.btn.login:hover {
+  background: #5b97ff;
+  transform: translateY(-3px);
+}
+
+/* Editar admin */
+.btn.editar {
+  background: #f5deb3;
+  color: #121212;
+}
+.btn.editar:hover {
+  background: #ffe7c7;
+  transform: translateY(-3px);
+}
+
+/* Eliminar admin */
+.btn.eliminar {
+  background: #d14d4d;
+  color: #fff;
+}
+.btn.eliminar:hover {
+  background: #e05c5c;
+  transform: translateY(-3px);
+}
+
+
+/* ===========================
+   INFO DERECHA
+=========================== */
 .info-box {
   flex: 1;
 }
 
 .titulo {
-  font-family: Georgia, serif;
-  color: var(--color-accent);
-  font-size: 1.8rem;
-  margin-bottom: .7rem;
+  font-family: "Georgia", serif;
+  color: #f5deb3;
+  font-size: 1.9rem;
+  margin-bottom: 1.2rem;
+}
+
+.info-box p {
+  margin: .35rem 0;
+  line-height: 1.4;
 }
 
 .info-box span {
-  color: var(--color-accent);
+  color: #f5deb3;
   font-weight: 600;
+  margin-right: 4px;
 }
 
-/* Descripción */
+
+/* ===========================
+   DESCRIPCIÓN
+=========================== */
+.descripcion-block p:first-child span {
+  color: #f5deb3;
+}
 .descripcion {
   margin-top: .4rem;
-  color: var(--color-text-soft);
+  color: #ddd;
   line-height: 1.5;
 }
 
-/* Botonera */
-.actions {
-  margin-top: 1.5rem;
-  display: flex;
-  gap: 1rem;
-}
 
-.btn {
-  padding: .7rem 1.4rem;
-  border-radius: var(--radius);
-  font-weight: 600;
-  border: none;
-  cursor: pointer;
-  transition: var(--transition);
-}
-
-/* Botón volver */
-.btn.volver {
-  background: #3a3a3a;
-  color: var(--color-text);
-}
-.btn.volver:hover {
-  background: #555;
-  transform: translateY(-2px);
-}
-
-/* Editar */
-.btn.editar {
-  background: var(--color-accent);
-  color: #121212;
-}
-.btn.editar:hover {
-  background: #ffe8cd;
-  transform: translateY(-2px);
-  box-shadow: var(--shadow);
-}
-
-/* Eliminar */
-.btn.eliminar {
-  background: var(--color-danger);
-  color: #fff;
-}
-.btn.eliminar:hover {
-  background: #d94545;
-  transform: translateY(-2px);
-}
-
-/* Login / carrito */
-.btn.carrito {
-  background: #10b981;
-  color: #fff;
-}
-.btn.login {
-  background: #3b82f6;
-  color: #fff;
-}
-
-/* Confirmación */
+/* ===========================
+   ALERTA DE MENSAJES
+=========================== */
 .alert {
   margin: 12px 0;
   padding: .8rem 1rem;
@@ -146,23 +198,9 @@
 }
 
 
-/* Izquierda */
-.left-box {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-}
-
-/* Botones columna */
-.btn-group {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: .8rem;
-}
-
-/* Reseñas */
+/* ===========================
+   RESEÑAS
+=========================== */
 .resenas-block {
   margin-top: 1.5rem;
 }
@@ -170,45 +208,49 @@
 .resena-item {
   background: rgba(255,255,255,0.07);
   padding: .8rem 1rem;
-  border-radius: var(--radius);
-  margin-bottom: .8rem;
-  border-left: 3px solid var(--color-accent);
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  border-left: 3px solid #f5deb3;
 }
 
 .resena-item .user {
   font-weight: 600;
-  color: var(--color-accent);
+  color: #f5deb3;
 }
 
 .resena-item .stars {
   margin-top: .2rem;
-  color: var(--color-accent);
+  color: #f5deb3;
 }
 
-/* No reseñas */
+.resena-item .comentario {
+  margin-top: .2rem;
+  font-style: italic;
+  color: #e9e9e9;
+}
+
 .no-resenas {
   color: #aaa;
   font-style: italic;
 }
 
-/* Eliminar reseña admin */
-.eliminar-admin {
-  background: var(--color-danger);
+/* Botón eliminar reseña admin */
+.btn.eliminar-admin {
+  background: #d14d4d;
   color: #fff;
   padding: .45rem .9rem;
   border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  font-size: .85rem;
-  transition: var(--transition);
+  margin-top: .5rem;
 }
-
-.eliminar-admin:hover {
-  background: #d94545;
+.btn.eliminar-admin:hover {
+  background: #e05c5c;
   transform: translateY(-2px);
 }
 
-/* Responsive */
+
+/* ===========================
+   RESPONSIVE
+=========================== */
 @media (max-width: 768px) {
   .detalle-card {
     flex-direction: column;
@@ -219,21 +261,4 @@
     width: 220px;
     height: 320px;
   }
-}
-/* ===============================================
-   SEPARACIÓN ENTRE CAMPOS DE INFORMACIÓN
-=============================================== */
-
-.info-box p {
-  margin: 0.35rem 0;       /* separa verticalmente */
-  line-height: 1.4;        /* mejora lectura */
-}
-
-.info-box .campo {
-  display: block;
-  margin-bottom: 0.45rem;  /* separa aún más cada ítem */
-}
-
-.info-box span {
-  margin-left: 4px;        /* separa el label del valor */
 }

@@ -78,5 +78,15 @@ isAdmin() {
   return this.authService.getCurrentUser()?.isAdmin === true;
 }
 
+iniciales() {
+  const nombre = this.usuario()?.username || "";
+  const partes = nombre.split(" ");
+
+  if (partes.length >= 2) {
+    return (partes[0][0] + partes[1][0]).toUpperCase();
+  }
+
+  return nombre.substring(0, 2).toUpperCase();
+}
 
 }

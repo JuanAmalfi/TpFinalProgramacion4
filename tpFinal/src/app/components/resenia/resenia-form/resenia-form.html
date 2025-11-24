@@ -20,9 +20,14 @@
       (input)="comentario.set($any($event.target).value)">
     </textarea>
 
-    <button (click)="guardar()">
-      {{ editMode() ? 'Guardar Cambios' : 'Publicar' }}
-    </button>
+    <!-- BOTONES -->
+    <div class="form-actions">
+      <button class="btn-guardar" (click)="guardar()">
+        {{ editMode() ? 'Guardar Cambios' : 'Publicar' }}
+      </button>
+
+     
+    </div>
 
   </div>
 </div>

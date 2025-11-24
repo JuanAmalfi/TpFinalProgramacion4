@@ -11,7 +11,6 @@
           <img [src]="libro()!.portada || 'assets/placeholder.png'" alt="Portada">
         </div>
 
-        <!-- BOTÓN VOLVER → ahora debajo de la imagen -->
         <button class="btn-volver" (click)="volver()">← Volver</button>
 
       </div>
@@ -21,7 +20,6 @@
 
         <h2 class="titulo">{{ libro()!.titulo }}</h2>
 
-        <!-- Datos del libro -->
         <p class="info-line"><span>Autor:</span> {{ libro()!.autor || 'Desconocido' }}</p>
         <p class="info-line"><span>Género:</span> {{ libro()!.genero || 'No indicado' }}</p>
         <p class="info-line"><span>Año:</span> {{ libro()!.anioPublicacion || '---' }}</p>
@@ -91,3 +89,29 @@
 
   </div>
 </div>
+
+
+<!-- ================================
+      MODAL GLASS CONFIRMACIÓN
+================================ -->
+<!-- ================================
+      MODAL GLASS CONFIRMACIÓN
+================================ -->
+@if (mostrarModal()) {
+<div class="modal-overlay">
+  <div class="modal-card glass fade-in">
+
+    <h3>⚠️ ¿Agregar reseña sin terminar?</h3>
+    <p>
+      Este libro aún no está marcado como <strong>“Terminado”</strong>.<br>
+      ¿Querés dejar igualmente una reseña?
+    </p>
+
+    <div class="modal-actions">
+      <button class="cancel-btn" (click)="cerrarModal()">Cancelar</button>
+      <button class="ok-btn" (click)="confirmarResena()">Continuar ⭐</button>
+    </div>
+
+  </div>
+</div>
+}

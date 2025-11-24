@@ -26,6 +26,11 @@ export class BibliotecaDetails {
   protected estrellas = signal<string[]>([]);
   protected estadoLectura = signal<'No leído' | 'Leyendo' | 'Terminado'>('No leído');
 
+
+  protected mostrarModal = signal(false);
+  private pendienteNavegar = false;
+
+
   constructor() {
   const id = this.route.snapshot.paramMap.get('id');
   if (id) {
@@ -33,7 +38,7 @@ export class BibliotecaDetails {
     this.bibliotecaService.getByUsuario(this.auth.getCurrentUser()?.id!)
       .subscribe(biblio => {
 
-        const item = biblio.find(x => String(x.libroId) === String(id)); // ← corregido
+        const item = biblio.find(x => String(x.libroId) === String(id)); 
 
         if (item) {
           this.libro.set(item);
@@ -65,9 +70,31 @@ cargarResena(libroId: string | number) {
 
 
   // Crear o editar reseña
-  agregarResena() {
-    this.router.navigate(['/resena-form', this.libro()?.libroId]);
+ agregarResena() {
+    const estado = this.estadoLectura();
+
+    // SI NO ESTÁ TERMINADO → mostrar modal
+    if (estado !== 'Terminado') {
+      this.pendienteNavegar = true;
+      this.mostrarModal.set(true);
+      return;
+    }
+
+    // SI ESTÁ TERMINADO → navegar normal
+    this.router.navigate(['/resena-form', this.libro()!.libroId]);
   }
+
+
+ confirmarResena() {
+    this.mostrarModal.set(false);
+    if (this.pendienteNavegar) {
+      this.router.navigate(['/resena-form', this.libro()!.libroId]);
+    }
+  }
+
+
+
+
 
   // Eliminar reseña
   eliminarResena() {
@@ -108,7 +135,10 @@ cargarResena(libroId: string | number) {
 }
 
 
-
+  cerrarModal() {
+    this.mostrarModal.set(false);
+    this.pendienteNavegar = false;
+  }
 
 
 }

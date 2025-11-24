@@ -17,13 +17,20 @@ export class ReseniaForm {
   private resenaService = inject(ReseniaClient);
   private auth = inject(AuthService);
 
-  protected calificacion = signal(0);
+
+protected libroId!: string;
+protected biblioId!: string;
+  
+
+
+protected calificacion = signal(0);
   protected comentario = signal('');
   protected editMode = signal(false);
   protected idResena: string | number | null = null;
 
   constructor() {
     const libroId = this.route.snapshot.paramMap.get('libroId')!;
+    this.biblioId = this.route.snapshot.queryParamMap.get('biblioId')!;
     const usuarioId = this.auth.getCurrentUser()!.id;
 
     this.resenaService.getByUsuarioYLibro(usuarioId!, libroId).subscribe(res => {
@@ -57,6 +64,14 @@ export class ReseniaForm {
       this.router.navigate(['/biblioteca', libroId]);
     });
   }
+
+
+
+cancelar() {
+  this.router.navigate(['/biblioteca', this.biblioId]);
+}
+
+
 
 
 

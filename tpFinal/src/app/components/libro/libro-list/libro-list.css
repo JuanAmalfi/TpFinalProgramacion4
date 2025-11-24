@@ -322,3 +322,26 @@
     text-align: center;
   }
 }
+/* =====================================================
+   ESTRELLAS — DORADO PREMIUM
+===================================================== */
+
+.rating {
+  margin-top: .3rem;
+  display: flex;
+  gap: 2px;
+}
+
+.rating .star {
+  color: #f5d76e !important;            /* Dorado */
+  font-size: 1rem;
+  text-shadow: 0 0 4px rgba(245, 215, 110, 0.45); /* Brillo */
+  transition: .2s ease;
+}
+
+/* Cuando pasás el mouse por la card, brillan más */
+.card-libro:hover .rating .star {
+  color: #ffeba1 !important;
+  text-shadow: 0 0 6px rgba(255, 230, 150, .7);
+}
+

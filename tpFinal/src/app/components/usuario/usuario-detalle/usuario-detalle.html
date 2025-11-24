@@ -1,42 +1,43 @@
 <div class="detalle-container">
 
   @if (loading()) {
-    <p class="loading">Cargando usuario...</p>
+  <p class="loading">Cargando usuario...</p>
   }
 
   @else if (usuario()) {
-    <div class="card-detalle">
+  <div class="card-detalle">
 
-      <div class="avatar">
-        <span>{{ usuario()?.username}}</span>
-      </div>
+    <div class="avatar">
+      <span>{{ iniciales() }}</span>
+    </div>
 
-      <h2>{{ usuario()?.username }}</h2>
-      <p class="email">{{ usuario()?.email }}</p>
 
-      <div class="info-list">
-        <p><strong>DNI:</strong> {{ usuario()?.dni }}</p>
-        <p><strong>Fecha de nacimiento:</strong> {{ usuario()?.fechaNacimiento }}</p>
-        <p><strong>Rol:</strong> {{ usuario()?.isAdmin ? 'Administrador' : 'Usuario' }}</p>
-      </div>
+    <h2>{{ usuario()?.username }}</h2>
+    <p class="email">{{ usuario()?.email }}</p>
 
-      <div class="acciones">
+    <div class="info-list">
+      <p><strong>DNI:</strong> {{ usuario()?.dni }}</p>
+      <p><strong>Fecha de nacimiento:</strong> {{ usuario()?.fechaNacimiento }}</p>
+      <p><strong>Rol:</strong> {{ usuario()?.isAdmin ? 'Administrador' : 'Usuario' }}</p>
+    </div>
 
-  <!-- Puede editar su propio perfil o cualquier usuario si es admin -->
-  @if (isCurrentUser() || isAdmin()) {
-    <button class="btn btn-primary" (click)="editar()">Editar</button>
-  }
+    <div class="acciones">
 
-  <!-- Solo admin puede eliminar y nunca puede eliminarse -->
-  @if (isAdmin() && !isCurrentUser()) {
-    <button class="btn btn-delete" (click)="eliminar()">Eliminar</button>
-  }
+      <!-- Puede editar su propio perfil o cualquier usuario si es admin -->
+      @if (isCurrentUser() || isAdmin()) {
+      <button class="btn btn-primary" (click)="editar()">Editar</button>
+      }
 
-  <button class="btn btn-secondary" (click)="volver()">Volver</button>
+      <!-- Solo admin puede eliminar y nunca puede eliminarse -->
+      @if (isAdmin() && !isCurrentUser()) {
+      <button class="btn btn-delete" (click)="eliminar()">Eliminar</button>
+      }
 
-</div>
+      <button class="btn btn-secondary" (click)="volver()">Volver</button>
 
     </div>
+
+  </div>
   }
 
 </div>

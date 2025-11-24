@@ -19,15 +19,22 @@ export class BibliotecaList {
 
   protected biblioteca = signal<BibliotecaItem[]>([]);
 
-  constructor() {
-    const usuario = this.auth.getCurrentUser();
-    if (!usuario) return;
+constructor() {
+  const usuario = this.auth.getCurrentUser();
+  if (!usuario) return;
 
-    this.bibliotecaService.getByUsuario(usuario.id!).subscribe({
-      next: data => this.biblioteca.set(data),
-      error: err => console.error("Error cargando biblioteca:", err)
-    });
-  }
+  this.bibliotecaService.getByUsuario(usuario.id!).subscribe({
+    next: data => {
+      const ordenados = data.sort((a, b) =>
+        this.ordenEstado(a.estado) - this.ordenEstado(b.estado)
+      );
+
+      this.biblioteca.set(ordenados);
+    },
+    error: err => console.error("Error cargando biblioteca:", err)
+  });
+}
+
 
   // Modal
   protected libroSeleccionado = signal<BibliotecaItem | null>(null);
@@ -45,6 +52,17 @@ export class BibliotecaList {
   irADetalle(item: BibliotecaItem) {
     this.router.navigate([`/biblioteca/${item.libroId}`]);
   }
+ordenEstado(estado: string | undefined): number {
+  if (!estado) return 1; // default a "No leído"
+
+  switch (estado) {
+    case 'No leído': return 1;
+    case 'Leyendo':  return 2;
+    case 'Terminado': return 3;
+    default: return 4;
+  }
+}
+
 
 
 }
