@@ -55,23 +55,41 @@ Guards para proteger rutas sensibles.
 
 
 src/
+
 ├── app/
+
 │   ├── carrito/          # Carrito de compras
+
 │   ├── libro/            # CRUD de libros + detalles
+
 │   ├── biblioteca/       # Biblioteca del usuario
+
 │   ├── resenias/         # CRUD de reseñas
+
 │   ├── usuarios/         # CRUD de usuarios y perfil
+
 │   ├── home/             # Página principal
+
 │   ├── log/              # Login y autenticación
+
 │   ├── guards/           # AuthGuard y RoleGuard
+
 │   ├── header/           # Barra superior
+
 │   ├── footer/           # Pie de página
+
 │   ├── app.routes.ts     # Configuración de rutas
+
 │   ├── app.config.ts     # Providers globales y bootstrap
+
 │   └── styles.css        # Variables y estilos globales
+
 ├── assets/               # Imágenes y recursos estáticos
+
 ├── db.json               # Base de datos JSON-Server
+
 └── main.ts               # Entry point
+
 
 
 
