@@ -72,6 +72,7 @@
         id="fechaNacimiento"
         type="date"
         formControlName="fechaNacimiento"
+        [max]="hoy"
       />
       @if (form.get('fechaNacimiento')?.touched && form.get('fechaNacimiento')?.invalid) {
         <small class="error">La fecha es obligatoria</small>

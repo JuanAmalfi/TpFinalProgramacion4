@@ -3,10 +3,11 @@ import { BibliotecaClient } from '../biblioteca-client';
 import { AuthService } from '../../log/auth/auth-service';
 import { Router } from '@angular/router';
 import { BibliotecaItem } from '../biblioteca-item';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-biblioteca-list',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './biblioteca-list.html',
   styleUrl: './biblioteca-list.css',
 })

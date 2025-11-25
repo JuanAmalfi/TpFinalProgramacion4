@@ -78,6 +78,7 @@ export class Usuario {
     this.router.navigate(['/auth']);
   }
 
+protected hoy = new Date().toISOString().split('T')[0];
 
 
 }
