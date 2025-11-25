@@ -3,6 +3,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UserClient } from '../user-client';
 import { AuthService } from '../../log/auth/auth-service';
 import { User } from '../../log/user';
+import { ReseniaClient } from '../../resenia/resenia-client';
+import { BibliotecaClient } from '../../biblioteca/biblioteca-client';
+import { CarritoClient } from '../../carrito/carrito-client';
+import { FacturaClient } from '../../factura/factura-client';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-usuario-detalle',
@@ -16,6 +21,15 @@ export class UsuarioDetalle {
   private userClient = inject(UserClient);
   private authService = inject(AuthService);
   private router = inject(Router);
+
+ private reseniaClient = inject(ReseniaClient);
+  private bibliotecaClient = inject(BibliotecaClient);
+  private carritoClient = inject(CarritoClient);
+  private facturaClient = inject(FacturaClient);
+
+
+
+
 
   protected usuario = signal<User | null>(null);
   protected loading = signal(true);
@@ -57,23 +71,87 @@ export class UsuarioDetalle {
     this.router.navigate(['/usuarios/editar', id]);
   }
 
-  eliminar() {
-    if (this.isCurrentUser()) {
-      alert("No puedes eliminar tu propia cuenta.");
-      return;
-    }
 
-    const id = this.usuario()?.id;
-    if (!confirm('¿Eliminar este usuario permanentemente?')) return;
 
-    this.userClient.deleteUser(id!).subscribe({
-      next: () => {
-        alert('Usuario eliminado');
-        this.router.navigate(['/usuarios']);
-      },
-      error: () => alert('Error al eliminar usuario')
-    });
+
+
+  async eliminar() {
+  const user = this.usuario();
+  if (!user) return;
+
+  if (this.isCurrentUser()) {
+    alert("No puedes eliminar tu propia cuenta.");
+    return;
   }
+
+  if (!confirm('¿Eliminar este usuario y todos sus datos?')) return;
+
+  const userId = String(user.id);
+
+  try {
+    // ===============================
+    // 1️⃣ Obtener todos los datos en paralelo
+    // ===============================
+    const [resenas, biblioteca, carrito, facturas] = await Promise.all([
+      firstValueFrom(this.reseniaClient.getAll()),
+      firstValueFrom(this.bibliotecaClient.getByUsuario(userId)),
+      firstValueFrom(this.carritoClient.getCarritoByUsuario(userId)),
+      firstValueFrom(this.facturaClient.getByUsuario(userId))
+    ]);
+
+    // ===============================
+    // 2️⃣ Crear arrays con promesas de eliminación
+    // ===============================
+
+    // Reseñas
+    const promesasResenas = resenas
+      .filter(r => String(r.usuarioId) === userId)
+      .map(r => firstValueFrom(this.reseniaClient.delete(r.id!)));
+
+    // Biblioteca
+    const promesasBiblioteca = biblioteca
+      .map(item => firstValueFrom(this.bibliotecaClient.delete(item.id!)));
+
+    // Carrito
+    const promesasCarrito = carrito
+      .map(c => firstValueFrom(this.carritoClient.deleteCarrito(c.id!)));
+
+    // Facturas
+    const promesasFacturas = facturas
+      .map(f => firstValueFrom(this.facturaClient.delete(f.id!)));
+
+    // ===============================
+    // 3️⃣ Ejecutar TODAS las eliminaciones al mismo tiempo
+    // ===============================
+    await Promise.all([
+      ...promesasResenas,
+      ...promesasBiblioteca,
+      ...promesasCarrito,
+      ...promesasFacturas
+    ]);
+
+    // ===============================
+    // 4️⃣ Eliminar el usuario
+    // ===============================
+    await firstValueFrom(this.userClient.deleteUser(userId));
+
+    alert("Usuario y todos sus datos fueron eliminados correctamente ✔");
+   this.router.navigate(['/usuario-list']);
+
+
+  } catch (err) {
+    console.error(err);
+    alert("Ocurrió un error al eliminar los datos del usuario ❌");
+  }
+}
+
+
+
+
+
+
+
+
 isAdmin() {
   return this.authService.getCurrentUser()?.isAdmin === true;
 }

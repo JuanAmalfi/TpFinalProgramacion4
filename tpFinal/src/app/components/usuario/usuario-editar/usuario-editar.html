@@ -2,9 +2,8 @@
 
     @if (loading()) {
     <p class="loading-msg">Cargando información...</p>
-    }
+    } @else {
 
-    @else {
     <div class="perfil-card fadeIn">
 
         <div class="avatar-profile">
@@ -15,50 +14,90 @@
 
         <form [formGroup]="form" class="form-content">
 
+            <!-- USERNAME -->
             <div class="form-group">
-                <label for="username">Nombre de usuario</label>
-                <input id="username" type="text" formControlName="username" placeholder="Ej: JuanPérez" />
+                <label for="username">Nombre de usuario *</label>
+                <input id="username" type="text" formControlName="username" placeholder="Ej: JuanPerez" />
+
+                @if (form.get('username')?.touched && form.get('username')?.invalid) {
+                <small class="error">Mínimo 4 caracteres</small>
+                }
             </div>
+
+            <!-- EMAIL -->
+            <div class="form-group">
+                <label for="email">Email *</label>
+                <input id="email" type="email" formControlName="email" placeholder="correo@ejemplo.com" />
+
+                @if (form.get('email')?.touched && form.get('email')?.invalid) {
+                <small class="error">
+                    @if (form.get('email')?.errors?.['required']) { El email es obligatorio }
+                    @else { Email inválido }
+                </small>
+                }
+            </div>
+
+            <!-- DNI -->
+            <div class="form-group">
+                <label for="dni">DNI *</label>
+                <input id="dni" type="text" formControlName="dni" placeholder="Solo números" />
+
+                @if (form.get('dni')?.touched && form.get('dni')?.invalid) {
+                <small class="error">DNI inválido (7 u 8 números)</small>
+                }
+            </div>
+
+            <!-- FECHA NAC -->
+            <div class="form-group">
+                <label for="fechaNacimiento">Fecha de nacimiento *</label>
+                <input id="fechaNacimiento" type="date" formControlName="fechaNacimiento" />
+
+                @if (form.get('fechaNacimiento')?.touched && form.get('fechaNacimiento')?.invalid) {
+                <small class="error">La fecha es obligatoria</small>
+                }
+            </div>
+
+
+            <!-- ========================= -->
+            <!--  CONTRASEÑA (NO MOSTRAR A ADMIN) -->
+            <!-- ========================= -->
+            @if (!esAdmin()) {
+
             <h3 class="sub-title">Cambiar contraseña</h3>
 
             <div class="form-group">
-                <label>Contraseña actual</label>
+                <label>Contraseña actual *</label>
                 <input type="password" formControlName="currentPassword" placeholder="******" />
             </div>
 
             <div class="form-group">
-                <label>Nueva contraseña</label>
+                <label>Nueva contraseña *</label>
                 <input type="password" formControlName="newPassword" placeholder="Mínimo 6 caracteres" />
+
+                @if (form.get('newPassword')?.touched && form.get('newPassword')?.invalid) {
+                <small class="error">Mínimo 6 caracteres</small>
+                }
             </div>
 
             <div class="form-group">
-                <label>Repetir nueva contraseña</label>
+                <label>Repetir nueva contraseña *</label>
                 <input type="password" formControlName="confirmNewPassword" placeholder="Repetir contraseña" />
             </div>
 
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input id="email" type="email" formControlName="email" placeholder="correo@ejemplo.com" />
-            </div>
+            }
 
-            <div class="form-group">
-                <label for="dni">DNI</label>
-                <input id="dni" type="text" formControlName="dni" placeholder="Solo números" />
-            </div>
-
-            <div class="form-group">
-                <label for="fechaNacimiento">Fecha de nacimiento</label>
-                <input id="fechaNacimiento" type="date" formControlName="fechaNacimiento" />
-            </div>
-
+            <!-- BOTONES -->
             <div class="acciones">
-                <button class="btn-guardar" type="button" (click)="guardar()" [disabled]="saving()">
-                    {{ saving() ? 'Guardando...' : 'Guardar Cambios' }}
-                </button>
 
                 <button class="btn-cancelar" type="button" (click)="cancelar()">
                     Cancelar
                 </button>
+
+                <button class="btn-guardar" type="button" (click)="guardar()" [disabled]="saving()">
+                    {{ saving() ? 'Guardando...' : 'Guardar Cambios' }}
+                </button>
+
+
             </div>
 
         </form>

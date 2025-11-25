@@ -15,7 +15,7 @@
         <p class="autor">{{ libro.autor }}</p>
         <p class="precio">$ {{ libro.precio }}</p>
         <div class="rating">
-    @for (i of [1,2,3,4,5]; track i) {
+    @for (i of [1,2,3,4,5]; track $index) {
       <span class="star">
         {{ i <= redondear(libro.promedioCalificacion || 0) ? '★' : '☆' }}
       </span>

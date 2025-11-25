@@ -5,6 +5,10 @@ import { UserClient } from '../user-client';
 import { AuthService } from '../../log/auth/auth-service';
 import { User } from '../../log/user';
 import { Location } from '@angular/common';
+import { ReseniaClient } from '../../resenia/resenia-client';
+import { BibliotecaClient } from '../../biblioteca/biblioteca-client';
+import { CarritoClient } from '../../carrito/carrito-client';
+import { FacturaClient } from '../../factura/factura-client';
 
 @Component({
   selector: 'app-usuario-editar',
@@ -20,6 +24,12 @@ export class UsuarioEditar {
   private router = inject(Router);
   private fb = inject(FormBuilder);
   private location = inject(Location);
+
+
+ 
+
+
+
 
   usuario = signal<User | null>(null);
   editField = signal<string | null>(null);
@@ -172,4 +182,9 @@ export class UsuarioEditar {
    cancelar() {
     this.router.navigate(['/usuarios/detalle', this.usuario()?.id]);
   }
+
+  esAdmin() {
+  return this.authService.getCurrentUser()?.isAdmin === true;
+}
+
 }

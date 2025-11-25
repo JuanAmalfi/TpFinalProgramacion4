@@ -1,3 +1,8 @@
+/* ================================
+   PERFIL — ESTILO MEJORADO
+================================ */
+
+/* Fondo general */
 .perfil-container {
   display: flex;
   justify-content: center;
@@ -6,66 +11,108 @@
   min-height: 100vh;
 }
 
+/* Tarjeta principal */
 .perfil-card {
   width: 100%;
-  max-width: 450px;
+  max-width: 480px;
   background: var(--color-bg-card-2);
   padding: 2rem;
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-  text-align: center;
-  animation: fadeIn 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  animation: fadeIn .4s ease;
+  position: relative;
 }
 
-.title {
-  color: var(--color-text);
-  margin-bottom: 1rem;
-}
-
+/* Avatar redondo */
 .avatar-profile {
-  width: 90px;
-  height: 90px;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
   border-radius: 50%;
-  background: var(--color-text);
-  color: #383636;
-  margin: 0 auto 1rem;
+  background: var(--color-accent);
+  color: #121212;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 2.3rem;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(214,195,165,0.4);
 }
 
+/* Títulos */
+.title {
+  color: var(--color-accent);
+  text-align: center;
+  font-family: "Georgia", serif;
+  font-size: 1.7rem;
+  margin-bottom: .5rem;
+}
+
+.sub-title {
+  color: var(--color-accent);
+  margin: .5rem 0 .3rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+/* FORMULARIO */
 .form-content {
-  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
+/* Grupo campo */
 .form-group {
-  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
 }
 
-label {
-  display: block;
-  color: var(--color-text-soft);
-  margin-bottom: 0.2rem;
+/* Labels con tu dorado */
+.form-group label {
+  color: var(--color-accent);
+  font-weight: 600;
+  font-size: .95rem;
 }
 
-input {
-  width: 100%;
+/* Inputs */
+.form-group input {
   padding: 10px;
-  background: #292929;
   border-radius: 8px;
-  border: 1px solid #444;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.05);
   color: var(--color-text);
+  outline: none;
+  transition: var(--transition);
 }
 
-input:focus {
+.form-group input:focus {
   border-color: var(--color-accent);
-  box-shadow: 0 0 8px rgba(214,195,165,0.4);
+  box-shadow: 0 0 6px rgba(214,195,165,0.45);
 }
 
+/* Errores */
+.error {
+  color: #ff6b6b;
+  font-size: .75rem;
+}
+
+.loading-msg {
+  text-align: center;
+  color: var(--color-text);
+  margin-top: 2rem;
+}
+
+/* Botones */
 .acciones {
   display: flex;
   gap: 1rem;
-  margin-top: 1rem;
+  justify-content: space-between;
+  margin-top: .5rem;
 }
 
 .btn-guardar,
@@ -73,27 +120,46 @@ input:focus {
   flex: 1;
   padding: 12px;
   border-radius: 8px;
-  font-weight: bold;
   cursor: pointer;
-  border: none;
+  font-weight: 600;
   transition: var(--transition);
 }
 
 .btn-guardar {
   background: var(--color-accent);
   color: #121212;
+  border: none;
 }
 
 .btn-guardar:hover {
-  background: #f7e7cf;
+  background: #ffe7c3;
+  transform: translateY(-2px);
 }
 
 .btn-cancelar {
   background: transparent;
-  border: 1px solid var(--color-text);
-  color: var(--color-text);
+  border: 1px solid var(--color-accent);
+  color: var(--color-accent);
 }
 
 .btn-cancelar:hover {
-  background: #2b2b2b;
+  background: rgba(214,195,165,0.1);
+  transform: translateY(-2px);
+}
+
+/* Fade */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .perfil-card {
+    padding: 1.5rem;
+  }
+
+  .title {
+    font-size: 1.4rem;
+  }
 }

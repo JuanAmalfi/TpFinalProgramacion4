@@ -32,5 +32,9 @@ export class BibliotecaClient {
   updateEstado(id: string | number, estado: string) {
   return this.http.patch(`${this.url}/${id}`, { estado });
 }
+delete(id: string | number) {
+  return this.http.delete(`${this.url}/${id}`);
+}
+
 
 }

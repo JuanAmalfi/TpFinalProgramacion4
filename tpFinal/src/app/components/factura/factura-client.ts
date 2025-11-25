@@ -21,4 +21,14 @@ export class FacturaClient {
   getFacturasByUsuario(usuarioId: string | number) {
     return this.http.get<any[]>(`${this.url}?usuarioId=${usuarioId}`);
   }
+
+getByUsuario(usuarioId: string | number) {
+  return this.http.get<Factura[]>(`${this.url}?usuarioId=${usuarioId}`);
+}
+delete(id: string | number) {
+  return this.http.delete(`${this.url}/${id}`);
+}
+
+
+
 }

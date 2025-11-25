@@ -63,7 +63,7 @@
           <p class="user"><i class="fa-solid fa-user"></i> {{ r.username }}</p>
 
           <div class="stars">
-            @for (star of generarEstrellas(r.calificacion); track star) {
+            @for (star of generarEstrellas(r.calificacion); track $index) {
             <span>{{ star }}</span>
             }
           </div>

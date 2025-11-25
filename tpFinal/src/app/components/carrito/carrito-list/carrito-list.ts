@@ -71,7 +71,7 @@ private libroService = inject(LibroClient);
     });
   }
 
-  async finalizarCompra() {
+ async finalizarCompra() {
   const usuario = this.authService.getCurrentUser();
 
   if (!usuario) {
@@ -117,32 +117,41 @@ private libroService = inject(LibroClient);
 
     await firstValueFrom(this.facturaService.crearFactura(factura));
 
-    // 4️⃣ Guardar libros en biblioteca con estado inicial
-    // 4️⃣ Guardar libros en biblioteca con estado inicial
-for (const item of items) {
-  const libroParaGuardar: BibliotecaItem = {
-    usuarioId: usuario.id!,
-    libroId: item.libroId,
-    titulo: item.titulo ?? 'Sin título',
-    autor: item.autor ?? 'Desconocido',
-    genero: item.genero ?? 'No indicado',
-    anioPublicacion: Number(item.anioPublicacion) || new Date().getFullYear(),
-    portada: item.portada || '',
-    estado: 'No leído'
-  };
+    // 4️⃣ Guardar libros en biblioteca (EN PARALELO)
+    await Promise.all(
+      items.map(item => {
+        const libroParaGuardar: BibliotecaItem = {
+          usuarioId: usuario.id!,
+          libroId: item.libroId,
+          titulo: item.titulo ?? 'Sin título',
+          autor: item.autor ?? 'Desconocido',
+          genero: item.genero ?? 'No indicado',
+          anioPublicacion:
+            Number(item.anioPublicacion) || new Date().getFullYear(),
+          portada: item.portada || '',
+          estado: 'No leído'
+        };
 
-  console.log("📥 Enviando a biblioteca:", libroParaGuardar);
+        return firstValueFrom(
+          this.bibliotecaService.addLibro(libroParaGuardar)
+        );
+      })
+    );
 
-  await firstValueFrom(this.bibliotecaService.addLibro(libroParaGuardar));
-  console.log("✔️ Guardado en biblioteca");
-}
+    // 5️⃣ Vaciar carrito por completo
+    const carritoActual = await firstValueFrom(
+      this.carritoService.getCarritoByUsuario(usuario.id!)
+    );
 
-    // 5️⃣ Vaciar carrito
-    for (const item of items) {
-      if (item.id) await firstValueFrom(this.carritoService.deleteCarrito(item.id));
-    }
+    await Promise.all(
+      carritoActual
+        .filter(item => item.id)
+        .map(item => firstValueFrom(this.carritoService.deleteCarrito(item.id!)))
+    );
 
+    // Actualizar señal local
     this.items.set([]);
+
     alert("Compra realizada con éxito.");
     this.router.navigate(['/biblioteca']);
 
@@ -151,6 +160,7 @@ for (const item of items) {
     alert("Ocurrió un error al procesar la compra.");
   }
 }
+
 
 
 
