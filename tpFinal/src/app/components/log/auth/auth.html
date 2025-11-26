@@ -1,5 +1,5 @@
 <div class="auth-container">
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form fadeIn">
     <h2>Iniciar sesión</h2>
 
     <div class="form-group">
@@ -8,7 +8,7 @@
         id="username"
         type="text"
         formControlName="username"
-        placeholder="Ingresá tu usuario o Email "
+        placeholder="Ingresá tu usuario o email"
       />
       @if (loginForm.get('username')?.touched && loginForm.get('username')?.invalid) {
         <small class="error">El usuario es obligatorio</small>
@@ -28,21 +28,18 @@
       }
     </div>
 
-   @if (errorMessage) {
-  <div class="error-message shake">{{ errorMessage }}</div>
-}
-
+    @if (errorMessage) {
+      <div class="error-message shake">{{ errorMessage }}</div>
+    }
 
     <button type="submit" [disabled]="loginForm.invalid" class="btn-login">
       Ingresar
     </button>
-
-   
   </form>
 
   <!-- Enlace a crear cuenta -->
-  <div class="register-link">
-    <p>¿No tenés cuenta? 
+  <div class="register-link fadeIn">
+    <p>¿No tenés cuenta?
       <span class="link-btn" (click)="goToRegister()">Crear cuenta</span>
     </p>
   </div>

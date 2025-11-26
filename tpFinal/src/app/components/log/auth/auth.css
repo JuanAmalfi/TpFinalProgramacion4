@@ -1,5 +1,5 @@
 /* ================================
-   LOGIN — ESTILO UNIFICADO
+   LOGIN — ESTILO PREMIUM
 ================================ */
 
 /* Contenedor general */
@@ -21,7 +21,8 @@
   box-shadow: var(--shadow);
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.2rem;
+  animation: fadeIn .4s ease-out;
   transition: var(--transition);
 }
 
@@ -31,30 +32,34 @@
 
 /* Título */
 .login-form h2 {
-  color: var(--color-text);
+  color: var(--color-accent); /* ⭐ DORADO */
   font-family: Georgia, serif;
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
+  font-size: 1.9rem;
+  margin-bottom: .8rem;
   text-align: center;
+  letter-spacing: 0.5px;
 }
 
 /* Grupo de campos */
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 0.35rem;
 }
 
+/* Label dorado */
 .form-group label {
-  color: var(--color-text);
+  color: var(--color-accent);
   font-weight: 600;
+  letter-spacing: 0.5px;
 }
 
+/* Inputs translúcidos */
 .form-group input {
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid rgba(255,255,255,0.2);
-  background: rgba(255,255,255,0.05);
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.06);
   color: var(--color-text);
   outline: none;
   transition: var(--transition);
@@ -62,31 +67,32 @@
 
 .form-group input:focus {
   border-color: var(--color-accent);
-  box-shadow: 0 0 6px rgba(214,195,165,0.45);
+  box-shadow: 0 0 10px rgba(214,195,165,0.45);
 }
 
 /* Error en inputs */
 .error {
   color: #ff6b6b;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
+  padding-left: 2px;
 }
 
 /* Error general */
 .error-message {
   color: #ff4d4d;
   font-weight: 600;
-  background-color: rgba(255, 77, 77, 0.1);
+  background-color: rgba(255, 77, 77, 0.12);
   border: 1px solid #ff4d4d;
-  padding: 10px;
-  border-radius: 6px;
+  padding: 12px;
+  border-radius: 8px;
   text-align: center;
-  animation: fadeIn .3s ease-out;
+  animation: fadeIn .3s ease-out, shake .35s;
 }
 
 /* Botón ingresar */
 .btn-login {
   padding: 12px;
-  border-radius: 8px;
+  border-radius: 10px;
   border: none;
   background: var(--color-accent);
   color: #121212;
@@ -102,6 +108,12 @@
   box-shadow: var(--shadow);
 }
 
+/* Deshabilitado */
+.btn-login:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
 /* Registro */
 .register-link {
   margin-top: 1rem;
@@ -113,6 +125,7 @@
   text-align: center;
 }
 
+/* Botón link */
 .link-btn {
   color: var(--color-accent);
   cursor: pointer;
@@ -127,13 +140,11 @@
 
 /* Shake animation */
 @keyframes shake {
-  10%, 90% { transform: translateX(-2px); }
-  20%, 80% { transform: translateX(4px); }
-  30%, 50%, 70% { transform: translateX(-8px); }
-  40%, 60% { transform: translateX(8px); }
+  10%, 90% { transform: translateX(-1px); }
+  20%, 80% { transform: translateX(3px); }
+  30%, 50%, 70% { transform: translateX(-6px); }
+  40%, 60% { transform: translateX(6px); }
 }
-
-.shake { animation: shake .35s; }
 
 /* Fade */
 @keyframes fadeIn {
@@ -145,6 +156,6 @@
 @media (max-width: 480px) {
   .login-form {
     width: 90%;
-    padding: 1.5rem;
+    padding: 1.6rem;
   }
 }
