@@ -39,7 +39,7 @@ private libroService = inject(LibroClient);
   );
 
   constructor() {
-    const usuario = this.authService.getCurrentUser(); // o como lo tengas
+    const usuario = this.authService.getCurrentUser(); 
     if (!usuario) {
       this.error.set('Debes iniciar sesión para ver el carrito.');
       this.cargando.set(false);
@@ -58,6 +58,7 @@ private libroService = inject(LibroClient);
     });
   }
 
+// Metodo de eliminar un item del carrito
   eliminarItem(item: CarritoItem) {
     if (!item.id) return;
     this.carritoService.deleteCarrito(item.id).subscribe({
@@ -71,27 +72,26 @@ private libroService = inject(LibroClient);
     });
   }
 
+  ///Metodo de finalizar compra del carrito con toda su logica de negocio marcada
  async finalizarCompra() {
   const usuario = this.authService.getCurrentUser();
-
   if (!usuario) {
     alert("Debes iniciar sesión primero.");
     return;
   }
 
-  const items = this.items();
+  const items = [...this.items()];
   if (items.length === 0) {
     alert("Tu carrito está vacío.");
     return;
   }
 
   try {
-    // 1️⃣ Obtener biblioteca existente del usuario
     const biblioteca = await firstValueFrom(
       this.bibliotecaService.getByUsuario(usuario.id!)
     );
 
-    // 2️⃣ Detectar libros ya comprados
+    // VALIDAR REPETIDOS PRIMERO!
     const repetidos = items.filter(item =>
       biblioteca.some(b => String(b.libroId) === String(item.libroId))
     );
@@ -99,10 +99,10 @@ private libroService = inject(LibroClient);
     if (repetidos.length > 0) {
       const titulos = repetidos.map(r => `"${r.titulo}"`).join(", ");
       alert(`No puedes comprar libros que ya posees: ${titulos}`);
-      return;
+      return; // ⛔ Importante: frena ANTES de facturar y vaciar carrito
     }
 
-    // 3️⃣ Crear factura
+    // Crear factura
     const factura: Factura = {
       usuarioId: usuario.id!,
       fecha: new Date().toISOString(),
@@ -117,28 +117,25 @@ private libroService = inject(LibroClient);
 
     await firstValueFrom(this.facturaService.crearFactura(factura));
 
-    // 4️⃣ Guardar libros en biblioteca (EN PARALELO)
+    // Agregar a biblioteca
     await Promise.all(
-      items.map(item => {
-        const libroParaGuardar: BibliotecaItem = {
-          usuarioId: usuario.id!,
-          libroId: item.libroId,
-          titulo: item.titulo ?? 'Sin título',
-          autor: item.autor ?? 'Desconocido',
-          genero: item.genero ?? 'No indicado',
-          anioPublicacion:
-            Number(item.anioPublicacion) || new Date().getFullYear(),
-          portada: item.portada || '',
-          estado: 'No leído'
-        };
-
-        return firstValueFrom(
-          this.bibliotecaService.addLibro(libroParaGuardar)
-        );
-      })
+      items.map(item =>
+        firstValueFrom(
+          this.bibliotecaService.addLibro({
+            usuarioId: usuario.id!,
+            libroId: item.libroId,
+            titulo: item.titulo ?? 'Sin título',
+            autor: item.autor ?? 'Desconocido',
+            genero: item.genero ?? 'No indicado',
+            anioPublicacion: Number(item.anioPublicacion) || new Date().getFullYear(),
+            portada: item.portada || '',
+            estado: 'No leído'
+          })
+        )
+      )
     );
 
-    // 5️⃣ Vaciar carrito por completo
+    // Vaciar carrito
     const carritoActual = await firstValueFrom(
       this.carritoService.getCarritoByUsuario(usuario.id!)
     );
@@ -149,7 +146,6 @@ private libroService = inject(LibroClient);
         .map(item => firstValueFrom(this.carritoService.deleteCarrito(item.id!)))
     );
 
-    // Actualizar señal local
     this.items.set([]);
 
     alert("Compra realizada con éxito.");
@@ -160,6 +156,7 @@ private libroService = inject(LibroClient);
     alert("Ocurrió un error al procesar la compra.");
   }
 }
+
 
 
 

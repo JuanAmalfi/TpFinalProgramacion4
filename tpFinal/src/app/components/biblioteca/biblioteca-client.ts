@@ -13,25 +13,27 @@ export class BibliotecaClient {
  addLibro(item: BibliotecaItem) {
   const nuevo = { 
     ...item,
-    estado: item.estado ?? 'No leído' // 👈 setea default
+    estado: item.estado ?? 'No leído' 
   };
   return this.http.post<BibliotecaItem>(this.url, nuevo);
 }
 
 
-  // 📌 Obtener biblioteca completa
+  //  Obtener biblioteca completa
   getAll() {
     return this.http.get<BibliotecaItem[]>(this.url);
   }
 
-  // 📌 Obtener biblioteca de un usuario
+  //  Obtener biblioteca de un usuario
   getByUsuario(usuarioId: string | number) {
     return this.http.get<BibliotecaItem[]>(`${this.url}?usuarioId=${usuarioId}`);
   }
-
+// Actualiza estado del libro
   updateEstado(id: string | number, estado: string) {
   return this.http.patch(`${this.url}/${id}`, { estado });
 }
+
+//Elimina el libro de la biblioteca del cliente
 delete(id: string | number) {
   return this.http.delete(`${this.url}/${id}`);
 }

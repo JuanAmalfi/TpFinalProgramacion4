@@ -34,7 +34,7 @@ export class LibroList {
 
 
 
-  
+  // me permite filtrar los libros
    protected filteredLibros = computed(() => {
     return this.libros().filter((libro: Libro) => {
 
@@ -84,7 +84,7 @@ export class LibroList {
 
 
   constructor() {
-    // carga automática de los libros al entrar
+    
     effect(() => {
       this.store.loadLibros();
 
@@ -99,13 +99,13 @@ export class LibroList {
 
     });
   }
-
+//Elimina libro
   eliminar(id: number | string) {
     if (confirm('¿Desea eliminar este libro?')) {
       this.store.deleteLibro(id);
     }
   }
-
+//Ve el detalle de un libro
   verDetalle(id: number | string) {
     this.router.navigate(['/libros', id]);
   }
@@ -119,7 +119,7 @@ export class LibroList {
     this.filtrosAbiertos.update(v => !v);
   }
 
-
+//Limpia los filtros
   limpiarFiltros() {
     this.filtroAutor.set('');
     this.filtroGenero.set('');

@@ -51,7 +51,7 @@ export class UsuarioEditar {
   constructor() {
     effect(() => this.cargarUsuario());
   }
-
+///Me carga el usuario activo
   cargarUsuario() {
     const id = this.route.snapshot.paramMap.get('id');
     if (!id) return;
@@ -69,7 +69,7 @@ export class UsuarioEditar {
     });
   }
 
-
+//Metodo que se encarga de validar y guardar el usuario modificado.
    guardar() {
   if (this.form.invalid || !this.usuario()) {
     this.form.markAllAsTouched();

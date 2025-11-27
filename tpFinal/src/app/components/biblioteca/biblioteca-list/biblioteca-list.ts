@@ -53,6 +53,7 @@ constructor() {
   irADetalle(item: BibliotecaItem) {
     this.router.navigate([`/biblioteca/${item.libroId}`]);
   }
+  //metodo que me ordena la biblioteca segun estado del libro
 ordenEstado(estado: string | undefined): number {
   if (!estado) return 1; // default a "No leído"
 

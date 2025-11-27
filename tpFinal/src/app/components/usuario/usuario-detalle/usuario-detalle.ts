@@ -40,7 +40,7 @@ export class UsuarioDetalle {
       this.cargarUsuario();
     });
   }
-
+//Me obtiene el usuario activo
   cargarUsuario() {
     const id = this.route.snapshot.paramMap.get('id');
     if (!id) return;
@@ -74,7 +74,7 @@ export class UsuarioDetalle {
 
 
 
-
+//Me elimina el usuairo con toda la logica del negocio, su biblioteca, carrito ETC.
   async eliminar() {
   const user = this.usuario();
   if (!user) return;

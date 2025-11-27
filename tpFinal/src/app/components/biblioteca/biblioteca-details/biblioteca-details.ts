@@ -49,7 +49,7 @@ export class BibliotecaDetails {
   }
 }
 
-  // Cargar reseña existente
+  
   // Cargar reseña EXISTENTE del usuario logueado para este libro
 cargarResena(libroId: string | number) {
   const usuarioId = this.auth.getCurrentUser()?.id;
@@ -61,7 +61,7 @@ cargarResena(libroId: string | number) {
       this.resena.set(r);
       this.generarEstrellas(r.calificacion);
     } else {
-      // 👇 importante: limpiar si este usuario NO tiene reseña
+      
       this.resena.set(null);
       this.estrellas.set([]);
     }
@@ -126,7 +126,7 @@ cargarResena(libroId: string | number) {
 
   this.estadoLectura.set(estado);
 
-  // Actualizar en db.json
+  
   this.bibliotecaService
     .updateEstado(this.libro()!.id!, estado)
     .subscribe(() => {

@@ -60,14 +60,14 @@ protected resenias = signal<any[]>([]);
     this.router.navigate(['/libro-list']);
   }
 
-  // ✏️ Redirigir al formulario con el ID del libro
+  //  Redirigir al formulario con el ID del libro
   protected editarLibro() {
     this.router.navigate(['/libro-edit', this.libro()?.id]);
   }
 
 
 
-  // 🗑️ Eliminar libro y volver al listado
+  //  Eliminar libro y volver al listado
   protected eliminarLibro() {
     const libroActual = this.libro();
     if (!libroActual?.id) return;
@@ -87,7 +87,7 @@ protected resenias = signal<any[]>([]);
     });
   }
 
-
+//Agregar un libro al carrito
  agregarAlCarrito(): void {
   const usuario = this.authService.getCurrentUser();
 
@@ -136,13 +136,13 @@ protected resenias = signal<any[]>([]);
     error: () => this.mensaje.set("No se pudo validar el carrito.")
   });
 }
-
+//Verifica si el usuario esta logeado
 estaLogueado(): boolean {
   return this.authService.isAuthenticated();
 }
 
 irALogin(): void {
-  this.router.navigate(['/auth']); // ajusta si tu ruta es '/auth'
+  this.router.navigate(['/auth']); 
 }
 
 
@@ -150,20 +150,20 @@ irALogin(): void {
   return String(id ?? '');
 }
 
-
+//Carga las reseñas que tiene un libro
 cargarResenias(libroId: number | string) {
   this.reseniaService.getByLibro(libroId).subscribe({
     next: (data) => this.resenias.set(data),
     error: () => this.resenias.set([])
   });
 }
-
+//Me genera el promedio de estrellas de un libro
 generarEstrellas(value: number): string[] {
   const full = Math.round(value);
   return Array.from({ length: 5 }).map((_, i) => (i < full ? '★' : '☆'));
 }
 
-
+//Metodo que permite que el admin elimine una reseña de un libro
 protected eliminarResenaAdmin(id: string | number) {
   if (!confirm("¿Seguro que deseas eliminar esta reseña permanentemente?"))
     return;
@@ -171,7 +171,7 @@ protected eliminarResenaAdmin(id: string | number) {
   this.reseniaService.delete(id).subscribe({
     next: () => {
       alert("Reseña eliminada correctamente.");
-      this.cargarResenias(this.libro()?.id); // recargar lista
+      this.cargarResenias(this.libro()?.id); 
     },
     error: () => alert("Ocurrió un error al eliminar la reseña.")
   });

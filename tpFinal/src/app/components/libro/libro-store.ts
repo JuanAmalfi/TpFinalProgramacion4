@@ -12,12 +12,12 @@ export class LibroStore {
  private readonly reseniaClient = inject(ReseniaClient);
 
 
-  // ✅ Estado reactivo
+  //  Estado reactivo
   readonly libros = signal<Libro[]>([]);
   readonly loading = signal(false);
   readonly error = signal<string | null>(null);
 
-  // ✅ Cargar todos los libros
+  //  Cargar todos los libros
   loadLibros() {
   this.loading.set(true);
 
@@ -52,7 +52,7 @@ export class LibroStore {
   });
 }
 
-  // ✅ Agregar libro
+  //  Agregar libro
   addLibro(libro: Libro) {
     this.libroClient.postLibro(libro).subscribe({
       next: (nuevo) => {
@@ -65,7 +65,7 @@ export class LibroStore {
     });
   }
 
-  // ✅ Actualizar libro
+  //  Actualizar libro
   updateLibro(libro: Libro) {
     if (!libro.id) return;
     this.libroClient.updateLibro(libro, libro.id).subscribe({
@@ -81,7 +81,7 @@ export class LibroStore {
     });
   }
 
-  // ✅ Eliminar libro
+  //  Eliminar libro
   deleteLibro(id: number | string) {
     this.libroClient.deleteLibro(id).subscribe({
       next: () => {
@@ -94,7 +94,7 @@ export class LibroStore {
     });
   }
 
-  // ✅ Obtener un libro por ID (para detalle)
+  //  Obtener un libro por ID (para detalle)
   getLibroById(id: number | string) {
     return this.libroClient.getLibroById(id);
   }

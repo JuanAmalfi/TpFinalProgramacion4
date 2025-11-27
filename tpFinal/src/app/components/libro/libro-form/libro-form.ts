@@ -10,7 +10,7 @@ import { LibroStore } from '../libro-store';
   selector: 'app-libro-form',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './libro-form.html',  // ← Así
+  templateUrl: './libro-form.html',  
   styleUrl: './libro-form.css'   
 })
 export class LibroFormComponent {
@@ -33,7 +33,7 @@ export class LibroFormComponent {
     portada: ['']
   });
 
-  // ✅ Capturar y convertir imagen
+  //  Capturar y convertir imagen
   onFileSelected(event: Event) {
   const input = event.target as HTMLInputElement;
   const file = input.files?.[0];
@@ -43,13 +43,13 @@ export class LibroFormComponent {
   reader.onload = () => {
     const base64 = reader.result as string;
     this.portadaPreview = base64;
-    // 👇 Guardamos el base64 directamente en el form
+    
     this.libroForm.patchValue({ portada: base64 });
   };
   reader.readAsDataURL(file);
 }
 
-  // ✅ Enviar al store
+  //  Enviar al store
   onSubmit() {
     if (this.libroForm.valid) {
       const libro: Libro = this.libroForm.value;
@@ -66,6 +66,7 @@ export class LibroFormComponent {
     }
   }
 
+  //Cancelar el libro
   onCancel() {
     if (confirm('¿Está seguro de cancelar? Los cambios no se guardarán.')) {
       this.router.navigate(['/libro-list']);
@@ -76,6 +77,7 @@ export class LibroFormComponent {
     this.router.navigate(['/home']);
   }
 
+  //Metodo que valida
   isInvalid(control: string) {
   const c = this.libroForm.get(control);
   return c?.invalid && c?.touched;

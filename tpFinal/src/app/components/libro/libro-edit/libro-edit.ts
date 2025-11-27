@@ -19,7 +19,7 @@ export class LibroEdit {
 
   protected libroId = this.route.snapshot.paramMap.get('id');
 
-  // 📌 Form con validadores actualizados
+  //  Form con validadores actualizados
   protected editForm: FormGroup = this.fb.group({
     titulo: ['', [Validators.required, Validators.minLength(1)]],
     autor: ['', [Validators.required, Validators.minLength(1)]],
@@ -37,7 +37,7 @@ export class LibroEdit {
   constructor() {
     this.cargarLibro();
   }
-
+//Me carga el libro con los datos cargados
   private async cargarLibro() {
     if (!this.libroId) return;
 
@@ -59,7 +59,7 @@ export class LibroEdit {
     }
   }
 
-  // 📌 Manejo de imagen cargada
+  //  Manejo de imagen cargada
   onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
     if (!input.files || input.files.length === 0) return;
@@ -73,7 +73,7 @@ export class LibroEdit {
     reader.readAsDataURL(file);
   }
 
-  // 📌 Guardar cambios
+  //  Guardar cambios
  async onSave() {
   if (this.editForm.invalid || !this.libroId) return;
 
@@ -88,7 +88,7 @@ export class LibroEdit {
   }
 }
 
-  // 📌 Cancelar y volver
+  //  Cancelar y volver
   cancelar() {
     if (confirm('¿Deseas cancelar la edición? Se perderán los cambios.')) {
       this.router.navigate(['/libros', this.libroId]);

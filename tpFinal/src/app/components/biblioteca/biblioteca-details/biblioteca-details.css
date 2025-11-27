@@ -1,5 +1,5 @@
 /* ===========================
-   WRAPPER – fondo animado igual que Libro Details
+   WRAPPER –
 =========================== */
 .detalle-wrapper {
   min-height: 100vh;
@@ -83,7 +83,7 @@
 }
 
 /* ===========================
-   INFO A LA DERECHA – igual que libro details
+   INFO A LA DERECHA – 
 =========================== */
 .info-box {
   flex: 1;
@@ -96,7 +96,7 @@
   margin-bottom: 1.2rem;
 }
 
-/* Mayor separación entre campos */
+
 .info-line {
   margin: .6rem 0;
   font-size: 1.1rem;
@@ -139,7 +139,7 @@
 }
 
 /* ===========================
-   RESEÑA – igual estilo que libro details
+   RESEÑA – 
 =========================== */
 .resena-box {
   margin-top: 1rem;

@@ -43,7 +43,7 @@ protected calificacion = signal(0);
       }
     });
   }
-
+//Guardar una reseña tanto en libro como en el usuario
   guardar() {
     const libroId = this.route.snapshot.paramMap.get('libroId')!;
     const usuarioId = this.auth.getCurrentUser()!.id!;

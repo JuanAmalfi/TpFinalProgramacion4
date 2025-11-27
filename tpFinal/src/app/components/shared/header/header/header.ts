@@ -48,7 +48,7 @@ toggleApps() {
     return this.auth.getCurrentUser();
   }
 
-  // ===== ACTIONS =====
+  
   logout() {
     this.closeAll();
     this.auth.logout();
@@ -57,7 +57,7 @@ toggleApps() {
 
 
 
-
+//Metodo del buscador por titulo o autor
  buscar(event: any) {
     const texto = event.target.value.toLowerCase();
     this.searchTerm.set(texto);
@@ -90,7 +90,7 @@ toggleApps() {
 
     this.suggestions.set([]);
 
-    // MANDAMOS EL TEXTO A LIBRO-LIST
+    
     this.router.navigate(['/libro-list'], {
       state: { titulo: texto }
     });
@@ -118,7 +118,7 @@ toggleApps() {
     if (this.menuOpen) this.dropdownOpen = false;
   }
 
-  // ===== CLOSE ALL UI =====
+  
   closeAll() {
     this.menuOpen = false;
     this.dropdownOpen = false;

@@ -22,7 +22,7 @@ export class AuthService {
   private apiUrl = 'http://localhost:3000/users';
 
  constructor() {
-    // 🔥 Restaurar sesión si existe en localStorage
+    
     const saved = localStorage.getItem('currentUser');
     if (saved) {
       this.currentUserSubject.next(JSON.parse(saved));
@@ -34,7 +34,7 @@ export class AuthService {
 
   
 
- // 🔐 Login: email o username + persistencia
+ //  Login: email o username + persistencia
   async login(identifier: string, password: string): Promise<boolean> {
     try {
       const users = await firstValueFrom(this.http.get<User[]>(this.apiUrl));
@@ -66,7 +66,7 @@ export class AuthService {
 
 
 
-  // 🔓 Logout
+  //  Logout
   logout(): void {
     this.currentUserSubject.next(null);
     localStorage.removeItem('currentUser');

@@ -42,9 +42,9 @@ export class Usuario {
     this.loading = true;
 
     const payload = this.form.getRawValue() as UserForm;
-    const emailToCheck = payload.email.trim().toLowerCase(); // 🔹 normalizamos
+    const emailToCheck = payload.email.trim().toLowerCase(); 
 
-    // 🔹 Validar email único
+    //  Validar email único
     this.userClient.getUsersByEmail(emailToCheck).subscribe({
       next: users => {
         if (users.length > 0) {
@@ -53,7 +53,7 @@ export class Usuario {
           return;
         }
 
-        // 🔹 Crear usuario con email normalizado
+        //  Crear usuario con email normalizado
         const newPayload = { ...payload, email: emailToCheck };
         this.userClient.createUser(newPayload).subscribe({
           next: () => {

@@ -33,7 +33,7 @@ validateEmailNotTaken(email: string) {
 }
 
  getUsersByEmail(email: string) {
-    const normalized = encodeURIComponent(email.trim().toLowerCase()); // 🔹 normalizamos
+    const normalized = encodeURIComponent(email.trim().toLowerCase()); 
     return this.http.get<User[]>(`${this.url}?email=${normalized}`);
   }
 

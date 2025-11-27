@@ -13,14 +13,14 @@ export class Home {
   private readonly store = inject(LibroStore);
   private readonly router = inject(Router);
 
-  // ✅ Signal con todos los libros
+  
   protected libros = this.store.libros;
 
-  // ✅ Computed para libros destacados (ej: los primeros 4)
+  
  protected librosDestacados = computed(() => this.libros());
 
     constructor() {
-    // ✅ Cargar libros automáticamente
+    
     effect(() => {
       this.store.loadLibros();
     });
@@ -34,20 +34,21 @@ export class Home {
   novedades() {
   return this.librosDestacados().slice(0, 8);
 }
-
+//me devuelve los mejores libros del momento
 mejorCalificados() {
   return [...this.librosDestacados()]
     .sort((a, b) => (b.promedioCalificacion || 0) - (a.promedioCalificacion || 0))
     .slice(0, 8);
 }
-
+//Me recomienda los libros
 recomendados() {
   return this.librosDestacados().slice(4, 12);
 }
+//me promedia las estrellas
 redondear(valor: number | undefined | null): number {
   return Math.round(valor ?? 0);
 }
-  // 👉 TOP 5
+  //  TOP 5
   topCinco() {
     return [...this.librosDestacados()]
       .sort((a, b) => (b.promedioCalificacion || 0) - (a.promedioCalificacion || 0))
